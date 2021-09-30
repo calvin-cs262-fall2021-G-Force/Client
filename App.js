@@ -16,6 +16,9 @@ function LoginScreen({ navigation }) {
       <TouchableOpacity style = {styles.button} onPress= {() => navigation.navigate('Home')}>
         <Text style = {styles.buttonText}>Login</Text>
       </TouchableOpacity>
+      <TouchableOpacity style = {styles.button} onPress= {() => navigation.navigate('About')}>
+        <Text style = {styles.buttonText}>About Us</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -31,6 +34,14 @@ function HomeScreen({ navigation }) {
   );
 }
 
+function AboutScreen ({navigation}){
+  // Gives information about our mission
+  return(
+    <View>
+
+    </View>
+  );
+}
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -39,6 +50,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name='Login' component ={LoginScreen} />
         <Stack.Screen name='Home' component = {HomeScreen} />
+        <Stack.Screen name='About' component ={AboutScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
