@@ -105,11 +105,8 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name='Login' component ={LoginScreen} />
         <Stack.Screen name='Home' component = {HomeScreen} />
-<<<<<<< HEAD
         <Stack.Screen name='Post' component = {PostScreen} />
-=======
         <Stack.Screen name='About' component ={AboutScreen}/>
->>>>>>> 61038c52a4fa8e5ba9d0d9db1a485d84a137ce95
       </Stack.Navigator>
     </NavigationContainer>
   )
@@ -156,7 +153,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Gotham',
     color: '#F3CD00'
   },
-<<<<<<< HEAD
 
   postsWrapper: {
     paddingTop: 20,
@@ -210,10 +206,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
-=======
   paragraphs: {
     padding: 20,
 
   },  
->>>>>>> 61038c52a4fa8e5ba9d0d9db1a485d84a137ce95
 });
