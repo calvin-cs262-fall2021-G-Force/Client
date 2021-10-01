@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Post from './components/Post';
 
 function LoginScreen({ navigation }) {
@@ -80,21 +81,26 @@ function PostScreen({ route, navigation}) {
 function AboutScreen ({navigation}){
   // Gives information about our mission
   return(
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{paddingBottom:20}}>
       <Text style ={styles.header}>Vision Statement</Text>
       <Text style= {styles.paragraphs}> Knight Bites serves Calvin University students who, after the pandemic, wish to create meaningful connections with other Calvin University students and become more comfortable with the Grand Rapids community. It is a meet-up app that connects students through shared meals at restaurants that Calvin University is affiliated with, and, unlike tinder or other apps geared towards meet-ups, allows students to purchase these meals at a discounted price.
           The discounts are provided by Calvin University Student Senate. The Senate team has access to 10 - 15% discounts on purchases from almost 20 restaurants that are within a 4-mile radius of Calvin University! These restaurants are an integral part of the Calvin University student experience because they provide wonderful study spaces, amazing opportunities for connection, and of course, exquisite 5-star meals.
           College can be a difficult experience for students to adapt to, and meaningful interactions can be more difficult to come by. It is our belief as the KnightBites team that meals can be an excellent way to fostering discussion and relationships between anyone. Additionally, due to the nature of meet up apps, it can engage people with the culture of Grand Rapids as they enjoy meals.
       </Text>
       
-      <Text style ={styles.header}>Team Members</Text>
-      <ol>
-      <li>Aayam Shrestha</li>
-      <li>Anjana Sainju</li>
-      <li>Charles Duimstra</li>
-      <li>Ifeanyi Onyeanakwe</li>
-      </ol>
-    </View>
+      <Text style ={styles.header}>Team Members </Text>  
+       
+      <FlatList
+        data={[
+          {key: 'Aayam Shrestha'},
+          {key: 'Anjana Sainju'},
+          {key: 'Charles Duimstra'},
+          {key: 'Ifeanyi Onyeanakwe'},
+        ]}
+        renderItem={({item}) => <Text style= {styles.paragraphs}>{item.key} </Text>}
+      />
+      
+    </ScrollView>
   );
 }
 const Stack = createNativeStackNavigator();
@@ -132,9 +138,9 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    padding: 40,
-    fontSize: 40,
-    fontFamily: 'Constantia',
+    padding: 20,
+    fontSize: 30,
+    // fontFamily: 'Constantia',
     fontWeight: 'bold',
     alignItems: 'center',
   },
@@ -150,7 +156,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     fontSize: 24,
-    fontFamily: 'Gotham',
+    // fontFamily: 'Gotham',
     color: '#F3CD00'
   },
 
@@ -207,6 +213,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   paragraphs: {
+    fontSize: 16,
     padding: 20,
 
   },  
