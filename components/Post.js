@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { postStyles } from '../styles/post' 
+import { completeTask } from '../screens/home'
 
 const Post = (props) => {
     return (

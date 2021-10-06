@@ -13,6 +13,12 @@ export default function HomeScreen({ navigation }) {
     setPost(null);  
   }
   
+  const completePost = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  }
+
   return (
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
@@ -22,7 +28,7 @@ export default function HomeScreen({ navigation }) {
           {
             postItems.map((item, index) => {
               return (
-                <TouchableOpacity key={index} onPress={() => navigation.navigate('Post', {item})}>
+                <TouchableOpacity style={globalStyles.post} key={index} onPress={() => navigation.navigate('Post', {item})}>
                   <Post text={item} />
                 </TouchableOpacity>
               )

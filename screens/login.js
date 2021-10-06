@@ -14,9 +14,6 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home')}>
         <Text style = {globalStyles.buttonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('About')}>
-        <Text style = {globalStyles.buttonText}>About Us</Text>
-      </TouchableOpacity>
     </View>
   );
 }

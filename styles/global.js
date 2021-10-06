@@ -21,15 +21,15 @@ export const globalStyles = StyleSheet.create({
   
     header: {
       padding: 20,
-      fontSize: 30,
+      fontSize: 35,
       // fontFamily: 'Constantia',
       fontWeight: 'bold',
       alignItems: 'center',
     },
   
     button: {
-      width: 100,
-      height: 50,
+      width: 120,
+      height: 60,
       backgroundColor: '#8C2131',
       borderRadius: 20,
       justifyContent: 'center',
@@ -41,7 +41,12 @@ export const globalStyles = StyleSheet.create({
       // fontFamily: 'Gotham',
       color: '#F3CD00'
     },
-  
+    
+    //Need a way to add line breaks to text that is added to the post
+    post: {
+      width: 500,
+    },
+
     postsWrapper: {
       paddingTop: 20,
       alignItems: 'center',
@@ -97,6 +102,15 @@ export const globalStyles = StyleSheet.create({
     paragraphs: {
       fontSize: 16,
       padding: 20,
-  
-    },  
+    },
+    about: {
+      height: 30,
+      width: 30,
+      fontSize: 24,
+      paddingLeft: 7,
+      marginRight: 20,
+      borderWidth: 1,
+      borderRadius: 100,
+      opacity: 0.6
+  },
   });
