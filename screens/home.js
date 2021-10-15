@@ -14,17 +14,17 @@ export default function HomeScreen({ navigation }) {
   }
   
   const completePost = (index) => {
-    let itemsCopy = [...taskItems];
+    let itemsCopy = [...postItems];
     itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+    setPostItems(itemsCopy);
   }
 
   return (
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
+
         <Text style={globalStyles.sectionTitle}>Today's posts</Text>
-        <View style={globalStyles.items}>
-          {/* This is where the posts will go! */}
+        <View>
           {
             postItems.map((item, index) => {
               return (
@@ -40,6 +40,7 @@ export default function HomeScreen({ navigation }) {
       {/*Write a post */}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "android" ? "padding" : "height"}
         style={globalStyles.writePostWrapper}
       >
         <TextInput style={globalStyles.input} placeholder={'Write a post'} value={post} onChangeText={text => setPost(text)} />

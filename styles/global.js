@@ -10,7 +10,7 @@ export const globalStyles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      fontFamily: 'Century Schoolbook',
+      //fontFamily: 'Century Schoolbook',
     },
   
     screen: {
@@ -54,7 +54,7 @@ export const globalStyles = StyleSheet.create({
     
     sectionTitle: {
       fontSize: 24,
-      fontFamily: 'Gotham',
+      //fontFamily: 'Gotham',
       fontSize: 24,
       fontWeight: "bold",
     },
