@@ -18,6 +18,9 @@ function LoginScreen({ navigation }) {
       <TouchableOpacity style = {styles.button} onPress= {() => navigation.navigate('Home')}>
         <Text style = {styles.buttonText}>Login</Text>
       </TouchableOpacity>
+      <TouchableOpacity style = {styles.button} onPress= {() => navigation.navigate('SignUp')}>
+        <Text style = {styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
       <TouchableOpacity style = {styles.button} onPress= {() => navigation.navigate('About')}>
         <Text style = {styles.buttonText}>About Us</Text>
       </TouchableOpacity>
@@ -38,6 +41,19 @@ function HomeScreen({ navigation }) {
   return (
     <View style={styles.screen}>
       <View style={styles.postsWrapper}>
+        {/*Write a post */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writePostWrapper}
+      >
+        <TextInput style={styles.input} placeholder={'Write a post'} value={post} onChangeText={text => setPost(text)} />
+      
+        <TouchableOpacity onPress={() => handleAddPost()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
         <Text style={styles.sectionTitle}>Today's posts</Text>
 	      <View style={styles.items}>
           {/* This is where the posts will go! */}
@@ -52,20 +68,19 @@ function HomeScreen({ navigation }) {
           }
 	      </View>
       </View>
-    
-      {/*Write a post */}
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writePostWrapper}
-      >
-        <TextInput style={styles.input} placeholder={'Write a post'} value={post} onChangeText={text => setPost(text)} />
-      
-        <TouchableOpacity onPress={() => handleAddPost()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
+function SignUpScreen({ route, navigation}) {
+  return (
+    <View style={styles.screen}>
+      <Text>Hi new user!</Text>
+      <form>
+        <label>
+          Name: <input placeholder="Enter your name" name="name" />
+        </label>
+      </form>
     </View>
   );
 }
@@ -111,6 +126,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name='Login' component ={LoginScreen} />
         <Stack.Screen name='Home' component = {HomeScreen} />
+        <Stack.Screen name='SignUp' component = {SignUpScreen} />
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About' component ={AboutScreen}/>
       </Stack.Navigator>
@@ -146,17 +162,19 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 100,
-    height: 50,
+    width: '10%',
+    height: '10%',
     backgroundColor: '#8C2131',
-    borderRadius: 20,
+    borderRadius: 25,
+    padding:10,
+    marginBottom:10,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   buttonText: {
     fontSize: 24,
-    // fontFamily: 'Gotham',
+    fontFamily: 'Lato',
     color: '#F3CD00'
   },
 
@@ -179,12 +197,12 @@ const styles = StyleSheet.create({
   },
 
   writePostWrapper: {
-    position: 'absolute',
-    paddingHorizontal: 10,
+    position: 'relative',
+    paddingTop: 40,
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center'
   },
 
