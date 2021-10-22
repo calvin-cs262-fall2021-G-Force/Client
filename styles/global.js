@@ -54,7 +54,7 @@ export const globalStyles = StyleSheet.create({
     
     sectionTitle: {
       fontSize: 24,
-      fontFamily: 'Gotham',
+      //fontFamily: 'Gotham',
       fontSize: 24,
       fontWeight: "bold",
     },
