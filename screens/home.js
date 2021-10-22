@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
+import { postStyles } from '../styles/post';
 
 export default function HomeScreen({ navigation }) {
   const [post, setPost] = useState();
@@ -11,12 +12,6 @@ export default function HomeScreen({ navigation }) {
     Keyboard.dismiss();
     setPostItems([...postItems, post])
     setPost(null);  
-  }
-  
-  const completePost = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
   }
 
   return (
@@ -28,7 +23,7 @@ export default function HomeScreen({ navigation }) {
           {
             postItems.map((item, index) => {
               return (
-                <TouchableOpacity style={globalStyles.post} key={index} onPress={() => navigation.navigate('Post', {item})}>
+                <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
                   <Post text={item} />
                 </TouchableOpacity>
               )

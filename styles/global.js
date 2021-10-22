@@ -54,7 +54,7 @@ export const globalStyles = StyleSheet.create({
     
     sectionTitle: {
       fontSize: 24,
-      fontFamily: 'Gotham',
+      //fontFamily: 'Gotham',
       fontSize: 24,
       fontWeight: "bold",
     },
@@ -62,7 +62,7 @@ export const globalStyles = StyleSheet.create({
     items: {
       marginTop: 30,
       alignItems: 'center',
-      paddingHorizontal: '20',
+      paddingHorizontal: 20,
     },
   
     writePostWrapper: {
