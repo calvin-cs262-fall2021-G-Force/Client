@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my_app",
-    "slug": "my_app",
+    "name": "KnightBites",
+    "slug": "KnightBites",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
