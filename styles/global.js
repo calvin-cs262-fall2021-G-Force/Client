@@ -20,7 +20,7 @@ export const globalStyles = StyleSheet.create({
     },
   
     header: {
-      padding: 20,
+      padding: 10,
       fontSize: 35,
       // fontFamily: 'Constantia',
       fontWeight: 'bold',
@@ -112,5 +112,19 @@ export const globalStyles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 100,
       opacity: 0.6
-  },
+    },
+    loginLogo: {
+      width: 250,
+      height: 250
+    },
+    loginTextBox: {
+      paddingVertical: 15,
+      paddingHorizontal: 15,
+      backgroundColor: '#FFF',
+      borderRadius: 15,
+      borderColor: '#8C2131',
+      borderWidth: 1,
+      width: 250,
+      marginBottom:10
+    }
   });
