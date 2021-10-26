@@ -27,7 +27,7 @@ export default function App() {
           )       
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
-        <Stack.Screen name='About' component ={AboutScreen}/>
+        <Stack.Screen name='About the app' component ={AboutScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
