@@ -39,7 +39,7 @@ About: {
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
-          name="md-person-circle-outline"
+          name="md-question-circle"
           size={24}
           color={tabInfo.focused ? "#006600" : "#8e8e93"}
         />
