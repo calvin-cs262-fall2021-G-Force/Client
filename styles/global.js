@@ -49,7 +49,7 @@ export const globalStyles = StyleSheet.create({
 
     postsWrapper: {
       paddingTop: 20,
-      alignItems: 'center',
+      width: '100%',
     },
     
     sectionTitle: {
@@ -57,12 +57,12 @@ export const globalStyles = StyleSheet.create({
       //fontFamily: 'Gotham',
       fontSize: 24,
       fontWeight: "bold",
+      alignItems: 'center',
     },
     
     items: {
       marginTop: 30,
-      alignItems: 'center',
-      paddingHorizontal: 20,
+      alignContent: 'center'
     },
   
     writePostWrapper: {

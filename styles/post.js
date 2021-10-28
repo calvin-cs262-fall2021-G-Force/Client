@@ -6,7 +6,6 @@ export const postStyles = StyleSheet.create({
 		padding: 15,
 		borderRadius: 10,
 		flexDirection: 'row',
-		alignItems: 'center',
 		justifyContent: 'space-between',
 		marginBottom: 20,
 	},
