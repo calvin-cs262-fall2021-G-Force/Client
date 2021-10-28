@@ -16,14 +16,14 @@ Home: {
   navigationOptions: {
     tabBarLabel: "Home",
     tabBarOptions: {
-      activeTintColor: "#006600",
+      activeTintColor: "#8C2131",
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
           name="md-home"
           size={24}
-          color={tabInfo.focused ? "#006600" : "#8e8e93"}
+          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
         />
       );
     },
@@ -34,14 +34,14 @@ About: {
   navigationOptions: {
     tabBarLabel: "About",
     tabBarOptions: {
-      activeTintColor: "#006600",
+      activeTintColor: "#8C2131",
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
-          name="md-question-circle"
+          name="md-help-circle-outline"
           size={24}
-          color={tabInfo.focused ? "#006600" : "#8e8e93"}
+          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
         />
       );
     },
@@ -52,14 +52,14 @@ About: {
 //   navigationOptions: {
 //     tabBarLabel: "Profile",
 //     tabBarOptions: {
-//       activeTintColor: "#006600",
+//       activeTintColor: "#8C2131",
 //     },
 //     tabBarIcon: (tabInfo) => {
 //       return (
 //         <Ionicons
 //           name="md-settings-outline"
 //           size={24}
-//           color={tabInfo.focused ? "#006600" : "#8e8e93"}
+//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
 //         />
 //       );
 //     },
@@ -74,23 +74,5 @@ export default function App() {
     <Navigator>
       <HomeScreen />
     </Navigator>
-    /*<NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name='Login' component ={LoginScreen} 
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <Header navigation={navigation}/>
-          )       
-        })}/>
-        <Stack.Screen name='Home' component = {HomeScreen} 
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <Header navigation={navigation}/>
-          )       
-        })}/>
-        <Stack.Screen name='Post' component = {PostScreen} />
-        <Stack.Screen name='About' component ={AboutScreen}/>
-      </Stack.Navigator>
-    </NavigationContainer>*/
   );
 }
