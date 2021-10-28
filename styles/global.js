@@ -45,10 +45,10 @@ export const globalStyles = StyleSheet.create({
     //Need a way to add line breaks to text that is added to the post
     post: {
       width: 500,
+
     },
 
     postsWrapper: {
-      paddingTop: 20,
       width: '100%',
     },
     
@@ -61,14 +61,16 @@ export const globalStyles = StyleSheet.create({
     },
     
     items: {
-      marginTop: 30,
-      alignContent: 'center'
+      top:50,
+      margin:5,
+      alignContent: 'center',
+      marginBottom: 170,
     },
   
     writePostWrapper: {
       position: 'absolute',
       paddingHorizontal: 10,
-      bottom: 60,
+      bottom: 40,
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'space-between',

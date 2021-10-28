@@ -8,6 +8,7 @@ export const postStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		marginBottom: 20,
+		height: 100
 	},
 	itemLeft: {
 		flexDirection: 'row',
@@ -24,14 +25,15 @@ export const postStyles = StyleSheet.create({
 		marginRight: 5,
 	},
 	itemText: {
+		paddingLeft: 20,
 		maxWidth: '80%',
 	},
     /*circle can be replaced with an options menu*/
     circular: {
-		width: 12,
-		height: 12,
+		width: 20,
+		height: 20,
 		borderColor: '#8C2131',
 		borderWidth: 2,
-		borderRadius: 5,
+		borderRadius: 10,
 	},
 });
