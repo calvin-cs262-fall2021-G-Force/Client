@@ -22,7 +22,6 @@ export const globalStyles = StyleSheet.create({
     header: {
       padding: 10,
       fontSize: 35,
-      // fontFamily: 'Constantia',
       fontWeight: 'bold',
       alignItems: 'center',
     },
@@ -38,16 +37,10 @@ export const globalStyles = StyleSheet.create({
   
     buttonText: {
       fontSize: 24,
-      // fontFamily: 'Gotham',
       color: '#F3CD00'
     },
     
     //Need a way to add line breaks to text that is added to the post
-    post: {
-      width: 500,
-
-    },
-
     postsWrapper: {
       width: '100%',
     },
