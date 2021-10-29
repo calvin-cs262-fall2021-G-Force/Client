@@ -26,7 +26,7 @@ Home: {
         <Ionicons
           name="md-home"
           size={24}
-          color={tabInfo.focused ? "#006600" : "#8e8e93"}
+          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
         />
       );
     },
@@ -42,9 +42,9 @@ Profile: {
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
-          name="md-help-circle-outline"
+          name="md-person-circle-outline"
           size={24}
-          color={tabInfo.focused ? "#006600" : "#8e8e93"}
+          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
         />
       );
     },
