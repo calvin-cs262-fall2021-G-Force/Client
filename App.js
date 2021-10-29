@@ -2,17 +2,20 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
 
 import PostScreen from './screens/post'
 import AboutScreen from './screens/about'
 import LoginScreen from './screens/login'
 import HomeScreen from './screens/home'
+import ProfileScreen from './screens/profile';
 import Header from './shared/header'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const TabNavigator = createBottomTabNavigator({
 
 Home: {
-  screen: HomeScreen,
+  screen: home,
   navigationOptions: {
     tabBarLabel: "Home",
     tabBarOptions: {
@@ -29,17 +32,17 @@ Home: {
     },
   },
 },
-About: {
-  screen: AboutScreen,
+Profile: {
+  screen: ProfileScreen,
   navigationOptions: {
-    tabBarLabel: "About",
+    tabBarLabel: "Profile",
     tabBarOptions: {
       activeTintColor: "#006600",
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
-          name="md-question-circle"
+          name="md-help-circle-outline"
           size={24}
           color={tabInfo.focused ? "#006600" : "#8e8e93"}
         />
@@ -67,14 +70,12 @@ About: {
 });
 
 
+const Stack = createNativeStackNavigator();
 const Navigator = createAppContainer(TabNavigator);
 
-export default function App() {
-  return (
-    <Navigator>
-      <HomeScreen />
-    </Navigator>
-    /*<NavigationContainer>
+function home() {
+  return(
+    <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name='Login' component ={LoginScreen} 
         options={({ navigation }) => ({
@@ -91,6 +92,14 @@ export default function App() {
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About' component ={AboutScreen}/>
       </Stack.Navigator>
-    </NavigationContainer>*/
+    </NavigationContainer>
+  )
+};
+
+export default function App() {
+  return (
+    <Navigator>
+      <HomeScreen/>
+    </Navigator>
   );
 }
