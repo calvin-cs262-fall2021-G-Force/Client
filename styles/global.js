@@ -20,9 +20,8 @@ export const globalStyles = StyleSheet.create({
     },
   
     header: {
-      padding: 20,
+      padding: 10,
       fontSize: 35,
-      // fontFamily: 'Constantia',
       fontWeight: 'bold',
       alignItems: 'center',
     },
@@ -38,18 +37,12 @@ export const globalStyles = StyleSheet.create({
   
     buttonText: {
       fontSize: 24,
-      // fontFamily: 'Gotham',
       color: '#F3CD00'
     },
     
     //Need a way to add line breaks to text that is added to the post
-    post: {
-      width: 500,
-    },
-
     postsWrapper: {
-      paddingTop: 20,
-      alignItems: 'center',
+      width: '100%',
     },
     
     sectionTitle: {
@@ -57,18 +50,20 @@ export const globalStyles = StyleSheet.create({
       //fontFamily: 'Gotham',
       fontSize: 24,
       fontWeight: "bold",
+      alignItems: 'center',
     },
     
     items: {
-      marginTop: 30,
-      alignItems: 'center',
-      paddingHorizontal: 20,
+      top:50,
+      margin:5,
+      alignContent: 'center',
+      marginBottom: 170,
     },
   
     writePostWrapper: {
       position: 'absolute',
       paddingHorizontal: 10,
-      bottom: 60,
+      bottom: 40,
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -112,5 +107,19 @@ export const globalStyles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 100,
       opacity: 0.6
-  },
+    },
+    loginLogo: {
+      width: 250,
+      height: 250
+    },
+    loginTextBox: {
+      paddingVertical: 15,
+      paddingHorizontal: 15,
+      backgroundColor: '#FFF',
+      borderRadius: 15,
+      borderColor: '#8C2131',
+      borderWidth: 1,
+      width: 250,
+      marginBottom:10
+    }
   });
