@@ -19,14 +19,18 @@ Home: {
   navigationOptions: {
     tabBarLabel: "Home",
     tabBarOptions: {
-      activeTintColor: "#006600",
+      activeTintColor: "#8C2131",
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
           name="md-home"
           size={24}
+<<<<<<< HEAD
           color={tabInfo.focused ? "#33adff" : "#8e8e93"}
+=======
+          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+>>>>>>> 7387af258062e33f765f93643a98b5abf29405db
         />
       );
     },
@@ -37,14 +41,20 @@ Profile: {
   navigationOptions: {
     tabBarLabel: "Profile",
     tabBarOptions: {
-      activeTintColor: "#006600",
+      activeTintColor: "#8C2131",
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
+<<<<<<< HEAD
           name="md-person-circle-outline"
           size={24}
           color={tabInfo.focused ? "#33adff" : "#8e8e93"}
+=======
+          name="md-help-circle-outline"
+          size={24}
+          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+>>>>>>> 7387af258062e33f765f93643a98b5abf29405db
         />
       );
     },
@@ -55,14 +65,14 @@ Profile: {
 //   navigationOptions: {
 //     tabBarLabel: "Profile",
 //     tabBarOptions: {
-//       activeTintColor: "#006600",
+//       activeTintColor: "#8C2131",
 //     },
 //     tabBarIcon: (tabInfo) => {
 //       return (
 //         <Ionicons
 //           name="md-settings-outline"
 //           size={24}
-//           color={tabInfo.focused ? "#006600" : "#8e8e93"}
+//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
 //         />
 //       );
 //     },
@@ -73,6 +83,7 @@ Profile: {
 const Stack = createNativeStackNavigator();
 const Navigator = createAppContainer(TabNavigator);
 
+<<<<<<< HEAD
 function home() {
   return(
     <NavigationContainer>
@@ -100,6 +111,12 @@ export default function App() {
   return (
     <Navigator>
       <HomeScreen/>
+=======
+export default function App() {
+  return (
+    <Navigator>
+      <HomeScreen />
+>>>>>>> 7387af258062e33f765f93643a98b5abf29405db
     </Navigator>
   );
 }

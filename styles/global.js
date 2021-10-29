@@ -54,10 +54,16 @@ export const globalStyles = StyleSheet.create({
     },
     
     items: {
+<<<<<<< HEAD
       top:50,
       margin:5,
       alignContent: 'center',
       marginBottom: 170,
+=======
+      marginTop: 30,
+      alignItems: 'center',
+      paddingHorizontal: 20,
+>>>>>>> 7387af258062e33f765f93643a98b5abf29405db
     },
   
     writePostWrapper: {
