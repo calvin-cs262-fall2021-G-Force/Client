@@ -63,7 +63,7 @@ export const globalStyles = StyleSheet.create({
     writePostWrapper: {
       position: 'absolute',
       paddingHorizontal: 10,
-      bottom: 40,
+      bottom: 25,
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'space-between',

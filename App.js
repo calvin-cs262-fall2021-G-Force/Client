@@ -1,17 +1,80 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import PostScreen from './screens/post'
 import AboutScreen from './screens/about'
 import LoginScreen from './screens/login'
 import HomeScreen from './screens/home'
+import ProfileScreen from './screens/profile';
 import Header from './shared/header'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const TabNavigator = createBottomTabNavigator({
+
+Home: {
+  screen: home,
+  navigationOptions: {
+    tabBarLabel: "Home",
+    tabBarOptions: {
+      activeTintColor: "#8C2131",
+    },
+    tabBarIcon: (tabInfo) => {
+      return (
+        <Ionicons
+          name="md-home"
+          size={24}
+          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
+        />
+      );
+    },
+  },
+},
+Profile: {
+  screen: ProfileScreen,
+  navigationOptions: {
+    tabBarLabel: "Profile",
+    tabBarOptions: {
+      activeTintColor: "#8C2131",
+    },
+    tabBarIcon: (tabInfo) => {
+      return (
+        <Ionicons
+          name="md-person-circle-outline"
+          size={24}
+          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
+        />
+      );
+    },
+  },
+},
+// Profile: {
+//   screen: ProfileScreen,
+//   navigationOptions: {
+//     tabBarLabel: "Profile",
+//     tabBarOptions: {
+//       activeTintColor: "#8C2131",
+//     },
+//     tabBarIcon: (tabInfo) => {
+//       return (
+//         <Ionicons
+//           name="md-settings-outline"
+//           size={24}
+//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+//         />
+//       );
+//     },
+//   },
+});
+
 
 const Stack = createNativeStackNavigator();
+const Navigator = createAppContainer(TabNavigator);
 
-export default function App() {
-  return (
+function home() {
+  return(
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name='Login' component ={LoginScreen} 
@@ -31,4 +94,12 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   )
+};
+
+export default function App() {
+  return (
+    <Navigator>
+      <HomeScreen/>
+    </Navigator>
+  );
 }
