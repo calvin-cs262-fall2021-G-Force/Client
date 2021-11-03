@@ -5,19 +5,16 @@ import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 
 export default function HomeScreen({ navigation }) {
+  const hardCodePost1 = ["Culver's", (new Date('03 Nov 2021 17:00:00 GMT')).toLocaleString(), "Anyone want to go eat some Culver's in the next half hour or so?"]
+  const hardCodePost2 = ["Subway", (new Date('3 Nov 2021 18:00:00 GMT')).toLocaleString(), "Headed to Subway if anyone wants to grab something to eat quick."]
+  
   const [postText, setText] = useState();
-  const [postDate, setDate] = useState();
-  const [post, setPost] = useState([postText, postDate]);
-  const [postItems, setPostItems] = useState([]);
+  const [postItems, setPostItems] = useState([hardCodePost1, hardCodePost2]);
   
   const handleAddPost = () => {
     Keyboard.dismiss();
-    const curDate = new Date();
-    setDate(curDate);
-    setPost([postText,postDate])
-    setPostItems([...postItems, post])
-    setPost(null);
-    setDate(null);
+    const curDate = new Date().toLocaleString();
+    setPostItems([...postItems, [postText, curDate, "Body will go here"]]);
     setText(null);
   }
 
@@ -26,11 +23,12 @@ export default function HomeScreen({ navigation }) {
       <View style={globalStyles.postsWrapper}>
         <Text style={globalStyles.sectionTitle}>Today's posts</Text>
         <View style={globalStyles.items}>
+
           {
             postItems.map((item, index) => {
               return (
                 <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                  <Post text={item} date={item}/>
+                  <Post text={item[0]} date={item[1]}/>
                 </TouchableOpacity>
               )
             })
@@ -42,7 +40,7 @@ export default function HomeScreen({ navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={globalStyles.writePostWrapper}
       >
-        <TextInput style={globalStyles.input} placeholder={'Write a post'} value={post} onChangeText={text => setText(text)} />
+        <TextInput style={globalStyles.input} placeholder={'Write a post'} value={postText} onChangeText={text => setText(text)} />
         
         <TouchableOpacity onPress={() => handleAddPost()}>
           <View style={globalStyles.addWrapper}>
