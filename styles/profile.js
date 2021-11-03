@@ -5,5 +5,9 @@ export const profileStyles = StyleSheet.create({
         justifyContent:'center', 
         alignItems:'center', 
         flex:1
+    },
+    text: {
+        fontSize:20,
+        alignItems:'center',
     }
 });

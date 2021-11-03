@@ -17,22 +17,26 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={globalStyles.screen}>
        <Text style={globalStyles.sectionTitle}>Today's posts</Text>
-        <View style={globalStyles.postsWrapper}>
-          <View style={globalStyles.items}>
-            <ScrollView >
-            {/* This is where the posts will go! */}
-              {
-              postItems.map((item, index) => {
-                return (
-                  <TouchableOpacity key={index} onPress={() => navigation.navigate('Post', {item})}>
-                    
-                      <Post text={item} />
-                  </TouchableOpacity>
-                )})
-              }
-            </ScrollView>
+       <View style={globalStyles.postsWrapper}>
+        <View style={globalStyles.items}>
+        <ScrollView>
+          {/* This is where the posts will go! */}
+          {
+            
+            postItems.map((item, index) => {
+              
+              return (
+                <TouchableOpacity key={index} onPress={() => navigation.navigate('Post', {item})}>
+                
+                  <Post text={item} />
+                  
+                </TouchableOpacity>
+               
+              )})
+          }
+          </ScrollView>
           </View>
-        </View>
+      </View>
       
       {/*Write a post */}
       <KeyboardAvoidingView
