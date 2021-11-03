@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 
+import DiscountScreen from './screens/discount';
 import PostScreen from './screens/post'
 import AboutScreen from './screens/about'
 import LoginScreen from './screens/login'
@@ -91,6 +92,8 @@ function home() {
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
+        <Stack.Screen name='Profile' component ={ProfileScreen}/>
+        <Stack.Screen name='Discount' component ={DiscountScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
