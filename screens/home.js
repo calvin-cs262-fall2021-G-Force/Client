@@ -5,13 +5,20 @@ import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 
 export default function HomeScreen({ navigation }) {
-  const [post, setPost] = useState();
+  const [postText, setText] = useState();
+  const [postDate, setDate] = useState();
+  const [post, setPost] = useState([postText, postDate]);
   const [postItems, setPostItems] = useState([]);
   
   const handleAddPost = () => {
     Keyboard.dismiss();
+    const curDate = new Date();
+    setDate(curDate);
+    setPost([postText,postDate])
     setPostItems([...postItems, post])
-    setPost(null);  
+    setPost(null);
+    setDate(null);
+    setText(null);
   }
 
   return (
@@ -19,25 +26,23 @@ export default function HomeScreen({ navigation }) {
       <View style={globalStyles.postsWrapper}>
         <Text style={globalStyles.sectionTitle}>Today's posts</Text>
         <View style={globalStyles.items}>
-          {/* This is where the posts will go! */}
           {
             postItems.map((item, index) => {
               return (
                 <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                  <Post text={item} />
+                  <Post text={item} date={item}/>
                 </TouchableOpacity>
               )
             })
           }
           </View>
       </View>
-      
-      {/*Write a post */}
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={globalStyles.writePostWrapper}
       >
-        <TextInput style={globalStyles.input} placeholder={'Write a post'} value={post} onChangeText={text => setPost(text)} />
+        <TextInput style={globalStyles.input} placeholder={'Write a post'} value={post} onChangeText={text => setText(text)} />
         
         <TouchableOpacity onPress={() => handleAddPost()}>
           <View style={globalStyles.addWrapper}>
