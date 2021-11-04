@@ -2,13 +2,12 @@ import { StyleSheet } from 'react-native';
 
 export const postStyles = StyleSheet.create({
     item: {
-		backgroundColor: '#ffe226',
+		backgroundColor: '#fff',
 		padding: 15,
 		borderRadius: 8,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		marginBottom: 20,
-		height: 100
 	},
 	itemLeft: {
 		flexDirection: 'row',
@@ -19,10 +18,10 @@ export const postStyles = StyleSheet.create({
 	square: {
 		width: 24,
 		height: 24,
-		backgroundColor: 'blue',
+		backgroundColor: '#ffcd00',
 		opacity: 0.4,
 		borderRadius: 5,
-		marginRight: 5,
+		marginRight: 15,
 	},
 	itemText: {
 		fontSize: 18,

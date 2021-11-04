@@ -10,11 +10,12 @@ import AboutScreen from './screens/about'
 import LoginScreen from './screens/login'
 import HomeScreen from './screens/home'
 import ProfileScreen from './screens/profile';
-import Header from './shared/header'
+import Header from './shared/header';
+import SignUpScreen from './screens/signup';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const TabNavigator = createBottomTabNavigator({
-
 Home: {
   screen: home,
   navigationOptions: {
@@ -77,6 +78,7 @@ function home() {
         <Stack.Screen name='About the app' component ={AboutScreen}/>
         <Stack.Screen name='Profile' component ={ProfileScreen}/>
         <Stack.Screen name='Discount' component ={DiscountScreen}/>
+        <Stack.Screen name='SignUp' component ={SignUpScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
