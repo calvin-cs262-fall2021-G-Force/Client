@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, View, TouchableOpacity, ScrollView} from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
       <View style={globalStyles.postsWrapper}>
         <Text style={globalStyles.sectionTitle}>Today's posts</Text>
         <View style={globalStyles.items}>
-
+          <ScrollView >
           {
             postItems.map((item, index) => {
               return (
@@ -33,7 +33,8 @@ export default function HomeScreen({ navigation }) {
               )
             })
           }
-          </View>
+          </ScrollView>
+        </View>
       </View>
 
       <KeyboardAvoidingView
