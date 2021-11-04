@@ -18,6 +18,9 @@ export default function LoginScreen({ navigation }) {
         <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home')}>
           <Text style = {globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress= {() => navigation.navigate('SignUp')}>
+          <Text style = {{fontSize:14, color: '#8C2131', padding: 10}}> Don't have an account?</Text>
+        </TouchableOpacity>
     </View>
   );
 }

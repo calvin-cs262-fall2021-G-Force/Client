@@ -4,16 +4,17 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 
-import PostScreen from './screens/post'
-import AboutScreen from './screens/about'
-import LoginScreen from './screens/login'
-import HomeScreen from './screens/home'
+import PostScreen from './screens/post';
+import AboutScreen from './screens/about';
+import LoginScreen from './screens/login';
+import HomeScreen from './screens/home';
 import ProfileScreen from './screens/profile';
-import Header from './shared/header'
+import Header from './shared/header';
+import SignUpScreen from './screens/signup';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const TabNavigator = createBottomTabNavigator({
-
 Home: {
   screen: home,
   navigationOptions: {
@@ -91,6 +92,7 @@ function home() {
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
+        <Stack.Screen name='SignUp' component ={SignUpScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
