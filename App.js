@@ -34,7 +34,7 @@ Home: {
   },
 },
 Profile: {
-  screen: ProfileScreen,
+  screen: profile,
   navigationOptions: {
     tabBarLabel: "Profile",
     tabBarOptions: {
@@ -51,23 +51,6 @@ Profile: {
     },
   },
 },
-// Profile: {
-//   screen: ProfileScreen,
-//   navigationOptions: {
-//     tabBarLabel: "Profile",
-//     tabBarOptions: {
-//       activeTintColor: "#8C2131",
-//     },
-//     tabBarIcon: (tabInfo) => {
-//       return (
-//         <Ionicons
-//           name="md-settings-outline"
-//           size={24}
-//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
-//         />
-//       );
-//     },
-//   },
 });
 
 
@@ -98,6 +81,17 @@ function home() {
     </NavigationContainer>
   )
 };
+
+function profile() {
+  return(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Profile">
+        <Stack.Screen name='Profile' component ={ProfileScreen}/>
+        <Stack.Screen name='Discount' component ={DiscountScreen}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
 export default function App() {
   return (
