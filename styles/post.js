@@ -23,10 +23,19 @@ export const postStyles = StyleSheet.create({
 		borderRadius: 5,
 		marginRight: 15,
 	},
+
+	//headings for each post
 	itemText: {
 		fontSize: 18,
 		paddingLeft: 20,
 		maxWidth: '80%',
+		fontWeight:'bold',
+	},
+
+	//the date displayed on each post
+	itemDate: {
+		fontSize:14,
+		alignItems:'right',
 	},
     /*circle can be replaced with an options menu*/
     circular: {

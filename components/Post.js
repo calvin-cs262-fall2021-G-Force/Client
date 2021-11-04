@@ -7,7 +7,9 @@ const Post = (props) => {
         <View style={postStyles.item}>
             <View style={postStyles.itemLeft}>
                 <TouchableOpacity style={postStyles.square}></TouchableOpacity>
-                <Text style={postStyles.itemText}>{props.text}{'\n\n'}{props.date}</Text>
+                <Text style={postStyles.itemText}>{props.text} {'\n\n'}</Text>
+                
+                <Text style={postStyles.itemDate}>{props.date}</Text>
             </View>
             <TouchableOpacity style={postStyles.circular}></TouchableOpacity>
         </View>
