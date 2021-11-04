@@ -13,7 +13,6 @@ import Header from './shared/header'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const TabNavigator = createBottomTabNavigator({
-
 Home: {
   screen: home,
   navigationOptions: {
@@ -91,6 +90,7 @@ function home() {
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
+        <Stack.Screen name='Discount' component ={DiscountScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
