@@ -14,7 +14,7 @@ export default function HomeScreen({ navigation }) {
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
-    setPostItems([...postItems, [postText, curDate, "Body will go here"]]);
+    setPostItems([...postItems, [postText, curDate, "Details will be found here"]]);
     setText(null);
   }
 
