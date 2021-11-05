@@ -1,4 +1,5 @@
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity, View, Text, ScrollView, SafeAreaView } from 'react-native';
 
 import { globalStyles } from '../styles/global';
@@ -9,7 +10,10 @@ export default function Header({ navigation }) {
         <SafeAreaView>
             <ScrollView>
                 <TouchableOpacity onPress={() => navigation.navigate('About the app')}>
-                    <Text style={globalStyles.about}>?</Text>
+                <Ionicons
+                    name="help-circle-outline"
+                    size={33}
+                />
                 </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>

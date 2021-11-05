@@ -18,8 +18,8 @@ export const postStyles = StyleSheet.create({
 	square: {
 		width: 24,
 		height: 24,
-		backgroundColor: '#ffcd00',
-		opacity: 0.4,
+		backgroundColor: '#F3CD00',
+		opacity: 1.0,
 		borderRadius: 5,
 		marginRight: 15,
 	},
