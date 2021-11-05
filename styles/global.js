@@ -54,7 +54,7 @@ export const globalStyles = StyleSheet.create({
     },
     
     items: {
-      top:50,
+      top:25,
       margin:5,
       alignContent: 'center',
       marginBottom: 170,

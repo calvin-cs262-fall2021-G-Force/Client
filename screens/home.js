@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
-        <Text style={globalStyles.sectionTitle}>Today's posts</Text>
+        <Text style={globalStyles.sectionTitle}>Posts</Text>
         <View style={globalStyles.items}>
           <ScrollView >
           {
