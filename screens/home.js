@@ -5,11 +5,12 @@ import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 
 export default function HomeScreen({ navigation }) {
-  const hardCodePost1 = ["Culver's", (new Date('03 Nov 2021 17:00:00 GMT')).toLocaleString(), "Anyone want to go eat some Culver's in the next half hour or so?"]
-  const hardCodePost2 = ["Subway", (new Date('3 Nov 2021 18:00:00 GMT')).toLocaleString(), "Headed to Subway if anyone wants to grab something to eat quick."]
+  const hardCodePost1 = ["Culver's", (new Date('05 Nov 2021 17:00:00 GMT')).toLocaleString(), "Anyone want to go eat some Culver's in the next half hour or so?"]
+  const hardCodePost2 = ["Subway", (new Date('5 Nov 2021 18:00:00 GMT')).toLocaleString(), "Headed to Subway if anyone wants to grab something to eat quick."]
+  const hardCodePost3 = ["Anna's House", (new Date('6 Nov 2021 12:30:00 GMT')).toLocaleString(), "Going to Anna's House tomorrow. Anyone wanna join?"]
   
   const [postText, setText] = useState();
-  const [postItems, setPostItems] = useState([hardCodePost1, hardCodePost2]);
+  const [postItems, setPostItems] = useState([hardCodePost1, hardCodePost2, hardCodePost3]);
   
   const handleAddPost = () => {
     Keyboard.dismiss();

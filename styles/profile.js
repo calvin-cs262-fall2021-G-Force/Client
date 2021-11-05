@@ -8,6 +8,13 @@ export const profileStyles = StyleSheet.create({
     },
     text: {
         fontSize:20,
-        alignItems:'center',
+        padding: 20,
+        //alignItems:'center',
+    },
+    discountText: {
+        fontSize:20,
+        fontWeight: 'bold',
+        padding: 20,
+        //alignItems:'center',
     }
 });
