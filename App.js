@@ -4,10 +4,11 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 
-import PostScreen from './screens/post';
-import AboutScreen from './screens/about';
-import LoginScreen from './screens/login';
-import HomeScreen from './screens/home';
+import DiscountScreen from './screens/discount';
+import PostScreen from './screens/post'
+import AboutScreen from './screens/about'
+import LoginScreen from './screens/login'
+import HomeScreen from './screens/home'
 import ProfileScreen from './screens/profile';
 import Header from './shared/header';
 import SignUpScreen from './screens/signup';
@@ -34,7 +35,7 @@ Home: {
   },
 },
 Profile: {
-  screen: ProfileScreen,
+  screen: profile,
   navigationOptions: {
     tabBarLabel: "Profile",
     tabBarOptions: {
@@ -51,23 +52,6 @@ Profile: {
     },
   },
 },
-// Profile: {
-//   screen: ProfileScreen,
-//   navigationOptions: {
-//     tabBarLabel: "Profile",
-//     tabBarOptions: {
-//       activeTintColor: "#8C2131",
-//     },
-//     tabBarIcon: (tabInfo) => {
-//       return (
-//         <Ionicons
-//           name="md-settings-outline"
-//           size={24}
-//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
-//         />
-//       );
-//     },
-//   },
 });
 
 
@@ -92,11 +76,24 @@ function home() {
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
+        <Stack.Screen name='Profile' component ={ProfileScreen}/>
+        <Stack.Screen name='Discount' component ={DiscountScreen}/>
         <Stack.Screen name='SignUp' component ={SignUpScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
 };
+
+function profile() {
+  return(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Profile">
+        <Stack.Screen name='Profile' component ={ProfileScreen}/>
+        <Stack.Screen name='Discount' component ={DiscountScreen}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
 export default function App() {
   return (
