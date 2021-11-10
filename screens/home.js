@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, View, TouchableOpacity, ScrollView} from 'react-native';
+import { Alert, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView} from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
@@ -11,7 +11,8 @@ export default function HomeScreen({ navigation }) {
   
   const [postText, setText] = useState();
   const [postItems, setPostItems] = useState([hardCodePost1, hardCodePost2, hardCodePost3]);
-  
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
@@ -38,18 +39,33 @@ export default function HomeScreen({ navigation }) {
         </View>
       </View>
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={globalStyles.writePostWrapper}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
       >
-        <TextInput style={globalStyles.input} placeholder={'Write a post'} value={postText} onChangeText={text => setText(text)} />
-        
-        <TouchableOpacity onPress={() => handleAddPost()}>
-          <View style={globalStyles.addWrapper}>
-            <Text style={globalStyles.addText}>+</Text>
+        <View style={globalStyles.centeredView}>
+          <View style={globalStyles.modalView}>
+            <Text style={globalStyles.modalText}>Hello World!</Text>
+            <TouchableOpacity
+              style={[globalStyles.button, globalStyles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={globalStyles.textStyle}>Hide Modal</Text>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+        </View>
+      </Modal>
+      <TouchableOpacity
+        style={[globalStyles.button, globalStyles.buttonOpen]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={globalStyles.textStyle}>Show Modal</Text>
+      </TouchableOpacity>
     </View>
   );
 }
