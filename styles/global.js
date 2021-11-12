@@ -60,16 +60,6 @@ export const globalStyles = StyleSheet.create({
       marginBottom: 170,
     },
   
-    writePostWrapper: {
-      position: 'absolute',
-      paddingHorizontal: 10,
-      bottom: 25,
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    },
-  
     input: {
       paddingVertical: 15,
       paddingHorizontal: 15,
@@ -85,6 +75,8 @@ export const globalStyles = StyleSheet.create({
       height: 60,
       backgroundColor: '#8C2131',
       borderRadius: 60,
+      margin: 40,
+      position: 'absolute',
       justifyContent: 'center',
       alignItems: 'center',
     },
