@@ -3,6 +3,7 @@ import { Alert, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
+import { modalStyles } from '../styles/modal';
 
 export default function HomeScreen({ navigation }) {
   const hardCodePost1 = ["Culver's", (new Date('05 Nov 2021 17:00:00 GMT')).toLocaleString(), "Anyone want to go eat some Culver's in the next half hour or so?"]
@@ -40,7 +41,7 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
         </View>
       </View>
-      <View style={styles.centeredView}>
+      <View style={modalStyles.centeredView}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -50,74 +51,41 @@ export default function HomeScreen({ navigation }) {
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+          <View style={modalStyles.centeredView}>
+            <View style={modalStyles.modalView}>
               <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
               >
-                <TextInput style={globalStyles.input} placeholder={'Title'} value={postTitle} onChangeText={text => setTitle(text)} />
-                <TextInput style={globalStyles.input} placeholder={'Post Body'} value={postText} onChangeText={text => setText(text)} />
-                <Pressable onPressIn={() => handleAddPost()} onPress={() => setModalVisible(!modalVisible)}>
-                  <View style={globalStyles.addWrapper}>
-                    <Text style={globalStyles.addText}>+</Text>
-                  </View>
+                <TextInput
+                  style={globalStyles.input}
+                  placeholder={'Add title...'}
+                  value={postTitle}
+                  onChangeText={text => setTitle(text)}
+                />
+                <TextInput
+                  style={globalStyles.input}
+                  placeholder={'Write post here...'}
+                  value={postText}
+                  onChangeText={text => setText(text)}
+                />
+                <Pressable
+                  style={[modalStyles.button, modalStyles.buttonOpen]}
+                  onPressIn={() => handleAddPost()}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={modalStyles.textStyle}>Add Post</Text>
                 </Pressable>
               </KeyboardAvoidingView>
             </View>
           </View>
         </Modal>
       </View>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
+      <Pressable onPress={() => setModalVisible(true)}>
+        <View style={globalStyles.addWrapper}>
+          <Text style={globalStyles.addText}>+</Text>
+        </View>
       </Pressable>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 200,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  button: {
-    marginTop: 50,
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
-});
