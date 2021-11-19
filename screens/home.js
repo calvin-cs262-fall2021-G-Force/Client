@@ -40,6 +40,11 @@ export default function HomeScreen({ navigation }) {
             }
           </ScrollView>
         </View>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style={globalStyles.addWrapper}>
+            <Text style={globalStyles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={modalStyles.centeredView}>
         <Modal
@@ -80,11 +85,6 @@ export default function HomeScreen({ navigation }) {
           </View>
         </Modal>
       </View>
-      <TouchableOpacity style={globalStyles.button} onPress={() => setModalVisible(true)}>
-        <View style={globalStyles.addWrapper}>
-          <Text style={globalStyles.addText}>+</Text>
-        </View>
-      </TouchableOpacity>
     </View>
   );
 }
