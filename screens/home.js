@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         </Modal>
       </View>
-      <Pressable onPress={() => setModalVisible(true)}>
+      <Pressable style={globalStyles.button} onPress={() => setModalVisible(true)}>
         <View style={globalStyles.addWrapper}>
           <Text style={globalStyles.addText}>+</Text>
         </View>
