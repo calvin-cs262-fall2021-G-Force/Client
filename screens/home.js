@@ -11,6 +11,7 @@ export default function HomeScreen({ navigation }) {
   
   const [isLoading, setLoading] = useState(true);
   const [postText, setText] = useState();
+  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
   
   const getPosts = async () => {
@@ -25,6 +26,30 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
+
+
+  const postPosts = async()=> {
+    fetch('https://knight-bites.herokuapp.com/posts', {
+      method: 'POST',
+      headers: {
+        Accept:'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        posttitle:"culvers" ,
+        post: postText,
+        posttime: postDate,
+      })
+    })
+      //.then((response) => response.json())
+      .then((responseJson) => {
+        console.log('response object:' , responseJson)
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  };
+
   useEffect(() => {
     getPosts()
   }, [])
@@ -32,7 +57,10 @@ export default function HomeScreen({ navigation }) {
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
+
     setPostItems([...postItems, [postText, curDate, "Details will be found here"]]);
+    setDate(curDate);
+    postPosts(postText, curDate);
     setText(null);
   }
 
