@@ -80,11 +80,11 @@ export default function HomeScreen({ navigation }) {
           </View>
         </Modal>
       </View>
-      <Pressable style={globalStyles.button} onPress={() => setModalVisible(true)}>
+      <TouchableOpacity style={globalStyles.button} onPress={() => setModalVisible(true)}>
         <View style={globalStyles.addWrapper}>
           <Text style={globalStyles.addText}>+</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }
