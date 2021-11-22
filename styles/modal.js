@@ -42,5 +42,16 @@ export const modalStyles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    postInput: {
+        marginTop: 10,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#FFF',
+        borderRadius: 60,
+        borderColor: '#8C2131',
+        borderWidth: 1,
+        height: 200,
+        width: 250,
     }
 });
