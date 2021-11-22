@@ -6,7 +6,7 @@ import { postStyles } from '../styles/post';
 export default function PostScreen({ route, navigation}) {
   return (
     <View style={globalStyles.paragraphs}>
-      <Text>{route.params.item[0]}{'\n\n'}{route.params.item[2]}{'\n\n'}{route.params.item[1]}</Text>
+      <Text>{route.params.item.posttitle}{'\n\n'}{route.params.item.post}{'\n\n'}{route.params.item.posttime}</Text>
     </View>
   );
 }

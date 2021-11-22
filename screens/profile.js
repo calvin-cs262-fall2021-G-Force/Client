@@ -19,6 +19,9 @@ export default function ProfileScreen ({navigation}){
             <TouchableOpacity onPress={() => navigation.navigate('Discount')}>
                 <Text style={profileStyles.discountText}>Student Discount Card</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Restaurant')}>
+                <Text style={profileStyles.discountText}>Restaurant</Text>
+            </TouchableOpacity>
     </View>
   );
 }
