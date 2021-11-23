@@ -12,8 +12,10 @@ import HomeScreen from './screens/home'
 import ProfileScreen from './screens/profile';
 import Header from './shared/header';
 import SignUpScreen from './screens/signup';
+import RestaurantScreen from './screens/restaurant';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 const TabNavigator = createBottomTabNavigator({
 Home: {
@@ -77,7 +79,6 @@ function home() {
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
         <Stack.Screen name='Profile' component ={ProfileScreen}/>
-        <Stack.Screen name='Discount' component ={DiscountScreen}/>
         <Stack.Screen name='SignUp' component ={SignUpScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
@@ -90,6 +91,7 @@ function profile() {
       <Stack.Navigator initialRouteName="Profile">
         <Stack.Screen name='Profile' component ={ProfileScreen}/>
         <Stack.Screen name='Discount' component ={DiscountScreen}/>
+        <Stack.Screen name='Restaurant' component ={RestaurantScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
