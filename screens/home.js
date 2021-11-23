@@ -10,18 +10,18 @@ export default function HomeScreen({ navigation }) {
   const hardCodePost2 = ["Subway", (new Date('5 Nov 2021 18:00:00 GMT')).toLocaleString(), "Headed to Subway if anyone wants to grab something to eat quick."]
   const hardCodePost3 = ["Anna's House", (new Date('6 Nov 2021 12:30:00 GMT')).toLocaleString(), "Going to Anna's House tomorrow. Anyone wanna join?"]
 
+  const [isLoading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState();
   const [postText, setText] = useState();
-  const [postItems, setPostItems] = useState([hardCodePost1, hardCodePost2, hardCodePost3]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [postDate, setDate] = useState();
+  const [postItems, setPostItems] = useState([]);
 
   const getPosts = async () => {
     try {
       const response = await fetch('https://knight-bites.herokuapp.com/posts');
       const json = await response.json();
-      setData(json);
+      setPostItems(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -29,15 +29,39 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
+
+
+  const postPosts = async () => {
+    fetch('https://knight-bites.herokuapp.com/posts', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        posttitle: postTitle,
+        post: postText,
+        posttime: postDate,
+      })
+    })
+      //.then((response) => response.json())
+      .then((responseJson) => {
+        console.log('response object:', responseJson)
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  };
+
   useEffect(() => {
-    getPosts();
-  }, []);
+    getPosts()
+  }, [])
 
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
-    setPostItems([...postItems, [postTitle, curDate, postText]]);
-    setTitle(null);
+    setPostItems([...postItems, [postTitle, postText, curDate]]);
+    postPosts(postTitle, postText, postDate);
     setText(null);
   }
 
@@ -46,29 +70,22 @@ export default function HomeScreen({ navigation }) {
       <View style={globalStyles.postsWrapper}>
         <Text style={globalStyles.sectionTitle}>Posts</Text>
         <View style={globalStyles.items}>
-          <ScrollView >
-            {/* {isLoading ? <ActivityIndicator /> : (
-              <FlatList
-                data={data}
-                keyExtractor={({ id }, index) => id}
-                renderItem={({ item }) => (
-                  <Text style={{ fontSize: 20, color: "#2a6b35" }}>
-                    {'\n'}{item.posttitle}
-                    {'\n'}{item.posttime}
-                  </Text>
-                )}
-              />
-            )} */}
-            {
-              postItems.map((item, index) => {
-                return (
-                  <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', { item })}>
-                    <Post text={item[0]} date={item[1]} />
-                  </TouchableOpacity>
-                )
-              })
-            }
-          </ScrollView>
+          {isLoading
+            ? <ActivityIndicator />
+            : (
+              <ScrollView >
+                {
+                  //postItems={postItems}
+                  postItems.map((item, index) => {
+                    return (
+                      <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', { item })}>
+                        <Post text={item.posttitle} date={item.posttime} />
+                      </TouchableOpacity>
+                    )
+                  })
+                }
+              </ScrollView>
+            )}
         </View>
       </View>
       <View style={modalStyles.centeredView}>
@@ -91,6 +108,12 @@ export default function HomeScreen({ navigation }) {
                   placeholder={'Add title...'}
                   value={postTitle}
                   onChangeText={text => setTitle(text)}
+                />
+                <TextInput
+                  style={globalStyles.input}
+                  placeholder={'Add meetup time...'}
+                  value={postDate}
+                  onChangeText={text => setDate(text)}
                 />
                 <TextInput
                   style={modalStyles.postInput}
