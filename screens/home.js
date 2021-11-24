@@ -14,7 +14,8 @@ export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState();
   const [postText, setText] = useState();
-  const [postDate, setDate] = useState();
+  const [postcurDate, setCurDate] = useState();
+  const [meetDate, setMeetDate] = useState();
   const [postItems, setPostItems] = useState([]);
 
   const getPosts = async () => {
@@ -29,8 +30,6 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-
-
   const postPosts = async () => {
     fetch('https://knight-bites.herokuapp.com/posts', {
       method: 'POST',
@@ -41,13 +40,14 @@ export default function HomeScreen({ navigation }) {
       body: JSON.stringify({
         posttitle: postTitle,
         post: postText,
-        posttime: postDate,
+        posttime: postcurDate,
+        meetuptime: meetDate,
       })
     })
       //.then((response) => response.json())
-      .then((responseJson) => {
-        console.log('response object:', responseJson)
-      })
+      // .then((responseJson) => {
+      //   console.log('response object:', responseJson)
+      // })
       .catch((error) => {
         console.error(error);
       })
@@ -60,8 +60,9 @@ export default function HomeScreen({ navigation }) {
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
-    setPostItems([...postItems, [postTitle, postText, curDate]]);
-    postPosts(postTitle, postText, postDate);
+    setCurDate(curDate);
+    postPosts();
+    getPosts();
     setText(null);
   }
 
@@ -73,13 +74,13 @@ export default function HomeScreen({ navigation }) {
           {isLoading
             ? <ActivityIndicator />
             : (
-              <ScrollView >
+              <ScrollView>
                 {
                   //postItems={postItems}
                   postItems.map((item, index) => {
                     return (
                       <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', { item })}>
-                        <Post text={item.posttitle} date={item.posttime} />
+                        <Post text={item.posttext} date={item.posttime} title={item.posttitle} />
                       </TouchableOpacity>
                     )
                   })
@@ -88,6 +89,7 @@ export default function HomeScreen({ navigation }) {
             )}
         </View>
       </View>
+
       <View style={modalStyles.centeredView}>
         <Modal
           animationType="slide"
@@ -109,12 +111,12 @@ export default function HomeScreen({ navigation }) {
                   value={postTitle}
                   onChangeText={text => setTitle(text)}
                 />
-                <TextInput
+                {/* <TextInput
                   style={globalStyles.input}
                   placeholder={'Add meetup time...'}
-                  value={postDate}
-                  onChangeText={text => setDate(text)}
-                />
+                  value={meetDate}
+                  onChangeText={text => setMeetDate(text)}
+                /> */}
                 <TextInput
                   style={modalStyles.postInput}
                   placeholder={'Write post here...'}
@@ -132,12 +134,12 @@ export default function HomeScreen({ navigation }) {
             </View>
           </View>
         </Modal>
-        <TouchableOpacity style={globalStyles.addPost} onPress={() => setModalVisible(true)}>
-          <View style={globalStyles.addWrapper}>
+      </View>
+      <TouchableOpacity style = {globalStyles.addPost} onPress={() => setModalVisible(true)}>
+          <View>
             <Text style={globalStyles.addText}>+</Text>
           </View>
-        </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

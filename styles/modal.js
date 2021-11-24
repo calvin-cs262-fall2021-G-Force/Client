@@ -9,9 +9,9 @@ export const modalStyles = StyleSheet.create({
     },
     modalView: {
         margin: 20,
-        backgroundColor: "white",
+        backgroundColor: "#e7e8d5",
         borderRadius: 20,
-        padding: 200,
+        padding: 50,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
