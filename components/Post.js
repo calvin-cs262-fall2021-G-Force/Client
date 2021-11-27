@@ -32,7 +32,7 @@ const Post = (props) => {
                 <TouchableOpacity onPress={() => swtichSignup()}>
                     <Ionicons
                         name="checkbox-outline"
-                        size={33}
+                        size={43}
                         color={signUp}
                     />
                 </TouchableOpacity>
