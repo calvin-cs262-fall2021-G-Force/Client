@@ -13,9 +13,9 @@ export default function LoginScreen({ navigation }) {
       <Text style={globalStyles.header}>
         Knight Bites
       </Text>
-        <TextInput style={globalStyles.loginTextBox} placeholder='Username'/>
+        <TextInput style={globalStyles.loginTextBox} value={user} placeholder='Username'/>
         <TextInput secureTextEntry={true} style={globalStyles.loginTextBox} placeholder='Password'/>
-        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home')}>
+        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home',{user})}>
           <Text style = {globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress= {() => navigation.navigate('SignUp')}>
