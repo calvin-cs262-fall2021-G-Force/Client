@@ -55,7 +55,6 @@ export default function HomeScreen({ route, navigation }) {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
 
-    setPostItems([[postText, curDate], ...postItems]);
     setDate(curDate);
     postPosts(postText, postText, curDate);
     setText(null);
@@ -76,7 +75,7 @@ export default function HomeScreen({ route, navigation }) {
                 postItems.map((item, index) => {
                   return (
                     <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                      <Post title={item.posttitle} date={item.posttime}/>
+                      <Post title={item.posttitle} date={item.posttime} id={item.id}/>
                     </TouchableOpacity>
                   )
                 })

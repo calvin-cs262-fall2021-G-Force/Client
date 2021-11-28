@@ -10,7 +10,7 @@ export const postStyles = StyleSheet.create({
 		marginBottom: 20,
 	},
 	itemLeft: {
-		flexDirection: 'row',
+		flexDirection:'row' ,
 		alignItems: 'center',
 		flexWrap: 'wrap',
 	},
