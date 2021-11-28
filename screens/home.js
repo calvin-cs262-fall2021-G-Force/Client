@@ -5,14 +5,12 @@ import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 
 export default function HomeScreen({ navigation }) {
-  const hardCodePost1 = ["Culver's", (new Date('05 Nov 2021 17:00:00 GMT')).toLocaleString(), "Anyone want to go eat some Culver's in the next half hour or so?"]
-  const hardCodePost2 = ["Subway", (new Date('5 Nov 2021 18:00:00 GMT')).toLocaleString(), "Headed to Subway if anyone wants to grab something to eat quick."]
-  const hardCodePost3 = ["Anna's House", (new Date('6 Nov 2021 12:30:00 GMT')).toLocaleString(), "Going to Anna's House tomorrow. Anyone wanna join?"]
-  
+
   const [isLoading, setLoading] = useState(true);
   const [postText, setText] = useState();
   const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
+  const [getReference, setGetReference] = useState(0);
   
   const getPosts = async () => {
     try{
@@ -26,8 +24,6 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-
-
   const postPosts = async()=> {
     fetch('https://knight-bites.herokuapp.com/posts', {
       method: 'POST',
@@ -36,32 +32,34 @@ export default function HomeScreen({ navigation }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        posttitle:"culvers" ,
+        posttitle: postText ,
         post: postText,
         posttime: postDate,
+        studentemail: 'ck23'
       })
     })
       //.then((response) => response.json())
-      .then((responseJson) => {
-        console.log('response object:' , responseJson)
-      })
-      .catch((error) => {
-        console.error(error);
-      })
+      // .then((responseJson) => {
+      //   console.log('response object:' , responseJson)
+      // })
+      // .catch((error) => {
+      //   console.error(error);
+      // })
   };
 
   useEffect(() => {
     getPosts()
-  }, [])
+   }, [getReference])
 
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
 
-    setPostItems([...postItems, [postText, curDate, "Details will be found here"]]);
+    setPostItems([[postText, curDate], ...postItems]);
     setDate(curDate);
-    postPosts(postText, curDate);
+    postPosts(postText, postText, curDate);
     setText(null);
+    setGetReference(getReference+1);
   }
 
   return (
