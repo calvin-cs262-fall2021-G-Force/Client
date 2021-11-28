@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Image, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import { globalStyles } from '../styles/global';
 import logo from '../assets/logo.png'
 
 export default function LoginScreen({ navigation }) {
+  const [user, setUser] = useState();
   /*Create a Login Screen with a button that will ask for Authentication
     TODO: Will need to have KnightBites logo and other aesthetics added*/
   return (
@@ -18,11 +19,11 @@ export default function LoginScreen({ navigation }) {
           Knight Bites
         </Text>
       
-        <TextInput style={globalStyles.loginInput} placeholder='Username'/>
+        <TextInput style={globalStyles.loginInput} placeholder='Username' onChangeText={user => setUser(user)} value= {user}/>
 
         <TextInput secureTextEntry={true} style={globalStyles.loginInput} placeholder='Password'/>
       
-        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home')}>
+        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home', {user})}>
           <Text style = {globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress= {() => navigation.navigate('SignUp')}>
