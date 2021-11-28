@@ -24,7 +24,7 @@ export const modalStyles = StyleSheet.create({
     },
     button: {
         marginTop: 20,
-        borderRadius: 20,
+        borderRadius: 15,
         padding: 10,
         elevation: 2
     },

@@ -26,7 +26,7 @@ const Post = (props) => {
                 />
             </TouchableOpacity>
             <View style={postStyles.itemLeft}>
-                <Text style={{ fontSize: 18, paddingLeft: 20, maxWidth: '80%', fontWeight: 'bold' }}>
+                <Text style={{fontSize: 18, paddingLeft: 20, maxWidth: '80%', fontWeight: 'bold'}}>
                     {props.title}{'\n\n'}{props.date}
                 </Text>
                 <TouchableOpacity onPress={() => swtichSignup()}>

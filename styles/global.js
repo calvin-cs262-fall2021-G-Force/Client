@@ -33,11 +33,12 @@ export const globalStyles = StyleSheet.create({
       borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: 13
     },
 
     addPost: {
-      width: 80,
-      height: 80,
+      width: 70,
+      height: 70,
       backgroundColor: '#8C2131',
       borderRadius: 50,
       justifyContent: 'center',
@@ -69,7 +70,7 @@ export const globalStyles = StyleSheet.create({
       top:25,
       margin:5,
       alignContent: 'center',
-      marginBottom: 170,
+      marginBottom: 70,
     },
   
     input: {
@@ -117,14 +118,21 @@ export const globalStyles = StyleSheet.create({
       width: 250,
       height: 250
     },
+
     loginTextBox: {
+      position: 'absolute',
+      paddingHorizontal: 10,
+      bottom: 50,
+      alignItems: 'center'
+    },
+    loginInput: {
       paddingVertical: 15,
       paddingHorizontal: 15,
       backgroundColor: '#FFF',
-      borderRadius: 15,
+      borderRadius: 19,
       borderColor: '#8C2131',
       borderWidth: 1,
       width: 250,
-      marginBottom:10
+      marginBottom: 10
     },
   });

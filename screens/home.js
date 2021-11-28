@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 import { modalStyles } from '../styles/modal';
 
-export default function HomeScreen({ navigation }) {
-  const hardCodePost1 = ["Culver's", (new Date('05 Nov 2021 17:00:00 GMT')).toLocaleString(), "Anyone want to go eat some Culver's in the next half hour or so?"]
-  const hardCodePost2 = ["Subway", (new Date('5 Nov 2021 18:00:00 GMT')).toLocaleString(), "Headed to Subway if anyone wants to grab something to eat quick."]
-  const hardCodePost3 = ["Anna's House", (new Date('6 Nov 2021 12:30:00 GMT')).toLocaleString(), "Going to Anna's House tomorrow. Anyone wanna join?"]
+import moment from 'moment';
+import { Ionicons } from '@expo/vector-icons';
+
+export default function HomeScreen({ route, navigation }) {
 
   const [isLoading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState();
   const [postText, setText] = useState();
-  const [postcurDate, setCurDate] = useState();
-  const [meetDate, setMeetDate] = useState();
+//  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
-
+  const [getReference, setGetReference] = useState(0);
+  const [isButtonVisible, setButtonVisible] = useState(true);
+  
   const getPosts = async () => {
     try {
       const response = await fetch('https://knight-bites.herokuapp.com/posts');
@@ -30,40 +31,39 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-  const postPosts = async () => {
-    fetch('https://knight-bites.herokuapp.com/posts', {
+  const postPosts = async()=> {
+    await fetch('https://knight-bites.herokuapp.com/posts', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        posttitle: postTitle,
-        post: postText,
-        posttime: postcurDate,
-        meetuptime: meetDate,
+        'posttitle': postTitle ,
+        'post': postText,
+        'posttime': new Date(),
+        'studentemail': route.params.user
       })
     })
-      //.then((response) => response.json())
-      // .then((responseJson) => {
-      //   console.log('response object:', responseJson)
-      // })
-      .catch((error) => {
-        console.error(error);
-      })
+    .then((responseJson) => {
+      console.log('response object:' , JSON.stringify(responseJson))
+    })
+    .catch((error) => {
+      console.error(error);
+    })
   };
 
   useEffect(() => {
     getPosts()
-  }, [])
+   }, [getReference])
 
   const handleAddPost = () => {
     Keyboard.dismiss();
-    const curDate = new Date().toLocaleString();
-    setCurDate(curDate);
     postPosts();
-    getPosts();
     setText(null);
+    setTitle(null);
+    setGetReference(getReference+1);
+    Alert.alert("New Post Created");
   }
 
   return (
@@ -74,17 +74,16 @@ export default function HomeScreen({ navigation }) {
           {isLoading
             ? <ActivityIndicator />
             : (
-              <ScrollView>
-                {
-                  //postItems={postItems}
-                  postItems.map((item, index) => {
-                    return (
-                      <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', { item })}>
-                        <Post text={item.posttext} date={item.posttime} title={item.posttitle} />
-                      </TouchableOpacity>
-                    )
-                  })
-                }
+              <ScrollView >
+              {
+                postItems.map((item, index) => {
+                  return (
+                    <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
+                      <Post title={item.posttitle} date={moment(item.posttime).format('MMM Do YYYY, h:mm a')}/>
+                    </TouchableOpacity>
+                  )
+                })
+              }
               </ScrollView>
             )}
         </View>
@@ -96,11 +95,19 @@ export default function HomeScreen({ navigation }) {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            Alert.alert("No changes made");
             setModalVisible(!modalVisible);
+            setButtonVisible(true);
           }}
         >
-          <View style={modalStyles.centeredView}>
+          <TouchableOpacity 
+          style={modalStyles.centeredView}
+          onPressOut={() => {
+            Alert.alert("No changes made");
+            setModalVisible(!modalVisible);
+            setButtonVisible(true);
+          }}
+          >
             <View style={modalStyles.modalView}>
               <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -126,21 +133,35 @@ export default function HomeScreen({ navigation }) {
                 <Pressable
                   style={[modalStyles.button, modalStyles.buttonOpen]}
                   onPressIn={() => handleAddPost()}
-                  onPress={() => setModalVisible(!modalVisible)}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    setButtonVisible(true);
+                  }}
                 >
                   <Text style={modalStyles.textStyle}>Add Post</Text>
                 </Pressable>
               </KeyboardAvoidingView>
             </View>
-          </View>
+          </TouchableOpacity>
         </Modal>
       </View>
-      <TouchableOpacity style = {globalStyles.addPost} onPress={() => setModalVisible(true)}>
+      {isButtonVisible ?
+        <TouchableOpacity 
+        style = {globalStyles.addPost} 
+        onPress={() => {
+          setModalVisible(true);
+          setButtonVisible(false);
+        }}
+        >
           <View>
-            <Text style={globalStyles.addText}>+</Text>
+            <Ionicons
+              name='create-outline'
+              size={34}
+              color='#F3CD00'
+            />
           </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      : null}
     </View>
   );
 }
-
