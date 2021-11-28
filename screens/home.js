@@ -4,7 +4,7 @@ import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ route, navigation }) {
 
   const [isLoading, setLoading] = useState(true);
   const [postText, setText] = useState();
@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation }) {
         posttitle: postText ,
         post: postText,
         posttime: postDate,
-        studentemail: route.params,
+        studentemail: route.params.user,
       })
     })
       //.then((response) => response.json())
