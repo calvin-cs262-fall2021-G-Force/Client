@@ -39,13 +39,13 @@ export default function HomeScreen({ route, navigation }) {
         posttitle:"culvers" ,
         post: postText,
         posttime: postDate,
-        studentemail: route.params.user,
+        studentemail: route.params,
       })
     })
       //.then((response) => response.json())
-      .then((responseJson) => {
-        console.log('response object:' , responseJson)
-      })
+      // .then((responseJson) => {
+      //   console.log('response object:' , responseJson)
+      // })
       .catch((error) => {
         console.error(error);
       })
@@ -79,7 +79,7 @@ export default function HomeScreen({ route, navigation }) {
                 postItems.map((item, index) => {
                   return (
                     <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                      <Post text={item.posttitle} date={item.posttime}/>
+                      <Post title={item.posttitle} date={item.posttime}/>
                     </TouchableOpacity>
                   )
                 })
