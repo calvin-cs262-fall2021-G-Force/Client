@@ -15,7 +15,7 @@ export const globalStyles = StyleSheet.create({
   
     screen: {
       flex: 1,
-      padding: 20,
+      padding: 10,
       alignItems: 'center',
     },
   
@@ -34,6 +34,18 @@ export const globalStyles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 13
+    },
+
+    addPost: {
+      width: 70,
+      height: 70,
+      backgroundColor: '#8C2131',
+      borderRadius: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      right: 20,
+      position: 'absolute',
+      bottom: 30,
     },
   
     buttonText: {
@@ -58,20 +70,11 @@ export const globalStyles = StyleSheet.create({
       top:25,
       margin:5,
       alignContent: 'center',
-      marginBottom: 170,
-    },
-  
-    writePostWrapper: {
-      position: 'absolute',
-      paddingHorizontal: 10,
-      bottom: 25,
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+      marginBottom: 70,
     },
   
     input: {
+      marginTop: 10,
       paddingVertical: 15,
       paddingHorizontal: 15,
       backgroundColor: '#FFF',
@@ -86,13 +89,15 @@ export const globalStyles = StyleSheet.create({
       height: 60,
       backgroundColor: '#8C2131',
       borderRadius: 60,
+      margin: 40,
+      position: 'absolute',
       justifyContent: 'center',
       alignItems: 'center',
     },
   
     addText: {
       color: '#F3CD00',
-      fontSize: 30,
+      fontSize: 40,
       fontWeight: 'bold',
     },
     paragraphs: {

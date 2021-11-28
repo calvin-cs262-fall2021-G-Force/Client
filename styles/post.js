@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const postStyles = StyleSheet.create({
     item: {
 		backgroundColor: '#fff',
-		padding: 15,
+		padding: 10,
 		borderRadius: 8,
 		flexDirection: 'row',
 		justifyContent: 'space-between',

@@ -1,27 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, View, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
+import { modalStyles } from '../styles/modal';
 
-import moment from 'moment'
+import moment from 'moment';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen({ route, navigation }) {
 
   const [isLoading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [postTitle, setTitle] = useState();
   const [postText, setText] = useState();
 //  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
   const [getReference, setGetReference] = useState(0);
+  const [isButtonVisible, setButtonVisible] = useState(true);
   
   const getPosts = async () => {
-    try{
+    try {
       const response = await fetch('https://knight-bites.herokuapp.com/posts');
       const json = await response.json();
       setPostItems(json);
-    } catch(error){
+    } catch (error) {
       console.error(error);
-    } finally{
+    } finally {
       setLoading(false);
     }
   }
@@ -30,11 +35,11 @@ export default function HomeScreen({ route, navigation }) {
     await fetch('https://knight-bites.herokuapp.com/posts', {
       method: 'POST',
       headers: {
-        Accept:'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'posttitle': postText ,
+        'posttitle': postTitle ,
         'post': postText,
         'posttime': new Date(),
         'studentemail': route.params.user
@@ -56,7 +61,9 @@ export default function HomeScreen({ route, navigation }) {
     Keyboard.dismiss();
     postPosts();
     setText(null);
+    setTitle(null);
     setGetReference(getReference+1);
+    Alert.alert("New Post Created");
   }
 
   return (
@@ -65,7 +72,7 @@ export default function HomeScreen({ route, navigation }) {
         <Text style={globalStyles.sectionTitle}>Posts</Text>
         <View style={globalStyles.items}>
           {isLoading
-            ?<ActivityIndicator />
+            ? <ActivityIndicator />
             : (
               <ScrollView >
               {
@@ -78,22 +85,83 @@ export default function HomeScreen({ route, navigation }) {
                 })
               }
               </ScrollView>
-          )}
+            )}
         </View>
       </View>
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={globalStyles.writePostWrapper}
-      >
-        <TextInput style={globalStyles.input} placeholder={'Write a post'} value={postText} onChangeText={text => setText(text)} />
-        
-        <TouchableOpacity onPress={() => handleAddPost()}>
-          <View style={globalStyles.addWrapper}>
-            <Text style={globalStyles.addText}>+</Text>
+      <View style={modalStyles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("No changes made");
+            setModalVisible(!modalVisible);
+            setButtonVisible(true);
+          }}
+        >
+          <TouchableOpacity 
+          style={modalStyles.centeredView}
+          onPressOut={() => {
+            Alert.alert("No changes made");
+            setModalVisible(!modalVisible);
+            setButtonVisible(true);
+          }}
+          >
+            <View style={modalStyles.modalView}>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+              >
+                <TextInput
+                  style={globalStyles.input}
+                  placeholder={'Add title...'}
+                  value={postTitle}
+                  onChangeText={text => setTitle(text)}
+                />
+                {/* <TextInput
+                  style={globalStyles.input}
+                  placeholder={'Add meetup time...'}
+                  value={meetDate}
+                  onChangeText={text => setMeetDate(text)}
+                /> */}
+                <TextInput
+                  style={modalStyles.postInput}
+                  placeholder={'Write post here...'}
+                  value={postText}
+                  onChangeText={text => setText(text)}
+                />
+                <Pressable
+                  style={[modalStyles.button, modalStyles.buttonOpen]}
+                  onPressIn={() => handleAddPost()}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    setButtonVisible(true);
+                  }}
+                >
+                  <Text style={modalStyles.textStyle}>Add Post</Text>
+                </Pressable>
+              </KeyboardAvoidingView>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+      </View>
+      {isButtonVisible ?
+        <TouchableOpacity 
+        style = {globalStyles.addPost} 
+        onPress={() => {
+          setModalVisible(true);
+          setButtonVisible(false);
+        }}
+        >
+          <View>
+            <Ionicons
+              name='create-outline'
+              size={34}
+              color='#F3CD00'
+            />
           </View>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
+      : null}
     </View>
   );
 }
