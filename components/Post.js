@@ -15,7 +15,7 @@ const Post = (props) => {
             </TouchableOpacity>
             <View style={postStyles.itemLeft}>
                 <Text style={{fontSize: 18, paddingLeft: 20, maxWidth: '80%', fontWeight: 'bold'}}>
-                    {props.text}{'\n\n'}{props.date}
+                    {props.title}{'\n\n'}{props.date}
                 </Text>
                 <TouchableOpacity>
                 <Ionicons
