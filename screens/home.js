@@ -10,7 +10,7 @@ export default function HomeScreen({ route, navigation }) {
 
   const [isLoading, setLoading] = useState(true);
   const [postText, setText] = useState();
-  const [postDate, setDate] = useState();
+//  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
   const [getReference, setGetReference] = useState(0);
   
@@ -36,7 +36,7 @@ export default function HomeScreen({ route, navigation }) {
       body: JSON.stringify({
         'posttitle': postText ,
         'post': postText,
-        'posttime': postDate,
+        'posttime': new Date(),
         'studentemail': route.params.user
       })
     })
@@ -48,37 +48,12 @@ export default function HomeScreen({ route, navigation }) {
     })
   };
 
-  // const postPosts = async () => {
-  //   try{
-  //     const makePost = {
-  //       method: 'POST',
-  //       headers: {
-  //           Accept:'application/json',
-  //           'Content-Type': 'application/json'
-  //         },
-  //       body: JSON.stringify({
-  //         posttitle: postText,
-  //         post: postText,
-  //         posttime: postDate,
-  //         studentEmail: route.params.user
-  //       })
-  //     };
-  //     const response = await fetch('https://knight-bites.herokuapp.com/posts', makePost);
-  //     const json = await response.json();
-  //     //console.log(json);
-  //     return json;
-  //   }
-  //   catch(error) {console.error(error)}
-  // };
-
   useEffect(() => {
     getPosts()
    }, [getReference])
 
   const handleAddPost = () => {
     Keyboard.dismiss();
-    const curDate = new Date().toLocaleString();
-    setDate(curDate);
     postPosts();
     setText(null);
     setGetReference(getReference+1);
