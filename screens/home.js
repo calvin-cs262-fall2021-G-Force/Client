@@ -4,6 +4,8 @@ import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 
+import moment from 'moment'
+
 export default function HomeScreen({ route, navigation }) {
 
   const [isLoading, setLoading] = useState(true);
@@ -25,27 +27,49 @@ export default function HomeScreen({ route, navigation }) {
   }
 
   const postPosts = async()=> {
-    fetch('https://knight-bites.herokuapp.com/posts', {
+    await fetch('https://knight-bites.herokuapp.com/posts', {
       method: 'POST',
       headers: {
         Accept:'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        posttitle: postText ,
-        post: postText,
-        posttime: postDate,
-        studentemail: route.params.user,
+        'posttitle': postText ,
+        'post': postText,
+        'posttime': postDate,
+        'studentemail': route.params.user
       })
     })
-      //.then((response) => response.json())
-      // .then((responseJson) => {
-      //   console.log('response object:' , responseJson)
-      // })
-      .catch((error) => {
-        console.error(error);
-      })
+    .then((responseJson) => {
+      console.log('response object:' , JSON.stringify(responseJson))
+    })
+    .catch((error) => {
+      console.error(error);
+    })
   };
+
+  // const postPosts = async () => {
+  //   try{
+  //     const makePost = {
+  //       method: 'POST',
+  //       headers: {
+  //           Accept:'application/json',
+  //           'Content-Type': 'application/json'
+  //         },
+  //       body: JSON.stringify({
+  //         posttitle: postText,
+  //         post: postText,
+  //         posttime: postDate,
+  //         studentEmail: route.params.user
+  //       })
+  //     };
+  //     const response = await fetch('https://knight-bites.herokuapp.com/posts', makePost);
+  //     const json = await response.json();
+  //     //console.log(json);
+  //     return json;
+  //   }
+  //   catch(error) {console.error(error)}
+  // };
 
   useEffect(() => {
     getPosts()
@@ -54,10 +78,8 @@ export default function HomeScreen({ route, navigation }) {
   const handleAddPost = () => {
     Keyboard.dismiss();
     const curDate = new Date().toLocaleString();
-
-    setPostItems([[postText, curDate], ...postItems]);
     setDate(curDate);
-    postPosts(postText, postText, curDate);
+    postPosts();
     setText(null);
     setGetReference(getReference+1);
   }
@@ -72,11 +94,10 @@ export default function HomeScreen({ route, navigation }) {
             : (
               <ScrollView >
               {
-                //postItems={postItems}
                 postItems.map((item, index) => {
                   return (
                     <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                      <Post title={item.posttitle} date={item.posttime}/>
+                      <Post title={item.posttitle} date={moment(item.posttime).format('MMM Do YYYY, h:mm a')}/>
                     </TouchableOpacity>
                   )
                 })

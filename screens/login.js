@@ -3,8 +3,6 @@ import { Image, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, P
 import { globalStyles } from '../styles/global';
 import logo from '../assets/logo.png'
 
-
-
 export default function LoginScreen({ navigation }) {
   const [user, setUser] = useState();
   /*Create a Login Screen with a button that will ask for Authentication
