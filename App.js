@@ -47,7 +47,7 @@ Profile: {
       return (
         <Ionicons
           name="md-person-circle-outline"
-          size={24}
+          size={25}
           color={tabInfo.focused ? "#33adff" : "#8e8e93"}
         />
       );
