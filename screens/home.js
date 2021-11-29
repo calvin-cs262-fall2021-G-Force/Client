@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Picker, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
@@ -14,11 +14,13 @@ export default function HomeScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState();
   const [postText, setText] = useState();
-//  const [postDate, setDate] = useState();
+  //  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("1");
   const [getReference, setGetReference] = useState(0);
   const [isButtonVisible, setButtonVisible] = useState(true);
-  
+
   const getPosts = async () => {
     try {
       const response = await fetch('https://knight-bites.herokuapp.com/posts');
@@ -31,7 +33,19 @@ export default function HomeScreen({ route, navigation }) {
     }
   }
 
-  const postPosts = async()=> {
+  const getRestaurants = async () => {
+    try {
+      const response = await fetch('https://knight-bites.herokuapp.com/restaurants');
+      const json = await response.json();
+      setRestaurants(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const postPosts = async () => {
     await fetch('https://knight-bites.herokuapp.com/posts', {
       method: 'POST',
       headers: {
@@ -39,30 +53,31 @@ export default function HomeScreen({ route, navigation }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'posttitle': postTitle ,
+        'posttitle': postTitle,
         'post': postText,
         'posttime': new Date(),
         'studentemail': route.params.user
       })
     })
-    .then((responseJson) => {
-      console.log('response object:' , JSON.stringify(responseJson))
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+      .then((responseJson) => {
+        console.log('response object:', JSON.stringify(responseJson))
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   };
 
   useEffect(() => {
-    getPosts()
-   }, [getReference])
+    getPosts();
+    getRestaurants();
+  }, [getReference])
 
   const handleAddPost = () => {
     Keyboard.dismiss();
     postPosts();
     setText(null);
     setTitle(null);
-    setGetReference(getReference+1);
+    setGetReference(getReference + 1);
     Alert.alert("New Post Created");
   }
 
@@ -75,15 +90,15 @@ export default function HomeScreen({ route, navigation }) {
             ? <ActivityIndicator />
             : (
               <ScrollView >
-              {
-                postItems.map((item, index) => {
-                  return (
-                    <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                      <Post title={item.posttitle} date={moment(item.posttime).format('MMM Do YYYY, h:mm a')}/>
-                    </TouchableOpacity>
-                  )
-                })
-              }
+                {
+                  postItems.map((item, index) => {
+                    return (
+                      <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', { item })}>
+                        <Post title={item.posttitle} date={moment(item.posttime).format('MMM Do YYYY, h:mm a')} />
+                      </TouchableOpacity>
+                    )
+                  })
+                }
               </ScrollView>
             )}
         </View>
@@ -100,13 +115,13 @@ export default function HomeScreen({ route, navigation }) {
             setButtonVisible(true);
           }}
         >
-          <TouchableOpacity 
-          style={modalStyles.centeredView}
-          onPressOut={() => {
-            Alert.alert("No changes made");
-            setModalVisible(!modalVisible);
-            setButtonVisible(true);
-          }}
+          <TouchableOpacity
+            style={modalStyles.centeredView}
+            onPressOut={() => {
+              Alert.alert("No changes made");
+              setModalVisible(!modalVisible);
+              setButtonVisible(true);
+            }}
           >
             <View style={modalStyles.modalView}>
               <KeyboardAvoidingView
@@ -118,12 +133,28 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={text => setTitle(text)}
                 />
+
                 {/* <TextInput
                   style={globalStyles.input}
                   placeholder={'Add meetup time...'}
                   value={meetDate}
                   onChangeText={text => setMeetDate(text)}
                 /> */}
+
+                <Picker
+                  selectedValue={selectedValue}
+                  style={{ height: 50, width: 150 }}
+                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                  {
+                    restaurants.map((item, index) => {
+                      return (
+                        <Picker.Item label={item.name} value={index} />
+                      )
+                    })
+                 } 
+                </Picker>
+
                 <TextInput
                   style={modalStyles.postInput}
                   placeholder={'Write post here...'}
@@ -146,12 +177,12 @@ export default function HomeScreen({ route, navigation }) {
         </Modal>
       </View>
       {isButtonVisible ?
-        <TouchableOpacity 
-        style = {globalStyles.addPost} 
-        onPress={() => {
-          setModalVisible(true);
-          setButtonVisible(false);
-        }}
+        <TouchableOpacity
+          style={globalStyles.addPost}
+          onPress={() => {
+            setModalVisible(true);
+            setButtonVisible(false);
+          }}
         >
           <View>
             <Ionicons
@@ -161,7 +192,7 @@ export default function HomeScreen({ route, navigation }) {
             />
           </View>
         </TouchableOpacity>
-      : null}
+        : null}
     </View>
   );
 }
