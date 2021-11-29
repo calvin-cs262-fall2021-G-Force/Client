@@ -132,9 +132,8 @@ export default function HomeScreen({ route, navigation }) {
                 />
                 <Pressable
                   style={[modalStyles.button, modalStyles.buttonOpen]}
-                  // onPressIn={() => handleAddPost()}
+                  onPressIn={() => handleAddPost()}
                   onPress={() => {
-                    handleAddPost();
                     setModalVisible(!modalVisible);
                     setButtonVisible(true);
                   }}
