@@ -4,7 +4,7 @@ import { postStyles } from '../styles/post'
 import { Ionicons } from '@expo/vector-icons';
 
 
-const Post = (props) => {
+export default Post = (props) => {
     const [signUp, setSignup] = useState("#8C2131");
 
     const swtichSignup = () => {
@@ -16,9 +16,12 @@ const Post = (props) => {
             // Remove from UserEvent Table (DELETE)
         }
     }
+    const posterProfile = () =>{
+
+    }
     return(
         <View style={postStyles.item}>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => posterProfile()}>
                 <Ionicons
                     name="person-circle-outline"
                     size={25}
@@ -40,5 +43,3 @@ const Post = (props) => {
         </View>
     )
 }
-
-export default Post;

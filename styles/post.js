@@ -6,7 +6,7 @@ export const postStyles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 8,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'space-around',
 		marginBottom: 20,
 	},
 	itemLeft: {
@@ -14,26 +14,15 @@ export const postStyles = StyleSheet.create({
 		alignItems: 'center',
 		flexWrap: 'wrap',
 	},
-    /*Square could be replaced by some kind of Profile Picture*/
-	square: {
-		width: 24,
-		height: 24,
-		backgroundColor: '#F3CD00',
-		opacity: 1.0,
-		borderRadius: 5,
-		marginRight: 15,
-	},
+	
 	itemText: {
 		fontSize: 18,
 		paddingLeft: 20,
 		maxWidth: '80%',
 	},
-    /*circle can be replaced with an options menu*/
-    circular: {
-		width: 20,
-		height: 20,
-		borderColor: '#8C2131',
-		borderWidth: 2,
-		borderRadius: 10,
+
+	poster:{
+		padding:20,
+		flexDirection:'row',
 	},
 });

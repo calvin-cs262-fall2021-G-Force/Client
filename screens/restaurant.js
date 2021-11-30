@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { globalStyles } from '../styles/global';
+import { restaurantStyles } from '../styles/restaurant';
+import moment from 'moment';
 
 export default function RestaurantScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
@@ -22,21 +25,46 @@ export default function RestaurantScreen({navigation}) {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <ActivityIndicator /> : (
-        <FlatList
-          data={data}
-          keyExtractor={({ id }, index) => id}
-          renderItem={({ item }) => (
-            <Text style={{ fontSize: 20, color: "#2a6b35" }}>
-              {'\n'}Name : {item.name}
-              {'\n'}Address : {item.address}
-              {'\n'}Open hours : {item.openingtime} - {item.closingtime}
-              {'\n'}Discount: {item.discount}{'\n'}
-            </Text>
+    <View style={globalStyles.screen}>
+      <Text style={restaurantStyles.heading}>Restaurants</Text>
+        <View style={{width:'95%', top:20}}>
+          {isLoading ? <ActivityIndicator /> : (
+            <FlatList
+              data={data}
+              keyExtractor={({ id }, index) => id}
+              renderItem={({ item }) => (
+                <View style= {restaurantStyles.box}>
+                    <Text style={restaurantStyles.name}>{item.name}</Text>
+                    <Text style={restaurantStyles.discount}>Discount: {item.discount}</Text>
+                    <Text style={restaurantStyles.details}>{item.address}</Text>
+                    <Text style={restaurantStyles.details}>Open hours : {moment(item.openingtime,"HH:mm:ss").format('h:mm a')} - {moment(item.closingtime,"HH:mm:ss").format('h:mm a')}</Text>
+                </View>
+              )}
+            />
           )}
-        />
-      )}
+        </View>
     </View>
+    
   );
 };
+{/* <View style={globalStyles.screen}>
+      <View style={globalStyles.postsWrapper}>
+        <Text style={globalStyles.sectionTitle}>Posts</Text>
+        <View style={globalStyles.items}>
+          {isLoading
+            ? <ActivityIndicator />
+            : (
+              <ScrollView >
+              {
+                postItems.map((item, index) => {
+                  return (
+                    <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
+                      <Post title={item.posttitle} date={moment(item.posttime).format('MMM Do YYYY, h:mm a')}/>
+                    </TouchableOpacity>
+                  )
+                })
+              }
+              </ScrollView>
+            )}
+        </View>
+      </View> */}
