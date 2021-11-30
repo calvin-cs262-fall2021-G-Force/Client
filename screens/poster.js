@@ -23,21 +23,21 @@ export default function PosterScreen({ route, navigation}) {
       useEffect(() => {
         getStudent();
       }, []);
-      const icon = data.icon;
+      const iconName = data.icon;
     return(
         <View style={globalStyles.screen}>
-            {isLoading ? <ActivityIndicator /> : (
-                <View>
-                    <Ionicons
-                    name= {String(icon)}
-                    size={40}
-                    color="#8C2131"
-                 />
-                    <Text style= {globalStyles.paragraphs}>Name: {data.firstname} {data.lastname}</Text>
-                    <Text style= {globalStyles.paragraphs}>Bio: {data.bio}</Text>
-                </View>
-             
-            )}
-          </View>      
+          {isLoading ? <ActivityIndicator /> : (
+              <View>
+                  <Ionicons
+                  name= {iconName}
+                  size={40}
+                  color="#8C2131"
+                />
+                  <Text style= {globalStyles.paragraphs}>Name: {data.firstname} {data.lastname}</Text>
+                  <Text style= {globalStyles.paragraphs}>Bio: {data.bio}</Text>
+              </View>
+            
+          )}
+        </View>      
     );
   };

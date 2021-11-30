@@ -28,14 +28,14 @@ export default function PostScreen({ route, navigation}) {
       getStudent();
     }, []);
 
-    const icon = data.icon;
+    const iconName = data.icon;
 
   return (
     <View style={globalStyles.screen}>
       <View style= {postStyles.poster}>
         <TouchableOpacity onPress= {() => navigation.navigate('Poster', {poster})}>
           <Ionicons
-              name={String(icon)}
+              name= {iconName}
               size={30} 
               color="#8C2131"
           />
