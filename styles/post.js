@@ -20,4 +20,9 @@ export const postStyles = StyleSheet.create({
 		paddingLeft: 20,
 		maxWidth: '80%',
 	},
+
+	poster:{
+		padding:20,
+		flexDirection:'row',
+	},
 });

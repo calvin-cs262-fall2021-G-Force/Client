@@ -13,6 +13,7 @@ import ProfileScreen from './screens/profile';
 import Header from './shared/header';
 import SignUpScreen from './screens/signup';
 import RestaurantScreen from './screens/restaurant';
+import PosterScreen from './screens/poster';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -30,7 +31,7 @@ Home: {
         <Ionicons
           name="md-home"
           size={24}
-          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
+          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
         />
       );
     },
@@ -48,7 +49,7 @@ Profile: {
         <Ionicons
           name="md-person-circle-outline"
           size={24}
-          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
+          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
         />
       );
     },
@@ -78,6 +79,7 @@ function home() {
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
+        <Stack.Screen name='Poster' component = {PosterScreen} />
         <Stack.Screen name='Profile' component ={ProfileScreen}/>
         <Stack.Screen name='SignUp' component ={SignUpScreen}/>
       </Stack.Navigator>
