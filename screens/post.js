@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Text, View, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment'
@@ -9,13 +9,34 @@ import { postStyles } from '../styles/post';
 
 export default function PostScreen({ route, navigation}) {
   const poster = route.params.item.studentemail;
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+  const getStudent = async () => {
+      try {
+        const response = await fetch('https://knight-bites.herokuapp.com/students/' + String(poster));
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    useEffect(() => {
+      getStudent();
+    }, []);
+
+    const icon = data.icon;
+
   return (
     <View style={globalStyles.screen}>
       <View style= {postStyles.poster}>
         <TouchableOpacity onPress= {() => navigation.navigate('Poster', {poster})}>
           <Ionicons
-              name="person-circle-outline"
-              size={25} 
+              name={String(icon)}
+              size={30} 
               color="#8C2131"
           />
         </TouchableOpacity>
