@@ -11,6 +11,7 @@ import ProfileScreen from './screens/profile';
 import Header from './shared/header';
 import SignUpScreen from './screens/signup';
 import RestaurantScreen from './screens/restaurant';
+import PosterScreen from './screens/poster';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
