@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity, View, Picker, Text, ScrollView, SafeAreaView } from 'react-native';
+import { TouchableOpacity, View, Text, ScrollView, SafeAreaView } from 'react-native';
 
+import {Picker} from '@react-native-picker/picker';
 import { globalStyles } from '../styles/global';
 import About from "../screens/about";
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';

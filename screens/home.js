@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Picker, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 import { modalStyles } from '../styles/modal';
 
+import {Picker} from '@react-native-picker/picker';
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -133,13 +134,12 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={text => setTitle(text)}
                 />
-
-                {/* <TextInput
-                  style={globalStyles.input}
-                  placeholder={'Add meetup time...'}
-                  value={meetDate}
-                  onChangeText={text => setMeetDate(text)}
-                /> */}
+               
+                  {/* 
+                  //TODO
+                  Add this
+                  https://github.com/react-native-datetimepicker/datetimepicker 
+                  */}
 
                 <Picker
                   selectedValue={selectedValue}
@@ -152,7 +152,7 @@ export default function HomeScreen({ route, navigation }) {
                         <Picker.Item label={item.name} value={index} />
                       )
                     })
-                 } 
+                  }
                 </Picker>
 
                 <TextInput
