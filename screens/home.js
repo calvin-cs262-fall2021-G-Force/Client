@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
+import { ActivityIndicator, Alert, Button, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
 import { modalStyles } from '../styles/modal';
 
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -15,12 +16,14 @@ export default function HomeScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState();
   const [postText, setText] = useState();
-  //  const [postDate, setDate] = useState();
+  const [postDate, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
   const [postItems, setPostItems] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedValue, setSelectedValue] = useState("1");
   const [getReference, setGetReference] = useState(0);
   const [isButtonVisible, setButtonVisible] = useState(true);
+  const [show, setShow] = useState(false);
 
   const getPosts = async () => {
     try {
@@ -82,6 +85,25 @@ export default function HomeScreen({ route, navigation }) {
     Alert.alert("New Post Created");
   }
 
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
   return (
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
@@ -134,13 +156,38 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={text => setTitle(text)}
                 />
-               
-                  {/* 
-                  //TODO
-                  Add this
-                  https://github.com/react-native-datetimepicker/datetimepicker 
-                  */}
-
+                <View style={{ flexDirection:"row", alignContent: 'center'}}>
+                  <TouchableOpacity
+                    onPress={showDatepicker}
+                    style={modalStyles.button}
+                  >
+                    <Ionicons
+                      name="calendar"
+                      size={43}
+                      color={'#ccc'}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={showTimepicker}
+                    style={modalStyles.button}
+                  >
+                    <Ionicons
+                      name="time-outline"
+                      size={43}
+                      color={'#ccc'}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={postDate}
+                    mode={mode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
                 <Picker
                   selectedValue={selectedValue}
                   style={modalStyles.picker}

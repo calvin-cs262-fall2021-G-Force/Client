@@ -23,10 +23,11 @@ export const modalStyles = StyleSheet.create({
         elevation: 5
     },
     button: {
-        marginTop: 20,
+        marginTop: 10,
         borderRadius: 15,
         padding: 10,
-        elevation: 2
+        elevation: 2,
+        color: "#F3CD00",
     },
     buttonOpen: {
         backgroundColor: "#8C2131",
