@@ -7,44 +7,57 @@ import About from "../screens/about";
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 export default function Header({ navigation }) {
-    const [selectedValue, setSelectedValue] = useState("1");
-    const [isNotVisible, setVisible] = useState("false");
+    const [selectedValue, setSelectedValue] = useState('0');
+    const [isVisible, setVisible] = useState(false);
 
     const navigateMenu = (itemValue) => {
-        setSelectedValue(itemValue);
-        () => navigation.navigate(selectedValue)
+        if (itemValue != '0')
+            navigation.navigate(itemValue);
     }
     return (
         <SafeAreaView>
             <ScrollView>
-                <Picker
-                    selectedValue={selectedValue}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue) => navigateMenu(itemValue)}
-                >
-                    <Picker.Item
-                        label={"Home"}
-                        value={"1"}
-                    />
-                    <Picker.Item
-                        label={"Profile"}
-                        value={"2"}
-                    />
-                    <Picker.Item
-                        label={"Restaurants"}
-                        value={"3"}
-                    />
-                    <Picker.Item
-                        label={"Discounts"}
-                        value={"4"}
-                    />
-                    <Picker.Item
-                        label={"About Us"}
-                        value={"5"}
-                    />
+                {isVisible
+                    ? <Picker
+                        selectedValue={selectedValue}
+                        style={globalStyles.menu}
+                        onValueChange={(itemValue) => navigateMenu(itemValue)}
+                    >
+                        <Picker.Item
+                            label=''
+                            value="0"
+                        />
+                        <Picker.Item
+                            label={"Home"}
+                            value={'Home'}
+                        />
+                        <Picker.Item
+                            label={"Profile"}
+                            value={'Profile'}
+                        />
+                        <Picker.Item
+                            label={"Restaurants"}
+                            value={'Restaurants'}
+                        />
+                        <Picker.Item
+                            label={"Discounts"}
+                            value={'Discount'}
+                        />
+                        <Picker.Item
+                            label={"About Us"}
+                            value={'About the app'}
+                        />
 
-                </Picker>
+                    </Picker>
+                    : < TouchableOpacity onPress={() => setVisible(!isVisible)} style={{ marginRight: 150 }}>
+                    <Ionicons
+                        name="menu"
+                        size={43}
+                        color={'#ccc'}
+                    />
+                </TouchableOpacity>
+                }
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };

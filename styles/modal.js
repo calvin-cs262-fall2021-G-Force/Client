@@ -48,10 +48,17 @@ export const modalStyles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 15,
         backgroundColor: '#FFF',
-        borderRadius: 60,
+        borderRadius: 20,
         borderColor: '#8C2131',
         borderWidth: 1,
         height: 200,
         width: 250,
+    },
+    picker: {
+        height: 60,
+        width: 250,
+        marginTop: 10,
+        borderRadius: 10
+
     }
 });

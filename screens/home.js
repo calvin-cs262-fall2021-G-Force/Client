@@ -143,7 +143,7 @@ export default function HomeScreen({ route, navigation }) {
 
                 <Picker
                   selectedValue={selectedValue}
-                  style={{ height: 50, width: 150 }}
+                  style={modalStyles.picker}
                   onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
                   {

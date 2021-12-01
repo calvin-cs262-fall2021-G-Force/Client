@@ -28,11 +28,27 @@ export default function App() {
               <Header navigation={navigation} />
             )
           })} />
-        <Stack.Screen name='About the app' component={AboutScreen} />
-        <Stack.Screen name='Profile' component={ProfileScreen} />
+        <Stack.Screen name='About the app' component={AboutScreen} options={({ navigation }) => ({
+            headerRight: () => (
+              <Header navigation={navigation} />
+            )
+          })} />
+        <Stack.Screen name='Profile' component={ProfileScreen} options={({ navigation }) => ({
+          headerRight: () => (
+            <Header navigation={navigation} />
+          )
+        })} />
         <Stack.Screen name='SignUp' component={SignUpScreen} />
-        <Stack.Screen name='Discount' component={DiscountScreen} />
-        <Stack.Screen name='Restaurant' component={RestaurantScreen} />
+        <Stack.Screen name='Discount' component={DiscountScreen} options={({ navigation }) => ({
+          headerRight: () => (
+            <Header navigation={navigation} />
+          )
+        })} />
+        <Stack.Screen name='Restaurants' component={RestaurantScreen} options={({ navigation }) => ({
+          headerRight: () => (
+            <Header navigation={navigation} />
+          )
+        })} />
         <Stack.Screen name='Post' component={PostScreen} />
       </Stack.Navigator>
     </NavigationContainer>

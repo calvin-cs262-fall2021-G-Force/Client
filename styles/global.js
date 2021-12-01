@@ -135,4 +135,8 @@ export const globalStyles = StyleSheet.create({
       width: 250,
       marginBottom: 10
     },
+    menu: {
+      width: 200,
+      height: 60
+    },
   });
