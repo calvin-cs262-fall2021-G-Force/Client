@@ -4,7 +4,7 @@ import { postStyles } from '../styles/post'
 import { Ionicons } from '@expo/vector-icons';
 
 
-export default Post = (props) => {
+const Post = (props) => {
     const [signUp, setSignup] = useState("#8C2131");
 
     const swtichSignup = () => {
@@ -43,3 +43,5 @@ export default Post = (props) => {
         </View>
     )
 }
+
+export default Post;
