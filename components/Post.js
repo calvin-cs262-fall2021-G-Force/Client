@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { postStyles } from '../styles/post'
 import { Ionicons } from '@expo/vector-icons';
-
+import moment from 'moment';
 
 export default Post = (props) => {
     const [signUp, setSignup] = useState("#8C2131");
@@ -20,26 +20,38 @@ export default Post = (props) => {
 
     }
     return(
-        <View style={postStyles.item}>
-            <TouchableOpacity onPress={() => posterProfile()}>
-                <Ionicons
-                    name="person-circle-outline"
-                    size={25}
-                    color="#8C2131"
-                />
-            </TouchableOpacity>
-            <View style={postStyles.itemLeft}>
-                <Text style={{fontSize: 18, paddingLeft: 20, maxWidth: '80%', fontWeight: 'bold'}}>
-                    {props.title}{'\n\n'}{props.date}
-                </Text>
-                <TouchableOpacity onPress={() => swtichSignup()}>
-                    <Ionicons
-                        name="checkbox-outline"
-                        size={43}
-                        color={signUp}
-                    />
-                </TouchableOpacity>
+        <View>
+            <View style= {postStyles.box}>
+                <View>   
+                    <View style={{flexDirection:'row'}}>         
+                        <View style={postStyles.left}>
+                            <TouchableOpacity onPress={() => posterProfile()}>
+                                <Ionicons
+                                    name="person-circle-outline"
+                                    size={30}
+                                    color="#8C2131"
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={postStyles.content}>
+                            <Text style={postStyles.contentTitleText}>
+                                {props.title}{'\n'} 
+                            </Text>
+                            <Text style= {postStyles.contentDetailsText}>
+                                Venue:{'\n'}
+                            </Text>
+                            <Text style= {postStyles.contentDetailsText}>
+                                Meet up Time:{'\n'}
+                            </Text>
+                        </View>
+                    </View>
+            
+                </View>
+                <View style={postStyles.date}>
+                    <Text style={{fontSize:13, fontStyle:'italic'}}>{props.date}</Text>
+                    {/* <Text style={{fontSize:12}}>{moment.(props.date).startOf('seconds').fromNow()}</Text> */}
+                </View>
             </View>
-        </View>
+        </View>   
     )
 }

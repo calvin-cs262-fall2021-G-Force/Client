@@ -1,20 +1,40 @@
 import { StyleSheet } from 'react-native';
 
 export const postStyles = StyleSheet.create({
-    item: {
+    box: {
 		backgroundColor: '#fff',
-		padding: 10,
-		borderRadius: 8,
-		flexDirection: 'row',
-		justifyContent: 'space-around',
+		padding: 15,
+		borderRadius: 26,
 		marginBottom: 20,
+		justifyContent:'space-between'
 	},
-	itemLeft: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		flexWrap: 'wrap',
+
+	//profile icon
+	left:{
+		justifyContent:'flex-start',
+	},
+
+	//the post informations
+	content: {
+		paddingTop:10,
+		paddingLeft:20,
 	},
 	
+	contentTitleText:{
+		fontSize:18,
+		fontWeight:'bold'
+	},
+
+	contentDetailsText:{
+		fontSize:15,
+		fontStyle:'italic'
+	},
+
+	date:{
+		alignItems:'flex-end',
+		paddingRight:10,
+	},
+
 	itemText: {
 		fontSize: 18,
 		paddingLeft: 20,
