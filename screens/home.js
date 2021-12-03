@@ -69,7 +69,6 @@ export default function HomeScreen({ route, navigation }) {
   return (
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
-        <Text style={globalStyles.sectionTitle}>Posts</Text>
         <View style={globalStyles.items}>
           {isLoading
             ? <ActivityIndicator />

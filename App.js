@@ -26,14 +26,15 @@ Home: {
     tabBarOptions: {
       showLabel:false,
       activeTintColor: "#F3CD00",
-      style: {backgroundColor:'#8C2131'}
+      style: {backgroundColor:'#8C2131', height:60}
     },
+
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
           name="home"
           size={24}
-          color={tabInfo.focused ? "#F3CD00" : "#8e8e93"}
+          color={tabInfo.focused ? "#F3CD00" : "#bec1c4"}
         />
       );
     },
@@ -46,14 +47,14 @@ Profile: {
     tabBarOptions: {
       showLabel:false,
       activeTintColor: "#8C2131",
-      style: {backgroundColor:'#8C2131'}
+      style: {backgroundColor:'#8C2131', height:60}
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
           name="md-person-circle-outline"
           size={24}
-          color={tabInfo.focused ? "#F3CD00" : "#8e8e93"}
+          color={tabInfo.focused ? "#F3CD00" : "#bec1c4"}
         />
       );
     },
@@ -79,8 +80,11 @@ function home() {
         options={({ navigation }) => ({
           headerRight: () => (
             <Header navigation={navigation}/>
-          )
-        })}/>
+          ),
+          title:"Knight Bites"
+        })
+        
+        }/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
         <Stack.Screen name='Poster' component = {PosterScreen} />
