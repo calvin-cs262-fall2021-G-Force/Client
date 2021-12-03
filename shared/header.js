@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity, View, Text, ScrollView, SafeAreaView } from 'react-native';
 
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import { globalStyles } from '../styles/global';
+import ActionSheet from "react-native-actions-sheet";
 import About from "../screens/about";
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
-export default function Header({ navigation }) {
-    const [selectedValue, setSelectedValue] = useState('0');
-    const [isVisible, setVisible] = useState(false);
+const actionSheetRef = createRef();
 
-    const navigateMenu = (itemValue) => {
-        if (itemValue != '0')
-            navigation.navigate(itemValue);
-    }
+export default function Header({ navigation }) {
+    let actionSheet;
+
+    // const [selectedValue, setSelectedValue] = useState('0');
+    // const navigateMenu = (itemValue) => {
+    //     if (itemValue != '0')
+    //         navigation.navigate(itemValue);
+    // }
+    
     return (
         <SafeAreaView>
             <ScrollView>
-                {isVisible
+                < TouchableOpacity onPress={() => { actionSheetRef.current?.setModalVisible(); }} >
+                    <Ionicons
+                        name="menu"
+                        size={43}
+                        color={'#ccc'}
+                    />
+                </TouchableOpacity>
+
+                <ActionSheet ref={actionSheetRef}>
+                    <View>
+                        <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
+                    </View>
+                </ActionSheet>
+
+                {/* {isVisible
                     ? <Picker
                         selectedValue={selectedValue}
                         style={globalStyles.menu}
@@ -50,14 +68,8 @@ export default function Header({ navigation }) {
                         />
 
                     </Picker>
-                    : < TouchableOpacity onPress={() => setVisible(!isVisible)} >
-                    <Ionicons
-                        name="menu"
-                        size={43}
-                        color={'#ccc'}
-                    />
-                </TouchableOpacity>
-                }
+                    : 
+                } */}
             </ScrollView>
         </SafeAreaView >
     );
