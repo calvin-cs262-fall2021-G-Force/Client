@@ -48,13 +48,8 @@ Profile: {
       return (
         <Ionicons
           name="md-person-circle-outline"
-<<<<<<< HEAD
-          size={25}
-          color={tabInfo.focused ? "#33adff" : "#8e8e93"}
-=======
           size={24}
           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
->>>>>>> cfbf2d9295dfa006a24cb364046852a742e6e47d
         />
       );
     },
