@@ -21,14 +21,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //   navigationOptions: {
 //     tabBarLabel: "Home",
 //     tabBarOptions: {
-//       activeTintColor: "#8C2131",
+//       showLabel:false,
+//       activeTintColor: "#F3CD00",
+//       style: {backgroundColor:'#8C2131', height:60}
 //     },
+
 //     tabBarIcon: (tabInfo) => {
 //       return (
 //         <Ionicons
-//           name="md-home"
+//           name="home"
 //           size={24}
-//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+//           color={tabInfo.focused ? "#F3CD00" : "#bec1c4"}
 //         />
 //       );
 //     },
@@ -39,21 +42,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //   navigationOptions: {
 //     tabBarLabel: "Profile",
 //     tabBarOptions: {
+//       showLabel:false,
 //       activeTintColor: "#8C2131",
+//       style: {backgroundColor:'#8C2131', height:60}
 //     },
 //     tabBarIcon: (tabInfo) => {
 //       return (
 //         <Ionicons
 //           name="md-person-circle-outline"
 //           size={24}
-//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+//           color={tabInfo.focused ? "#F3CD00" : "#bec1c4"}
 //         />
 //       );
 //     },
 //   },
 // },
 // });
-
 
 const Stack = createNativeStackNavigator();
 
