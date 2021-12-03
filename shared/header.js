@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, TouchableOpacity } from 'react-native';
 
 
 import { Menu, MenuItem } from 'react-native-material-menu';
@@ -13,7 +13,15 @@ export default function Header({ navigation }) {
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ flexDirection: "row" }}>
+            <TouchableOpacity>
+                <Ionicons
+                    onPress={() => navigation.navigate('About Us')}
+                    name="help-circle-outline"
+                    size={43}
+                    color={'#ccc'}
+                />
+            </TouchableOpacity>
             <Menu
                 visible={visible}
                 style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}
@@ -29,7 +37,6 @@ export default function Header({ navigation }) {
                 <MenuItem onPress={() => navigation.navigate('Profile')}>Profile</MenuItem>
                 <MenuItem onPress={() => navigation.navigate('Restaurants')}>Restaurants</MenuItem>
                 <MenuItem onPress={() => navigation.navigate('Discount')}>Discount Card</MenuItem>
-                <MenuItem onPress={() => navigation.navigate('About Us')}>About Us</MenuItem>
             </Menu>
         </SafeAreaView >
     );
