@@ -23,7 +23,10 @@ export const posterStyles = StyleSheet.create({
 
     details:{
         fontSize:14,
-        
+
     },
 
+    bio:{
+        fontSize:16,
+    }
 });

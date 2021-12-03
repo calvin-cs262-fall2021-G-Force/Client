@@ -23,7 +23,7 @@ export default function LoginScreen({ navigation }) {
 
         <TextInput secureTextEntry={true} style={globalStyles.loginInput} placeholder='Password'/>
       
-        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.replace('Home', {user})}>
+        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home', {user})}>
           <Text style = {globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress= {() => navigation.navigate('SignUp')}>

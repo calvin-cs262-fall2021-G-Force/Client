@@ -39,7 +39,8 @@ export default function PosterScreen({ route, navigation}) {
               <View style= {posterStyles.user}>
                   <Text style= {posterStyles.name}>{data.firstname} {data.lastname}</Text>
                   <Text style= {posterStyles.details}>{data.year}</Text>
-                  <Text style= {posterStyles.details}>Bio: {data.bio}</Text>
+                  <Text style= {posterStyles.name}>{'\n'}Bio: </Text>
+                  <Text style= {posterStyles.bio}>{data.bio}</Text>
               </View>
             </View>
           )}
