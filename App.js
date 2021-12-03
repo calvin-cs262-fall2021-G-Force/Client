@@ -24,14 +24,16 @@ Home: {
   navigationOptions: {
     tabBarLabel: "Home",
     tabBarOptions: {
-      activeTintColor: "#8C2131",
+      showLabel:false,
+      activeTintColor: "#F3CD00",
+      style: {backgroundColor:'#8C2131'}
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
-          name="md-home"
+          name="home"
           size={24}
-          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+          color={tabInfo.focused ? "#F3CD00" : "#8e8e93"}
         />
       );
     },
@@ -42,14 +44,16 @@ Profile: {
   navigationOptions: {
     tabBarLabel: "Profile",
     tabBarOptions: {
+      showLabel:false,
       activeTintColor: "#8C2131",
+      style: {backgroundColor:'#8C2131'}
     },
     tabBarIcon: (tabInfo) => {
       return (
         <Ionicons
           name="md-person-circle-outline"
           size={24}
-          color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+          color={tabInfo.focused ? "#F3CD00" : "#8e8e93"}
         />
       );
     },
@@ -69,19 +73,20 @@ function home() {
         options={({ navigation }) => ({
           headerRight: () => (
             <Header navigation={navigation}/>
-          )       
+          )   
         })}/>
         <Stack.Screen name='Home' component = {HomeScreen} 
         options={({ navigation }) => ({
           headerRight: () => (
             <Header navigation={navigation}/>
-          )       
+          )
         })}/>
         <Stack.Screen name='Post' component = {PostScreen} />
         <Stack.Screen name='About the app' component ={AboutScreen}/>
         <Stack.Screen name='Poster' component = {PosterScreen} />
         <Stack.Screen name='Profile' component ={ProfileScreen}/>
         <Stack.Screen name='SignUp' component ={SignUpScreen}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   )

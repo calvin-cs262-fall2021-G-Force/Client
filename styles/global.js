@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
       Can be found at https://calvin.edu/dotAsset/f784aa74-291f-45b1-b45c-d6455663bcb4
     */
     container: {
-      flex: 1,
+      flex:1,
       backgroundColor: '#fff',
       fontFamily: 'Century Schoolbook',
     },

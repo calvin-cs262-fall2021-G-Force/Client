@@ -79,7 +79,7 @@ export default function HomeScreen({ route, navigation }) {
                 postItems.map((item, index) => {
                   return (
                     <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                      <Post title={item.posttitle} date={moment(item.posttime).format('MMM Do YYYY, h:mm a')}/>
+                      <Post title={item.posttitle} date={moment(item.posttime).startOf('seconds').fromNow()}/>
                     </TouchableOpacity>
                   )
                 })
