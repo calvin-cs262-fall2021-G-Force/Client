@@ -29,7 +29,7 @@ export default function App() {
               <Header navigation={navigation} />
             )
           })} />
-        <Stack.Screen name='About the app' component={AboutScreen} options={({ navigation }) => ({
+        <Stack.Screen name='About Us' component={AboutScreen} options={({ navigation }) => ({
             headerRight: () => (
               <Header navigation={navigation} />
             )
