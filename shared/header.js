@@ -50,7 +50,7 @@ export default function Header({ navigation }) {
                         />
 
                     </Picker>
-                    : < TouchableOpacity onPress={() => setVisible(!isVisible)} style={{ marginRight: 150 }}>
+                    : < TouchableOpacity onPress={() => setVisible(!isVisible)} >
                     <Ionicons
                         name="menu"
                         size={43}
