@@ -1,5 +1,4 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
 import { NavigationContainer } from '@react-navigation/native';
 
 import DiscountScreen from './screens/discount';
@@ -14,6 +13,46 @@ import RestaurantScreen from './screens/restaurant';
 import PosterScreen from './screens/poster';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+//import { createBottomTabNavigator } from 'react-navigation-tabs';
+// const TabNavigator = createBottomTabNavigator({
+// Home: {
+//   screen: home,
+//   navigationOptions: {
+//     tabBarLabel: "Home",
+//     tabBarOptions: {
+//       activeTintColor: "#8C2131",
+//     },
+//     tabBarIcon: (tabInfo) => {
+//       return (
+//         <Ionicons
+//           name="md-home"
+//           size={24}
+//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+//         />
+//       );
+//     },
+//   },
+// },
+// Profile: {
+//   screen: profile,
+//   navigationOptions: {
+//     tabBarLabel: "Profile",
+//     tabBarOptions: {
+//       activeTintColor: "#8C2131",
+//     },
+//     tabBarIcon: (tabInfo) => {
+//       return (
+//         <Ionicons
+//           name="md-person-circle-outline"
+//           size={24}
+//           color={tabInfo.focused ? "#8C2131" : "#8e8e93"}
+//         />
+//       );
+//     },
+//   },
+// },
+// });
 
 
 const Stack = createNativeStackNavigator();
