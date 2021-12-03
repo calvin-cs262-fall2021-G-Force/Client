@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
       Can be found at https://calvin.edu/dotAsset/f784aa74-291f-45b1-b45c-d6455663bcb4
     */
     container: {
-      flex: 1,
+      flex:1,
       backgroundColor: '#fff',
       fontFamily: 'Century Schoolbook',
     },
@@ -67,10 +67,9 @@ export const globalStyles = StyleSheet.create({
     },
     
     items: {
-      top:25,
-      margin:5,
+      margin:10,
       alignContent: 'center',
-      marginBottom: 70,
+      marginBottom: -10,
     },
   
     input: {
@@ -114,9 +113,11 @@ export const globalStyles = StyleSheet.create({
       borderRadius: 100,
       opacity: 0.6
     },
+
     loginLogo: {
       width: 250,
-      height: 250
+      height: 250,
+      marginBottom:20
     },
 
     loginTextBox: {
