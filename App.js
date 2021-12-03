@@ -50,6 +50,7 @@ export default function App() {
             <Header navigation={navigation} />
           )
         })} />
+        <Stack.Screen name='Poster' component={PosterScreen} />
         <Stack.Screen name='Post' component={PostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
