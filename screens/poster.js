@@ -34,6 +34,7 @@ export default function PosterScreen({ route, navigation}) {
                   color="#8C2131"
                 />
                   <Text style= {globalStyles.paragraphs}>Name: {data.firstname} {data.lastname}</Text>
+                  <Text>Year: {data.year}</Text>
                   <Text style= {globalStyles.paragraphs}>Bio: {data.bio}</Text>
               </View>
             
