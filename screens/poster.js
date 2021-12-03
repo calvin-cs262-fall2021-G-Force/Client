@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text,ActivityIndicator, FlatList } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { Ionicons } from '@expo/vector-icons';
+import { posterStyles } from '../styles/poster';
 
 export default function PosterScreen({ route, navigation}) {
     const [student, setStudent] = useState(route.params.poster)
@@ -27,17 +28,20 @@ export default function PosterScreen({ route, navigation}) {
     return(
         <View style={globalStyles.screen}>
           {isLoading ? <ActivityIndicator /> : (
-              <View>
+            <View>
+              <View style={posterStyles.profileIcon}>
                   <Ionicons
                   name= {iconName}
-                  size={40}
+                  size={60}
                   color="#8C2131"
                 />
-                  <Text style= {globalStyles.paragraphs}>Name: {data.firstname} {data.lastname}</Text>
-                  <Text>Year: {data.year}</Text>
-                  <Text style= {globalStyles.paragraphs}>Bio: {data.bio}</Text>
               </View>
-            
+              <View style= {posterStyles.user}>
+                  <Text style= {posterStyles.name}>{data.firstname} {data.lastname}</Text>
+                  <Text style= {posterStyles.details}>{data.year}</Text>
+                  <Text style= {posterStyles.details}>Bio: {data.bio}</Text>
+              </View>
+            </View>
           )}
         </View>      
     );
