@@ -9,6 +9,7 @@ export const modalStyles = StyleSheet.create({
     },
     modalView: {
         margin: 20,
+        padding: 20,
         backgroundColor: "#e7e8d5",
         borderRadius: 20,
         padding: 50,
@@ -20,7 +21,9 @@ export const modalStyles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
+        height:'50%',
+        width:'70%'
     },
     button: {
         marginTop: 20,
@@ -44,8 +47,9 @@ export const modalStyles = StyleSheet.create({
         textAlign: "center"
     },
     postInput: {
+        alignSelf:'center',
         marginTop: 10,
-        paddingVertical: 15,
+        paddingVertical: 5,
         paddingHorizontal: 15,
         backgroundColor: '#FFF',
         borderRadius: 60,

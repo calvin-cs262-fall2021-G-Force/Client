@@ -9,7 +9,7 @@ import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen({ route, navigation }) {
-
+  const user = route.params.user;
   const [isLoading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState();
@@ -42,7 +42,7 @@ export default function HomeScreen({ route, navigation }) {
         'posttitle': postTitle ,
         'post': postText,
         'posttime': new Date(),
-        'studentemail': route.params.user
+        'studentemail': user
       })
     })
     .then((responseJson) => {
@@ -77,7 +77,7 @@ export default function HomeScreen({ route, navigation }) {
               {
                 postItems.map((item, index) => {
                   return (
-                    <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
+                    <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item}, {user})}>
                       <Post title={item.posttitle} date={moment(item.posttime).startOf('seconds').fromNow()}/>
                     </TouchableOpacity>
                   )

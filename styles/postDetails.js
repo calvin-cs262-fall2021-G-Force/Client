@@ -37,7 +37,7 @@ export const postDetailsStyles = StyleSheet.create({
     },
 
     body:{
-        fontSize:20,
+        fontSize:16,
 
     },
 
@@ -47,16 +47,22 @@ export const postDetailsStyles = StyleSheet.create({
     },
 
     signupButton:{
+        
         alignSelf:'center',
         backgroundColor:"#8C2131",
         borderRadius:30,
         marginTop:20,
         padding:10,
-        width:'60%'
+        width:'50%',
+        height:'15%',
+        justifyContent:'center',
+        alignItems:'center'        
     },
 
     signupButtonText: {
-        fontSize: 16,
-        color:"#F3CD00"
+        fontSize: 20,
+        alignSelf:'center',
+        color:"#F3CD00",
+        justifyContent:'center',
     },
 });

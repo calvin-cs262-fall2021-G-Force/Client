@@ -73,7 +73,7 @@ export const globalStyles = StyleSheet.create({
     },
   
     input: {
-      marginTop: 10,
+      //marginTop: 10,
       paddingVertical: 15,
       paddingHorizontal: 15,
       backgroundColor: '#FFF',
