@@ -42,7 +42,9 @@ export default function HomeScreen({ route, navigation }) {
 
   const getPosts = async () => {
     try {
-      const response = await fetch("https://knight-bites.herokuapp.com/posts");
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/posts-details"
+      );
       const json = await response.json();
       setPostItems(json);
     } catch (error) {
@@ -63,6 +65,8 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
+        // meetupTime: "2021-12-24 10:25:00 +0000",
+        // restaurantId: 10,
         studentemail: user,
       }),
     })
@@ -78,6 +82,10 @@ export default function HomeScreen({ route, navigation }) {
     getPosts();
   }, [getReference]);
 
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
   const handleAddPost = () => {
     Keyboard.dismiss();
     postPosts();
@@ -89,7 +97,7 @@ export default function HomeScreen({ route, navigation }) {
 
   const onRefresh = () => {
     setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
+    wait(1500).then(() => setRefreshing(false));
     setGetReference(getReference + 1);
   };
 
@@ -114,8 +122,17 @@ export default function HomeScreen({ route, navigation }) {
                     onPress={() => navigation.navigate("Post", { item })}
                   >
                     <Post
+                      item={item}
+                      email={item.email}
                       title={item.posttitle}
-                      date={moment(item.posttime).startOf("seconds").fromNow()}
+                      icon={item.icon}
+                      venue={item.name}
+                      postTime={moment(item.posttime)
+                        .startOf("seconds")
+                        .fromNow()}
+                      meetupTime={moment(item.meetuptime).format(
+                        "MMM D, YYYY [at] h:mma"
+                      )}
                     />
                   </TouchableOpacity>
                 );

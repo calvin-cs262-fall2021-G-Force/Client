@@ -15,7 +15,7 @@ export const globalStyles = StyleSheet.create({
 
   screen: {
     flex: 1,
-    padding: 10,
+    // padding: 10,
     alignItems: "center",
   },
 
@@ -67,9 +67,9 @@ export const globalStyles = StyleSheet.create({
   },
 
   items: {
-    margin: 10,
+    margin: 15,
     alignContent: "center",
-    marginBottom: -10,
+    // marginTop: -10,
   },
 
   input: {
