@@ -1,48 +1,51 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const postStyles = StyleSheet.create({
-    box: {
-		backgroundColor: '#fff',
-		padding: 15,
-		borderRadius: 26,
-		marginBottom: 20,
-		justifyContent:'space-between'
-	},
+  box: {
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 24,
+    marginTop: 20,
+    justifyContent: "space-between",
+    // borderColor: "gold",
+    // borderWidth: 1,
+  },
 
-	//profile icon
-	left:{
-		justifyContent:'flex-start',
-	},
+  //profile icon
+  left: {
+    justifyContent: "flex-start",
+  },
 
-	//the post informations
-	content: {
-		paddingTop:10,
-		paddingLeft:20,
-	},
-	
-	contentTitleText:{
-		fontSize:18,
-		fontWeight:'bold'
-	},
+  //the post informations
+  content: {
+    paddingTop: 10,
+  },
 
-	contentDetailsText:{
-		fontSize:15,
-		fontStyle:'italic'
-	},
+  contentTitleText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    paddingLeft: 20,
+  },
 
-	date:{
-		alignItems:'flex-end',
-		paddingRight:10,
-	},
+  contentDetailsText: {
+    fontSize: 15,
+    fontStyle: "italic",
+    marginLeft: -15,
+  },
 
-	itemText: {
-		fontSize: 18,
-		paddingLeft: 20,
-		maxWidth: '80%',
-	},
+  date: {
+    alignItems: "flex-end",
+    paddingRight: 10,
+  },
 
-	poster:{
-		padding:20,
-		flexDirection:'row',
-	},
+  itemText: {
+    fontSize: 18,
+    paddingLeft: 20,
+    maxWidth: "80%",
+  },
+
+  poster: {
+    padding: 20,
+    flexDirection: "row",
+  },
 });
