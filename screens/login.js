@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import logo from "../assets/logo.png";
-import { UserContext } from "../util/UserManager";
+import { UserContext } from "../util/GlobalStateManager";
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState();

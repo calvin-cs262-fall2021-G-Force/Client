@@ -15,14 +15,13 @@ import {
   ScrollView,
   RefreshControl,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
 import { modalStyles } from "../styles/modal";
-import { UserContext } from "../util/UserManager";
-
-import moment from "moment";
-import { Ionicons } from "@expo/vector-icons";
+import { UserContext } from "../util/GlobalStateManager";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -33,12 +32,11 @@ export default function HomeScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [postTitle, setTitle] = useState(null);
   const [postText, setText] = useState(null);
-  //  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
-  const [getReference, setGetReference] = useState(0);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const { user } = useContext(UserContext);
+  const { readState, setGlobalRead } = useContext(UserContext);
 
   const getPosts = async () => {
     try {
@@ -71,7 +69,7 @@ export default function HomeScreen({ route, navigation }) {
       }),
     })
       .then((responseJson) => {
-        console.log("response object:", JSON.stringify(responseJson));
+        console.log("post response object:", JSON.stringify(responseJson));
       })
       .catch((error) => {
         console.error(error);
@@ -80,7 +78,7 @@ export default function HomeScreen({ route, navigation }) {
 
   useEffect(() => {
     getPosts();
-  }, [getReference]);
+  }, [readState]);
 
   useEffect(() => {
     onRefresh();
@@ -91,14 +89,14 @@ export default function HomeScreen({ route, navigation }) {
     postPosts();
     setText(null);
     setTitle(null);
-    setGetReference(getReference + 1);
+    setGlobalRead(readState + 1);
     Alert.alert("New Post Created");
   };
 
   const onRefresh = () => {
     setRefreshing(true);
     wait(1500).then(() => setRefreshing(false));
-    setGetReference(getReference + 1);
+    setGlobalRead(readState + 1);
   };
 
   return (
@@ -159,12 +157,6 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={(text) => setTitle(text)}
                 />
-                {/* <TextInput
-                  style={globalStyles.input}
-                  placeholder={'Add meetup time...'}
-                  value={meetDate}
-                  onChangeText={text => setMeetDate(text)}
-                /> */}
                 <TextInput
                   style={modalStyles.postInput}
                   placeholder={"Write post here..."}

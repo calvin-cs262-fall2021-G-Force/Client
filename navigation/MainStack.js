@@ -6,6 +6,7 @@ import PosterScreen from "../screens/poster";
 import RestaurantScreen from "../screens/restaurant";
 import DiscountScreen from "../screens/discount";
 import AboutScreen from "../screens/about";
+import SignUpScreen from "../screens/signup";
 
 export default function (Stack) {
   return (
@@ -13,6 +14,11 @@ export default function (Stack) {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

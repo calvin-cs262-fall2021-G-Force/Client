@@ -3,7 +3,7 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import { profileStyles } from "../styles/profile";
 import profilePic from "../assets/demo-profile.png";
 import { globalStyles } from "../styles/global";
-import { UserContext } from "../util/UserManager";
+import { UserContext } from "../util/GlobalStateManager";
 
 export default function ProfileScreen({ navigation }) {
   const { user } = useContext(UserContext);
