@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
     /*Per Calvin University Brand Identity Standards 
-      Fonts: Constantia, Gotham, Century Schoolbook
+      Fonts: Constantia, Gotham, Century Schoolbook, Montserrat
       Maroon: #8C2131
       Gold:   #F3CD00 
       Can be found at https://calvin.edu/dotAsset/f784aa74-291f-45b1-b45c-d6455663bcb4
@@ -10,7 +10,7 @@ export const globalStyles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      fontFamily: 'Century Schoolbook',
+      fontFamily: 'Montserrat-Regular',
     },
   
     screen: {
@@ -51,6 +51,7 @@ export const globalStyles = StyleSheet.create({
       fontSize: 24,
       fontWeight: "bold",
       alignItems: 'center',
+      fontFamily: 'Montserrat-Bold',
     },
     
     items: {
@@ -93,6 +94,7 @@ export const globalStyles = StyleSheet.create({
       color: '#F3CD00',
       fontSize: 30,
       fontWeight: 'bold',
+      fontFamily: 'Montserrat-Regular',
     },
     paragraphs: {
       fontSize: 16,
