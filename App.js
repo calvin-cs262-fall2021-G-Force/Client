@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 
 import DiscountScreen from "./screens/discount";
-import PostScreen from "./screens/post";
+import PostScreen from "./screens/postDetails";
 import AboutScreen from "./screens/about";
 import LoginScreen from "./screens/login";
 import HomeScreen from "./screens/home";
