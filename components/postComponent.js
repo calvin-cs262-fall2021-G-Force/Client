@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { postStyles } from "../styles/post";
 import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
@@ -11,6 +11,7 @@ export default Post = (props) => {
   const navigation = useNavigation();
   const email = props.studentemail;
   const { user, readState, setGlobalRead } = useContext(UserContext);
+  const [showBox, setShowBox] = useState(true);
 
   const deletePosts = async () => {
     fetch("https://knight-bites.herokuapp.com/posts/" + String(props.id), {
@@ -27,6 +28,32 @@ export default Post = (props) => {
   const handleDeletePost = () => {
     deletePosts();
     setGlobalRead(readState + 1);
+  };
+
+  const showConfirmDialog = () => {
+    return Alert.alert(
+      "Delete post",
+      "Are you sure you want to delete this post?",
+      [
+        // The "Yes" button
+        // Deletes post when pressed
+        {
+          text: "Yes",
+          onPress: () => {
+            handleDeletePost();
+            setShowBox(false);
+          },
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
   };
 
   return (
@@ -54,7 +81,7 @@ export default Post = (props) => {
             </View>
             {user === props.email && (
               <View>
-                <TouchableOpacity onPress={() => handleDeletePost()}>
+                <TouchableOpacity onPress={() => showConfirmDialog()}>
                   <Feather name="trash-2" size={34} color="gray" />
                 </TouchableOpacity>
               </View>
