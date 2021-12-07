@@ -15,7 +15,7 @@ import {
   ScrollView,
   RefreshControl,
 } from "react-native";
-import Post from "../components/Post";
+import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
 import { modalStyles } from "../styles/modal";
@@ -31,8 +31,8 @@ const wait = (timeout) => {
 export default function HomeScreen({ route, navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [postTitle, setTitle] = useState();
-  const [postText, setText] = useState();
+  const [postTitle, setTitle] = useState(null);
+  const [postText, setText] = useState(null);
   //  const [postDate, setDate] = useState();
   const [postItems, setPostItems] = useState([]);
   const [getReference, setGetReference] = useState(0);
@@ -65,8 +65,8 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
-        // meetupTime: "2021-12-24 10:25:00 +0000",
-        // restaurantId: 10,
+        meetuptime: new Date(Date.now()).toISOString(),
+        restaurantid: 9,
         studentemail: user,
       }),
     })
@@ -121,19 +121,7 @@ export default function HomeScreen({ route, navigation }) {
                     key={index}
                     onPress={() => navigation.navigate("Post", { item })}
                   >
-                    <Post
-                      item={item}
-                      email={item.email}
-                      title={item.posttitle}
-                      icon={item.icon}
-                      venue={item.name}
-                      postTime={moment(item.posttime)
-                        .startOf("seconds")
-                        .fromNow()}
-                      meetupTime={moment(item.meetuptime).format(
-                        "MMM D, YYYY [at] h:mma"
-                      )}
-                    />
+                    <Post {...item} />
                   </TouchableOpacity>
                 );
               })}

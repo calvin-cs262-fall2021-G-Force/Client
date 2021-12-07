@@ -19,17 +19,18 @@ export const postStyles = StyleSheet.create({
   //the post informations
   content: {
     paddingTop: 10,
-    paddingLeft: 20,
   },
 
   contentTitleText: {
     fontSize: 18,
     fontWeight: "bold",
+    paddingLeft: 20,
   },
 
   contentDetailsText: {
     fontSize: 15,
     fontStyle: "italic",
+    marginLeft: -15,
   },
 
   date: {

@@ -33,15 +33,18 @@ export default Post = (props) => {
             </View>
             <View style={postStyles.content}>
               <Text style={postStyles.contentTitleText}>
-                {props.title}
+                {props.posttitle}
                 {"\n"}
               </Text>
               <Text style={postStyles.contentDetailsText}>
-                Venue: {props.venue}
+                Venue: {props.restaurantname}
                 {"\n"}
               </Text>
               <Text style={postStyles.contentDetailsText}>
-                Meetup time: {props.meetupTime}
+                {/* Meetup time: {props.meetupTime} */}
+                Meetup time:{" "}
+                {moment(props.meetuptime).format("MMMM D, YYYY [at] h:mma")}
+                {/* {moment(props.meetupTime).format("MMMM D, YYYY [at] h:mm a")} */}
                 {"\n"}
               </Text>
             </View>
@@ -49,7 +52,7 @@ export default Post = (props) => {
         </View>
         <View style={postStyles.date}>
           <Text style={{ fontSize: 13, fontStyle: "italic" }}>
-            {props.postTime}
+            {moment(props.posttime).startOf("seconds").fromNow()}
           </Text>
           {/* <Text style={{fontSize:12}}>{moment.(props.date).startOf('seconds').fromNow()}</Text> */}
         </View>
