@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { postStyles } from "../styles/post";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import moment from "moment";
 
+import { UserContext } from "../util/GlobalStateManager";
+
 export default Post = (props) => {
   const navigation = useNavigation();
-  const email = props.email;
+  const email = props.studentemail;
+  const { user, readState, setGlobalRead } = useContext(UserContext);
+
+  const deletePosts = async () => {
+    fetch("https://knight-bites.herokuapp.com/posts/" + String(props.id), {
+      method: "DELETE",
+    })
+      .then((responseJson) => {
+        console.log("\ndelete response object:", JSON.stringify(responseJson));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleDeletePost = () => {
+    deletePosts();
+    setGlobalRead(readState + 1);
+  };
 
   return (
     <View>
       <View style={postStyles.box}>
+        <Text>{props.id}</Text>
         <View>
           <View style={{ flexDirection: "row" }}>
             <View style={postStyles.left}>
@@ -31,6 +52,13 @@ export default Post = (props) => {
                 <Ionicons name={props.icon} size={28} color="black" />
               </TouchableOpacity>
             </View>
+            {user === props.email && (
+              <View>
+                <TouchableOpacity onPress={() => handleDeletePost()}>
+                  <Feather name="trash-2" size={34} color="gray" />
+                </TouchableOpacity>
+              </View>
+            )}
             <View style={postStyles.content}>
               <Text style={postStyles.contentTitleText}>
                 {props.posttitle}
@@ -41,10 +69,8 @@ export default Post = (props) => {
                 {"\n"}
               </Text>
               <Text style={postStyles.contentDetailsText}>
-                {/* Meetup time: {props.meetupTime} */}
                 Meetup time:{" "}
                 {moment(props.meetuptime).format("MMMM D, YYYY [at] h:mma")}
-                {/* {moment(props.meetupTime).format("MMMM D, YYYY [at] h:mm a")} */}
                 {"\n"}
               </Text>
             </View>
@@ -54,7 +80,6 @@ export default Post = (props) => {
           <Text style={{ fontSize: 13, fontStyle: "italic" }}>
             {moment(props.posttime).startOf("seconds").fromNow()}
           </Text>
-          {/* <Text style={{fontSize:12}}>{moment.(props.date).startOf('seconds').fromNow()}</Text> */}
         </View>
       </View>
     </View>
