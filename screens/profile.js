@@ -7,7 +7,6 @@ import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 
 export default function ProfileScreen({ navigation }) {
-  const { globalUser } = useContext(UserContext);
   const userEmail = auth.currentUser?.email;
 
   const handleSignOut = () => {

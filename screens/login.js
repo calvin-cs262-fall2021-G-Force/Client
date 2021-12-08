@@ -14,9 +14,6 @@ import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 
 export default function LoginScreen({ navigation }) {
-  // const [username, setUsername] = useState();
-  const { globalUser, setGlobalUser } = useContext(UserContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -94,7 +91,7 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handleSignUp}>
-          <Text style={globalStyles.buttonText}>Sign Up</Text>
+          <Text style={globalStyles.buttonText}>Sign up</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>

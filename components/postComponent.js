@@ -11,7 +11,7 @@ import { UserContext } from "../util/GlobalStateManager";
 export default Post = (props) => {
   const navigation = useNavigation();
   const email = props.studentemail;
-  const { globalUser, readState, setGlobalRead } = useContext(UserContext);
+  const { readState, setGlobalRead } = useContext(UserContext);
   const [showBox, setShowBox] = useState(true);
   const userEmail = auth.currentUser?.email;
 

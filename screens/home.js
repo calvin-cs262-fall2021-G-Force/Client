@@ -36,7 +36,6 @@ export default function HomeScreen({ route, navigation }) {
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const { globalUser } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
 
   const userEmail = auth.currentUser?.email;
@@ -83,9 +82,9 @@ export default function HomeScreen({ route, navigation }) {
     getPosts();
   }, [readState]);
 
-  useEffect(() => {
-    onRefresh();
-  }, []);
+  // useEffect(() => {
+  //   onRefresh();
+  // }, []);
 
   const handleAddPost = () => {
     Keyboard.dismiss();
@@ -98,7 +97,7 @@ export default function HomeScreen({ route, navigation }) {
 
   const onRefresh = () => {
     setRefreshing(true);
-    wait(1500).then(() => setRefreshing(false));
+    wait(800).then(() => setRefreshing(false));
     setGlobalRead(readState + 1);
   };
 
