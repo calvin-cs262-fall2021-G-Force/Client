@@ -72,7 +72,7 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
-        meetuptime: new Date(Date.now()).toISOString(),
+        meetuptime: meetupTime,
         restaurantid: 9,
         studentemail: user,
       }),
