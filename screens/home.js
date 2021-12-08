@@ -16,6 +16,8 @@ import {
   RefreshControl,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
@@ -35,6 +37,11 @@ export default function HomeScreen({ route, navigation }) {
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('1');
+  const [restaurants, setRestaurants] = useState([]);
+  const [meetupTime, setDate] = useState(null);
+  const [show, setShow] = useState(false);
+  const [mode, setMode] = useState(null);
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
 
@@ -52,6 +59,18 @@ export default function HomeScreen({ route, navigation }) {
     }
   };
 
+  const getRestaurants = async () => {
+    try {
+      const response = await fetch('https://knight-bites.herokuapp.com/restaurants');
+      const json = await response.json();
+      setRestaurants(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const postPosts = async () => {
     await fetch("https://knight-bites.herokuapp.com/posts", {
       method: "POST",
@@ -63,7 +82,7 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
-        meetuptime: new Date(Date.now()).toISOString(),
+        meetuptime: meetupTime,
         restaurantid: 9,
         studentemail: user,
       }),
@@ -75,6 +94,10 @@ export default function HomeScreen({ route, navigation }) {
         console.error(error);
       });
   };
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
 
   useEffect(() => {
     getPosts();
@@ -97,6 +120,25 @@ export default function HomeScreen({ route, navigation }) {
     setRefreshing(true);
     wait(1500).then(() => setRefreshing(false));
     setGlobalRead(readState + 1);
+  };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
   };
 
   return (
@@ -157,6 +199,51 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={(text) => setTitle(text)}
                 />
+                <View style={{ flexDirection: "row", alignContent: 'center' }}>
+                  <TouchableOpacity
+                    onPress={showDatepicker}
+                    style={modalStyles.button}
+                  >
+                    <Ionicons
+                      name="calendar"
+                      size={43}
+                      color={'#ccc'}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={showTimepicker}
+                    style={modalStyles.button}
+                  >
+                    <Ionicons
+                      name="time-outline"
+                      size={43}
+                      color={'#ccc'}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={meetupTime}
+                    mode={mode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
+                <Picker
+                  selectedValue={selectedValue}
+                  style={modalStyles.picker}
+                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                  {
+                    restaurants.map((item, index) => {
+                      return (
+                        <Picker.Item label={item.name} value={index} />
+                      )
+                    })
+                  }
+                </Picker>
                 <TextInput
                   style={modalStyles.postInput}
                   placeholder={"Write post here..."}
