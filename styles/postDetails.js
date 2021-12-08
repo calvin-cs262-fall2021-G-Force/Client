@@ -12,21 +12,21 @@ export const postDetailsStyles = StyleSheet.create({
 
     //the box for the whole post detail
     allWrapper:{
-        backgroundColor:'#F3CD00',
+        backgroundColor:'#fff',
         padding:20,
         borderRadius:20,
         width:'100%'
     },
 
     detailsWrapper:{
-        backgroundColor:"#fff",
+        marginTop:15,
+        borderWidth:1,
         padding:20,
         borderRadius:20
     },
 
     poster:{
         fontSize:17,
-        paddingTop:10,
         fontWeight:'bold',
         textDecorationLine:'underline',
     },
@@ -37,13 +37,15 @@ export const postDetailsStyles = StyleSheet.create({
     },
 
     body:{
-        fontSize:20,
+        fontSize:17,
 
     },
 
     dateText:{
         fontSize:14,
         paddingBottom:10,
+        marginTop:5
+        // paddingLeft:50,
     },
 
     signupButton:{

@@ -7,20 +7,18 @@ export const globalStyles = StyleSheet.create({
       Gold:   #F3CD00 
       Can be found at https://calvin.edu/dotAsset/f784aa74-291f-45b1-b45c-d6455663bcb4
     */
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    fontFamily: "Century Schoolbook",
-  },
 
   screen: {
     flex: 1,
     // padding: 10,
+    height:'100%',
     alignItems: "center",
+    marginBottom:60,
+    marginTop:-5,
   },
 
   header: {
-    padding: 10,
+    //padding: 10,
     fontSize: 35,
     fontWeight: "bold",
     alignItems: "center",
@@ -45,7 +43,7 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     right: 20,
     position: "absolute",
-    bottom: 75,
+    bottom: 20,
   },
 
   buttonText: {
@@ -136,4 +134,13 @@ export const globalStyles = StyleSheet.create({
     width: 250,
     marginBottom: 10,
   },
+
+  profileIcon:{
+    alignItems:'center',
+    backgroundColor:'#F3CD00',
+    borderRadius:100,
+    borderColor:'black',
+    borderWidth:2,
+    justifyContent:'center',      
+},
 });

@@ -27,12 +27,6 @@ export default function LoginScreen({ navigation }) {
         {/*The Button - will eventually take to Calvin's sign in page, but for now just takes you straight to the home page*/}
         <Text style={globalStyles.header}>Knight Bites</Text>
 
-<<<<<<< HEAD
-        <TextInput secureTextEntry={true} style={globalStyles.loginInput} placeholder='Password'/>
-      
-        <TouchableOpacity style = {globalStyles.button} onPress= {() => navigation.navigate('Home', {user})}>
-          <Text style = {globalStyles.buttonText}>Login</Text>
-=======
         <TextInput
           style={globalStyles.loginInput}
           placeholder="Username"
@@ -56,7 +50,6 @@ export default function LoginScreen({ navigation }) {
           }}
         >
           <Text style={globalStyles.buttonText}>Login</Text>
->>>>>>> 11ddb10ed202d72d3b3c94a47f54c7bfdb405589
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text style={{ fontSize: 14, color: "#8C2131", padding: 10 }}>
