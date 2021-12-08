@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-
-
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -39,9 +37,15 @@ export default function HomeScreen({ route, navigation }) {
   const [postText, setText] = useState(null);
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
+  const [selectedValue, setSelectedValue] = useState('1');
+  const [restaurants, setRestaurants] = useState([]);
+  const [meetupTime, setDate] = useState(null);
+  const [show, setShow] = useState(false);
+  const [mode, setMode] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
+  
 
   const getPosts = async () => {
     try {
@@ -80,6 +84,22 @@ export default function HomeScreen({ route, navigation }) {
         console.error(error);
       });
   };
+
+  const getRestaurants = async () => {
+    try {
+      const response = await fetch('https://knight-bites.herokuapp.com/restaurants');
+      const json = await response.json();
+      setRestaurants(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
 
   useEffect(() => {
     getPosts();
@@ -206,7 +226,7 @@ export default function HomeScreen({ route, navigation }) {
                 {show && (
                   <DateTimePicker
                     testID="dateTimePicker"
-                    value={postDate}
+                    value={meetupTime}
                     mode={mode}
                     is24Hour={true}
                     display="default"
