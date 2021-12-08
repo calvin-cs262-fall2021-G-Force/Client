@@ -41,7 +41,8 @@ export default function SignUpScreen({ navigation }) {
         console.log("Registered with: ", user.email);
       })
       .catch((error) => alert(error.message));
-    navigation.navigate("Login");
+    // navigation.navigate("Login");
+    // createStudent();
   };
 
   const createStudent = async () => {
@@ -70,6 +71,11 @@ export default function SignUpScreen({ navigation }) {
         console.error(error);
       });
   };
+
+  // const createNewUser = () => {
+  //   handleSignUp;
+  //   createStudent();
+  // };
 
   return (
     <View style={globalStyles.screen}>
