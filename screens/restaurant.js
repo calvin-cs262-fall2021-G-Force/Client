@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { restaurantStyles } from '../styles/restaurant';
 import moment from 'moment';
 
 export default function RestaurantScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
   const getRestaurants = async () => {
     try {
       const response = await fetch('https://knight-bites.herokuapp.com/restaurants');
       const json = await response.json();
-      setData(json);
+      setRestaurants(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -26,21 +26,25 @@ export default function RestaurantScreen({navigation}) {
 
   return (
     <View style={globalStyles.screen}>
-      <Text style={restaurantStyles.heading}>Restaurants</Text>
         <View style={{width:'95%', top:20}}>
           {isLoading ? <ActivityIndicator /> : (
-            <FlatList
-              data={data}
-              keyExtractor={({ id }, index) => id}
-              renderItem={({ item }) => (
-                <View style= {restaurantStyles.box}>
-                    <Text style={restaurantStyles.name}>{item.name}</Text>
+            <ScrollView>
+              <Text style={restaurantStyles.heading}>Restaurants</Text>
+              {restaurants.map((item, index) => {
+                return(
+                  <View
+                    style={restaurantStyles.box}
+                    key={index}
+            
+                  >
+                    <Text style={restaurantStyles.name}>{item.restaurantname}</Text>
                     <Text style={restaurantStyles.discount}>Discount: {item.discount}</Text>
                     <Text style={restaurantStyles.details}>{item.address}</Text>
                     <Text style={restaurantStyles.details}>Open hours : {moment(item.openingtime,"HH:mm:ss").format('h:mm a')} - {moment(item.closingtime,"HH:mm:ss").format('h:mm a')}</Text>
-                </View>
-              )}
-            />
+                  </View>
+              );
+              })}
+            </ScrollView>
           )}
         </View>
     </View>

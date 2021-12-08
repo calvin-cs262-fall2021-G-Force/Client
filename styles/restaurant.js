@@ -12,8 +12,9 @@ export const restaurantStyles = StyleSheet.create({
     heading: {
         fontSize: 30,
         fontWeight: 'bold',
-        alignItems:'center',
+        alignSelf:'center',
         color: "#8C2131",
+        bottom: 5
     },
 
     name:{

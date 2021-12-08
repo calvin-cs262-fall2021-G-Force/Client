@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, Button, FlatList, Modal, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Post from '../components/Post';
 import { globalStyles } from '../styles/global';
 import { postStyles } from '../styles/post';
@@ -7,27 +6,51 @@ import { modalStyles } from '../styles/modal';
 
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import moment from 'moment';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect, useContext } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Modal,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+import Post from "../components/postComponent";
+import { globalStyles } from "../styles/global";
+import { postStyles } from "../styles/post";
+import { modalStyles } from "../styles/modal";
+import { UserContext } from "../util/GlobalStateManager";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 export default function HomeScreen({ route, navigation }) {
-
   const [isLoading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [postTitle, setTitle] = useState();
-  const [postText, setText] = useState();
-  const [postDate, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
+  const [postTitle, setTitle] = useState(null);
+  const [postText, setText] = useState(null);
   const [postItems, setPostItems] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("1");
-  const [getReference, setGetReference] = useState(0);
   const [isButtonVisible, setButtonVisible] = useState(true);
-  const [show, setShow] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const { user } = useContext(UserContext);
+  const { readState, setGlobalRead } = useContext(UserContext);
 
   const getPosts = async () => {
     try {
-      const response = await fetch('https://knight-bites.herokuapp.com/posts');
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/posts-details"
+      );
       const json = await response.json();
       setPostItems(json);
     } catch (error) {
@@ -35,55 +58,54 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
-  }
-
-  const getRestaurants = async () => {
-    try {
-      const response = await fetch('https://knight-bites.herokuapp.com/restaurants');
-      const json = await response.json();
-      setRestaurants(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  };
 
   const postPosts = async () => {
-    await fetch('https://knight-bites.herokuapp.com/posts', {
-      method: 'POST',
+    await fetch("https://knight-bites.herokuapp.com/posts", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        'posttitle': postTitle,
-        'post': postText,
-        'posttime': new Date(),
-        'studentemail': route.params.user
-      })
+        posttitle: postTitle,
+        post: postText,
+        posttime: new Date(),
+        meetuptime: new Date(Date.now()).toISOString(),
+        restaurantid: 9,
+        studentemail: user,
+      }),
     })
       .then((responseJson) => {
-        console.log('response object:', JSON.stringify(responseJson))
+        console.log("post response object:", JSON.stringify(responseJson));
       })
       .catch((error) => {
         console.error(error);
-      })
+      });
   };
 
   useEffect(() => {
     getPosts();
-    getRestaurants();
-  }, [getReference])
+  }, [readState]);
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   const handleAddPost = () => {
     Keyboard.dismiss();
     postPosts();
     setText(null);
     setTitle(null);
-    setGetReference(getReference + 1);
+    setGlobalRead(readState + 1);
     Alert.alert("New Post Created");
-  }
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    wait(1500).then(() => setRefreshing(false));
+    setGlobalRead(readState + 1);
+  };
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -108,21 +130,28 @@ export default function HomeScreen({ route, navigation }) {
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
         <View style={globalStyles.items}>
-          {isLoading
-            ? <ActivityIndicator />
-            : (
-              <ScrollView >
-              {
-                postItems.map((item, index) => {
-                  return (
-                    <TouchableOpacity style={postStyles.item} key={index} onPress={() => navigation.navigate('Post', {item})}>
-                      <Post title={item.posttitle} date={moment(item.posttime).startOf('seconds').fromNow()}/>
-                    </TouchableOpacity>
-                  )
-                })
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }
-              </ScrollView>
-            )}
+            >
+              {postItems.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={postStyles.item}
+                    key={index}
+                    onPress={() => navigation.navigate("Post", { item })}
+                  >
+                    <Post {...item} />
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          )}
         </View>
       </View>
 
@@ -151,9 +180,9 @@ export default function HomeScreen({ route, navigation }) {
               >
                 <TextInput
                   style={globalStyles.input}
-                  placeholder={'Add title...'}
+                  placeholder={"Add title..."}
                   value={postTitle}
-                  onChangeText={text => setTitle(text)}
+                  onChangeText={(text) => setTitle(text)}
                 />
                 <View style={{ flexDirection:"row", alignContent: 'center'}}>
                   <TouchableOpacity
@@ -203,16 +232,16 @@ export default function HomeScreen({ route, navigation }) {
 
                 <TextInput
                   style={modalStyles.postInput}
-                  placeholder={'Write post here...'}
+                  placeholder={"Write post here..."}
                   value={postText}
-                  onChangeText={text => setText(text)}
+                  onChangeText={(text) => setText(text)}
                 />
                 <Pressable
                   style={[modalStyles.button, modalStyles.buttonOpen]}
-                  onPressIn={() => handleAddPost()}
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     setButtonVisible(true);
+                    handleAddPost();
                   }}
                 >
                   <Text style={modalStyles.textStyle}>Add Post</Text>
@@ -222,7 +251,7 @@ export default function HomeScreen({ route, navigation }) {
           </TouchableOpacity>
         </Modal>
       </View>
-      {isButtonVisible ?
+      {isButtonVisible ? (
         <TouchableOpacity
           style={globalStyles.addPost}
           onPress={() => {
@@ -231,14 +260,10 @@ export default function HomeScreen({ route, navigation }) {
           }}
         >
           <View>
-            <Ionicons
-              name='create-outline'
-              size={34}
-              color='#F3CD00'
-            />
+            <Ionicons name="create-outline" size={34} color="#F3CD00" />
           </View>
         </TouchableOpacity>
-        : null}
+      ) : null}
     </View>
   );
 }

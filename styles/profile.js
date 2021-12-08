@@ -12,9 +12,12 @@ export const profileStyles = StyleSheet.create({
         //alignItems:'center',
     },
     discountText: {
+        alignSelf:'center',
         fontSize:20,
         fontWeight: 'bold',
         padding: 20,
-        //alignItems:'center',
+        backgroundColor:'#8C2131',
+        color:'#F3CD00',
+        borderRadius:15,
     }
 });
