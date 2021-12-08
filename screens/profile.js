@@ -12,6 +12,7 @@ import { globalStyles } from "../styles/global";
 import { userStyles } from "../styles/poster";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function ProfileScreen({ navigation }) {
   const [student, setStudent] = useState([]);
@@ -81,8 +82,8 @@ export default function ProfileScreen({ navigation }) {
         <Text style={profileStyles.discountText}>Student Discount Card</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Discount")}>
-        <Text style={profileStyles.discountText}>Student Discount Card</Text>
+      <TouchableOpacity onPress={handleSignOut}>
+        <Text style={profileStyles.discountText}>Sign Out</Text>
       </TouchableOpacity>
     </View>
   );
@@ -101,9 +102,9 @@ export default function ProfileScreen({ navigation }) {
   //         <Text style={profileStyles.discountText}>Student Discount Card</Text>
   //       </TouchableOpacity>
 
-  //       <TouchableOpacity style={globalStyles.button} onPress={handleSignOut}>
-  //         <Text style={globalStyles.buttonText}>Sign Out</Text>
-  //       </TouchableOpacity>
+  // <TouchableOpacity style={globalStyles.button} onPress={handleSignOut}>
+  //   <Text style={globalStyles.buttonText}>Sign Out</Text>
+  // </TouchableOpacity>
   //     </View>
   // import { Ionicons } from '@expo/vector-icons';
 

@@ -27,7 +27,7 @@ export default function PostScreen({ route, navigation }) {
               onPress={() => navigation.navigate("Poster", { poster })}
             >
               <Text style={postDetailsStyles.poster}>
-                {data.firstname} {data.lastname}
+                {route.params.item.firstname} {route.params.item.lastname}
               </Text>
             </TouchableOpacity>
             <Text style={postDetailsStyles.dateText}>

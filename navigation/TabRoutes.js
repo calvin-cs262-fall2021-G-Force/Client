@@ -30,11 +30,14 @@ function TabRoutes() {
           marginBottom: -5,
           borderTopWidth: 0,
         },
-        // headerTintColor: "red",
+        // headerTintColor: "maroon",
         // headerTransparent: true,
         headerShadowVisible: false,
         // headerStyle: { backgroundColor: "green" },
-        headerTitleStyle: { fontWeight: "bold", fontSize: 25 },
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 30,
+        },
       }}
     >
       <Tab.Screen
@@ -50,6 +53,7 @@ function TabRoutes() {
               />
             );
           },
+          headerTitle: "Knight Bites",
         }}
       />
       <Tab.Screen
@@ -80,6 +84,7 @@ function TabRoutes() {
               />
             );
           },
+          headerTitle: "Your Profile",
         }}
       />
     </Tab.Navigator>

@@ -11,10 +11,10 @@ export const globalStyles = StyleSheet.create({
   screen: {
     flex: 1,
     // padding: 10,
-    height:'100%',
+    height: "100%",
     alignItems: "center",
-    marginBottom:60,
-    marginTop:-5,
+    marginBottom: 60,
+    marginTop: -5,
   },
 
   header: {
@@ -135,12 +135,12 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  profileIcon:{
-    alignItems:'center',
-    backgroundColor:'#F3CD00',
-    borderRadius:100,
-    borderColor:'black',
-    borderWidth:2,
-    justifyContent:'center',      
-},
+  profileIcon: {
+    alignItems: "center",
+    backgroundColor: "#F3CD00",
+    borderRadius: 100,
+    borderColor: "black",
+    borderWidth: 2,
+    justifyContent: "center",
+  },
 });
