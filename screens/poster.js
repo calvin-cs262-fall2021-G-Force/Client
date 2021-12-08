@@ -4,22 +4,24 @@ import { globalStyles } from '../styles/global';
 import { Ionicons } from '@expo/vector-icons';
 import { userStyles } from '../styles/poster';
 
-export default function PosterScreen({ route, navigation}) {
-    const [student, setStudent] = useState(route.params.poster)
-    const [data, setData] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+export default function PosterScreen({ route, navigation }) {
+  const [student, setStudent] = useState(route.params.poster);
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
-    const getStudent = async () => {
-        try {
-          const response = await fetch('https://knight-bites.herokuapp.com/students/' + String(student));
-          const json = await response.json();
-          setData(json);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setLoading(false);
-        }
-      }
+  const getStudent = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/students/" + String(student)
+      );
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
       useEffect(() => {
         getStudent();
