@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   Text,
   View,
   TouchableOpacity,
-  useState,
-  useEffect,
   TextInput,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { auth } from "../firebase";
 
+import { auth } from "../firebase";
 import { globalStyles } from "../styles/global";
 
 export default function SignUpScreen({ navigation }) {

@@ -25,7 +25,7 @@ export const globalStyles = StyleSheet.create({
   },
 
   button: {
-    width: 120,
+    width: 250,
     height: 60,
     backgroundColor: "#8C2131",
     borderRadius: 20,
@@ -49,6 +49,12 @@ export const globalStyles = StyleSheet.create({
   buttonText: {
     fontSize: 24,
     color: "#F3CD00",
+  },
+
+  signUpText: {
+    fontSize: 18,
+    color: "#8C2131",
+    paddingTop: 20,
   },
 
   //Need a way to add line breaks to text that is added to the post

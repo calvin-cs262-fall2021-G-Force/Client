@@ -79,7 +79,12 @@ export default function HomeScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    getPosts();
+    let mounted = true;
+    if (mounted) {
+      getPosts();
+    }
+
+    return () => (mounted = false);
   }, [readState]);
 
   // useEffect(() => {
@@ -97,7 +102,7 @@ export default function HomeScreen({ route, navigation }) {
 
   const onRefresh = () => {
     setRefreshing(true);
-    wait(800).then(() => setRefreshing(false));
+    wait(1500).then(() => setRefreshing(false));
     setGlobalRead(readState + 1);
   };
 

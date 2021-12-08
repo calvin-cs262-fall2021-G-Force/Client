@@ -90,8 +90,8 @@ export default function LoginScreen({ navigation }) {
           <Text style={globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleSignUp}>
-          <Text style={globalStyles.buttonText}>Sign up</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <Text style={globalStyles.signUpText}>Don't have an account?</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
