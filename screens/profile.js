@@ -28,23 +28,6 @@ export default function ProfileScreen({ navigation }) {
     getUser();
   }, []);
   //Shows profile
-<<<<<<< HEAD
-  return(
-    <View style={globalStyles.screen}>     
-        <Image source={profilePic} style={{width:50, height:55}}/>
-            <View style={profileStyles.text}>
-                <Text style={profileStyles.text}>Name: John Calvin</Text>
-                <Text style={profileStyles.text}>Year: Sophomore</Text>
-                <Text style={profileStyles.text}>Bio: Hi all, I love spicy food!</Text>
-            </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Discount')}>
-                <Text style={profileStyles.discountText}>Student Discount Card</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-                <Text style={profileStyles.discountText}>Restaurant</Text>
-            </TouchableOpacity>
-    </View>
-=======
   return (
     // <View style={globalStyles.screen}>
     //   <Image source={profilePic} style={{ width: 50, height: 55 }} />
@@ -91,6 +74,5 @@ export default function ProfileScreen({ navigation }) {
           <Text style={profileStyles.discountText}>Student Discount Card</Text>
           </TouchableOpacity>
         </View>      
->>>>>>> 538e8bb9a85cba1bfcae4bf07060cfad66e880da
   );
 }

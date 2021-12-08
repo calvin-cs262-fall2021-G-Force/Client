@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Post from '../components/Post';
-import { globalStyles } from '../styles/global';
-import { postStyles } from '../styles/post';
-import { modalStyles } from '../styles/modal';
+import React, { useState, useEffect, useContext } from "react";
+
 
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React, { useState, useEffect, useContext } from "react";
+
 import {
   ActivityIndicator,
   Alert,
@@ -25,11 +22,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import Post from "../components/postComponent";
-import { globalStyles } from "../styles/global";
-import { postStyles } from "../styles/post";
-import { modalStyles } from "../styles/modal";
 import { UserContext } from "../util/GlobalStateManager";
+import Post from '../components/Post';
+import { globalStyles } from '../styles/global';
+import { postStyles } from '../styles/post';
+import { modalStyles } from '../styles/modal';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
