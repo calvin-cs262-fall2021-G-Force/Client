@@ -16,6 +16,7 @@ export default function PostScreen({ route, navigation }) {
   const [attendeeVisible, setAttendeeVisible] =useState(false);
   const [attendees, setAttendees] = useState([]);
   const [isModalVisible, setModalVisible] =useState(false);
+  const [readAttendees, setReadAttendees] = useState(0);
 
   const getStudent = async () => {
     try {
@@ -33,8 +34,12 @@ export default function PostScreen({ route, navigation }) {
 
   useEffect(() => {
     getStudent();
-    getAttendees();
+    
   }, []);
+
+  useEffect(() => {
+    getAttendees();
+  }, [readAttendees]);
 
   const getAttendees = async () => {
     try {
@@ -109,14 +114,27 @@ export default function PostScreen({ route, navigation }) {
             {"\n"}
           </Text>
         </View>
+        {user !==route.params.item.studentemail && (
+        <View>
         <TouchableOpacity
           onPress={() => {
             Alert.alert("Signed up for event!");
+            addAttendee();
+            setReadAttendees(readAttendees+1);
           }}
           style={postDetailsStyles.signupButton}
         >
           <Text style={postDetailsStyles.signupButtonText}>Attend</Text>
         </TouchableOpacity>
+        </View>
+        )}
+        {/* {user === props.email && (
+              <View>
+                <TouchableOpacity onPress={() => showConfirmDialog()}>
+                  <Feather name="trash-2" size={34} color="gray" />
+                </TouchableOpacity>
+              </View>
+            )} */}
 
         <View style={postDetailsStyles.signupButtonText}>
           <TouchableOpacity onPress={() => {setAttendeeVisible(true); setModalVisible(true)}}>

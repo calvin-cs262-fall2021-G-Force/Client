@@ -127,8 +127,11 @@ export default function HomeScreen({ route, navigation }) {
           )}
         </View>
       </View>
-
-      <View style={modalStyles.centeredView}>
+    
+      {/* <View style={modalStyles.modalView}> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <Modal
           animationType="slide"
           transparent={true}
@@ -139,21 +142,20 @@ export default function HomeScreen({ route, navigation }) {
             setButtonVisible(true);
           }}
         >
-          <TouchableOpacity
-            style={modalStyles.centeredView}
+          {/* <TouchableOpacity
+            style={{width: '100%', height: 70, margin: 0}}
             onPressOut={() => {
               Alert.alert("No changes made");
               setModalVisible(!modalVisible);
               setButtonVisible(true);
             }}
-          >
+          /> */}
+          
             <View style={modalStyles.modalView}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-              >
+             
                 <TextInput
                   style={globalStyles.input}
-                  placeholder={"Add title..."}
+                  placeholder={"Title..."}
                   value={postTitle}
                   onChangeText={(text) => setTitle(text)}
                 />
@@ -171,13 +173,15 @@ export default function HomeScreen({ route, navigation }) {
                     handleAddPost();
                   }}
                 >
-                  <Text style={modalStyles.textStyle}>Add Post</Text>
+                  <Text style={modalStyles.textStyle}>Post</Text>
                 </Pressable>
-              </KeyboardAvoidingView>
+              
             </View>
-          </TouchableOpacity>
         </Modal>
-      </View>
+      </KeyboardAvoidingView>
+      {/* </View> */}
+
+
       {isButtonVisible ? (
         <TouchableOpacity
           style={globalStyles.addPost}
