@@ -16,6 +16,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { auth } from "../firebase";
 
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
@@ -35,8 +36,10 @@ export default function HomeScreen({ route, navigation }) {
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const { user } = useContext(UserContext);
+  const { globalUser } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
+
+  const userEmail = auth.currentUser?.email;
 
   const getPosts = async () => {
     try {
@@ -65,7 +68,7 @@ export default function HomeScreen({ route, navigation }) {
         posttime: new Date(),
         meetuptime: new Date(Date.now()).toISOString(),
         restaurantid: 9,
-        studentemail: user,
+        studentemail: userEmail,
       }),
     })
       .then((responseJson) => {

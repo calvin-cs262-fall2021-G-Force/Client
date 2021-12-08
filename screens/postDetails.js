@@ -8,28 +8,7 @@ import { postDetailsStyles } from "../styles/postDetails";
 
 export default function PostScreen({ route, navigation }) {
   const poster = route.params.item.studentemail;
-  const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-
-  const getStudent = async () => {
-    try {
-      const response = await fetch(
-        "https://knight-bites.herokuapp.com/students/" + String(poster)
-      );
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getStudent();
-  }, []);
-
-  const iconName = data.icon;
+  const iconName = route.params.item.icon;
 
   return (
     <View style={postDetailsStyles.screen}>
@@ -40,7 +19,7 @@ export default function PostScreen({ route, navigation }) {
         >
           <Ionicons name={iconName} size={40} color="#8C2131" />
           <Text style={postDetailsStyles.poster}>
-            {data.firstname} {data.lastname}
+            {route.params.item.firstname} {route.params.item.lastname}
           </Text>
         </TouchableOpacity>
         <Text style={postDetailsStyles.dateText}>

@@ -121,10 +121,10 @@ export const globalStyles = StyleSheet.create({
   },
 
   loginTextBox: {
-    position: "absolute",
+    flex: 1,
     paddingHorizontal: 10,
-    bottom: 50,
     alignItems: "center",
+    justifyContent: "center",
   },
   loginInput: {
     paddingVertical: 15,
