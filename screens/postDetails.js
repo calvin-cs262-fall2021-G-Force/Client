@@ -5,6 +5,7 @@ import moment from "moment";
 import { Button } from "react-native-paper";
 
 import { postDetailsStyles } from "../styles/postDetails";
+import { globalStyles } from "../styles/global";
 
 export default function PostScreen({ route, navigation }) {
   const poster = route.params.item.studentemail;
@@ -34,22 +35,32 @@ export default function PostScreen({ route, navigation }) {
   return (
     <View style={postDetailsStyles.screen}>
       <View style={postDetailsStyles.allWrapper}>
+        <View style={{flexDirection:'row'}}>
         <TouchableOpacity
           onPress={() => navigation.navigate("Poster", { poster })}
-          style={{ flexDirection: "row" }}
         >
-          <Ionicons name={iconName} size={40} color="#8C2131" />
-          <Text style={postDetailsStyles.poster}>
-            {data.firstname} {data.lastname}
-          </Text>
+          <View style= {[globalStyles.profileIcon,{width:40,height:40}]}>
+            <Ionicons 
+                name={iconName} 
+                size={28} 
+                color="#000" />
+          </View>
         </TouchableOpacity>
-        <Text style={postDetailsStyles.dateText}>
-          {" "}
-          {moment(route.params.item.posttime).format(
-            "MMMM D, YYYY [at] h:mm a"
-          )}
-        </Text>
-
+        <View style={{paddingLeft:20}}>
+          <TouchableOpacity onPress={() => navigation.navigate("Poster", { poster })}>
+            <Text style={postDetailsStyles.poster}>
+              {data.firstname} {data.lastname}
+            </Text>
+          </TouchableOpacity>
+          <Text style={postDetailsStyles.dateText}>
+          
+            {" "}
+            {moment(route.params.item.posttime).format(
+              "MMMM D, YYYY [at] h:mm a"
+            )}
+          </Text>
+        </View>
+        </View>
         <View style={postDetailsStyles.detailsWrapper}>
           <Text style={postDetailsStyles.title}>
             {route.params.item.posttitle}

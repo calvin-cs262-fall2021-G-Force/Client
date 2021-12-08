@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { postStyles } from "../styles/post";
+import { globalStyles } from "../styles/global";
 import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import moment from "moment";
@@ -59,21 +60,10 @@ export default Post = (props) => {
   return (
     <View>
       <View style={postStyles.box}>
-        <Text>{props.id}</Text>
         <View>
           <View style={{ flexDirection: "row" }}>
             <View style={postStyles.left}>
-              <TouchableOpacity
-                style={{
-                  height: 40,
-                  width: 40,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderWidth: 2,
-                  borderRadius: 23,
-                  backgroundColor: "gold",
-                  borderColor: "black",
-                }}
+              <TouchableOpacity style={[globalStyles.profileIcon,{width:40, height:40}]}
                 onPress={() => navigation.navigate("Poster", { poster: email })}
               >
                 <Ionicons name={props.icon} size={28} color="black" />
