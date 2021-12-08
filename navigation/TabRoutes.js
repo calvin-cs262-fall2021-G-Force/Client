@@ -1,7 +1,7 @@
 import React from "react";
 import HomeScreen from "../screens/home";
 import ProfileScreen from "../screens/profile";
-import Header from "../shared/header";
+import RestaurantScreen from "../screens/restaurant";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -44,9 +44,24 @@ function TabRoutes() {
           tabBarIcon: ({ focused }) => {
             return (
               <Ionicons
-                name="home"
+                name={focused ? "home" : "home-outline"}
                 size={27}
-                color={focused ? "maroon" : "gray"}
+                color="maroon"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Restaurants"
+        component={RestaurantScreen}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <Ionicons
+                name={focused ? "fast-food" : "fast-food-outline"}
+                size={27}
+                color="maroon"
               />
             );
           },
@@ -59,9 +74,9 @@ function TabRoutes() {
           tabBarIcon: ({ focused }) => {
             return (
               <Ionicons
-                name="person"
+                name={focused ? "person" : "person-outline"}
                 size={27}
-                color={focused ? "maroon" : "gray"}
+                color="maroon"
               />
             );
           },
