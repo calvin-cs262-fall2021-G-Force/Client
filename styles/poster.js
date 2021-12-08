@@ -1,19 +1,28 @@
 import { StyleSheet } from 'react-native';
 
-export const posterStyles = StyleSheet.create({
-    profileIcon:{
-        alignItems:'center',
-        backgroundColor:'#fff',
-        borderRadius:100,
+export const userStyles = StyleSheet.create({
+    user:{
         justifyContent:'center',
-        width:90,
-        height:90,
-        alignSelf:'center'
-        
+        backgroundColor:'#fff',
+        padding:15,
+        borderWidth:1,
+        borderTopRightRadius:30,
+        borderBottomLeftRadius:30
+        //  margin:30
+    },
+    
+    upper:{
+        flexDirection:'row',
+        // paddingLeft:30
+    },
+    lower:{
+        flexDirection:'row',
+        marginTop:20,
     },
 
-    user:{
-        alignItems:'center',
+    details:{
+        paddingLeft:30,
+        marginTop:10,
     },
 
     name:{
@@ -21,12 +30,24 @@ export const posterStyles = StyleSheet.create({
         fontWeight:'bold',
     },
 
-    details:{
-        fontSize:14,
+    detailstext:{
+        fontSize:16,
 
     },
 
-    bio:{
+    bioheading:{
         fontSize:16,
-    }
+        fontWeight:'bold',
+        // paddingLeft:30,
+    },
+
+    biodetails:{
+        fontSize:16,
+    },
+
+    editProfile:{
+        backgroundColor:'#afc7b5',
+        alignItems:'center',
+        borderRadius:15,
+    },
 });
