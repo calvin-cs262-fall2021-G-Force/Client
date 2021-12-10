@@ -87,9 +87,9 @@ export default function HomeScreen({ route, navigation }) {
     return () => (mounted = false);
   }, [readState]);
 
-  // useEffect(() => {
-  //   onRefresh();
-  // }, []);
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   const handleAddPost = () => {
     Keyboard.dismiss();

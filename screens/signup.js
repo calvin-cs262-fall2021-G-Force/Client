@@ -15,10 +15,11 @@ import { globalStyles } from "../styles/global";
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState(null);
   const [collegeYear, setCollegeYear] = useState("");
   const [bio, setBio] = useState("");
+  const [createStudentRef, setCreateStudentRef] = useState(0);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {});
@@ -30,7 +31,7 @@ export default function SignUpScreen({ navigation }) {
       }
     });
 
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   const handleSignUp = () => {
@@ -38,7 +39,7 @@ export default function SignUpScreen({ navigation }) {
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log("Registered with: ", user.email);
+        console.log("\nRegistered with: ", user.email);
       })
       .catch((error) => alert(error.message));
     // navigation.navigate("Login");
@@ -53,16 +54,16 @@ export default function SignUpScreen({ navigation }) {
       },
       body: JSON.stringify({
         email: email,
-        firstname: firstname,
-        lastName: lastName,
-        password: "",
+        firstname: firstName,
+        lastname: lastName,
         collegeyear: collegeYear,
         bio: bio,
+        icon: "skull",
       }),
     })
       .then((responseJson) => {
         console.log(
-          "createStudent response object:",
+          "\ncreateStudent response object:",
           JSON.stringify(responseJson)
         );
       })
@@ -70,13 +71,6 @@ export default function SignUpScreen({ navigation }) {
         console.error(error);
       });
   };
-
-  const createNewUser = () => {
-    createStudent();
-    // handleSignUp;
-  };
-
-  useEffect;
 
   return (
     <View style={globalStyles.screen}>
@@ -90,7 +84,7 @@ export default function SignUpScreen({ navigation }) {
           style={globalStyles.loginInput}
           placeholder="First Name"
           onChangeText={(text) => setFirstName(text)}
-          value={firstname}
+          value={firstName}
         />
 
         <TextInput
@@ -131,9 +125,8 @@ export default function SignUpScreen({ navigation }) {
 
         <TouchableOpacity
           style={globalStyles.button}
-          onPress={() => {
-            createNewUser();
-          }}
+          onPressOut={handleSignUp}
+          onPress={createStudent}
         >
           <Text style={globalStyles.buttonText}>Sign Up</Text>
         </TouchableOpacity>

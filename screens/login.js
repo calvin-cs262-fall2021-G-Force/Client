@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
       }
     });
 
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   const handleSignUp = () => {
