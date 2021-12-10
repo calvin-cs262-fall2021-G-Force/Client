@@ -71,10 +71,10 @@ export default function SignUpScreen({ navigation }) {
       });
   };
 
-  // const createNewUser = () => {
-  //   handleSignUp;
-  //   createStudent();
-  // };
+  const createNewUser = () => {
+    createStudent();
+    // handleSignUp;
+  };
 
   useEffect;
 
@@ -132,8 +132,7 @@ export default function SignUpScreen({ navigation }) {
         <TouchableOpacity
           style={globalStyles.button}
           onPress={() => {
-            createStudent();
-            // handleSignUp();
+            createNewUser();
           }}
         >
           <Text style={globalStyles.buttonText}>Sign Up</Text>
