@@ -42,7 +42,6 @@ export default function SignUpScreen({ navigation }) {
       })
       .catch((error) => alert(error.message));
     // navigation.navigate("Login");
-    // createStudent();
   };
 
   const createStudent = async () => {
@@ -76,6 +75,8 @@ export default function SignUpScreen({ navigation }) {
   //   handleSignUp;
   //   createStudent();
   // };
+
+  useEffect;
 
   return (
     <View style={globalStyles.screen}>
@@ -128,7 +129,13 @@ export default function SignUpScreen({ navigation }) {
           secureTextEntry
         />
 
-        <TouchableOpacity style={globalStyles.button} onPress={handleSignUp}>
+        <TouchableOpacity
+          style={globalStyles.button}
+          onPress={() => {
+            createStudent();
+            // handleSignUp();
+          }}
+        >
           <Text style={globalStyles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
