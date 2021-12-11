@@ -17,7 +17,7 @@ import {
   Picker,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Picker } from '@react-native-picker/picker';
+// import { Picker } from '@react-native-picker/picker';
 import { auth } from "../firebase";
 
 import Post from "../components/postComponent";
@@ -117,7 +117,6 @@ export default function HomeScreen({ route, navigation }) {
   }, []);
 
   useEffect(() => {
-    getPosts();
     let mounted = true;
 
     if (mounted) {
