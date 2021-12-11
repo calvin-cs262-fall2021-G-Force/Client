@@ -58,7 +58,9 @@ export const modalStyles = StyleSheet.create({
         height: 60,
         width: 250,
         marginTop: 10,
-        borderRadius: 10
-
+        borderRadius: 20,
+        borderColor: '#8C2131',
+        borderWidth: 20,
+        backgroundColor: "#fff"
     }
 });
