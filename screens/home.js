@@ -39,9 +39,10 @@ export default function HomeScreen({ route, navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedValue, setSelectedValue] = useState('1');
   const [restaurants, setRestaurants] = useState([]);
-  const [meetupTime, setDate] = useState(null);
-  const [show, setShow] = useState(false);
-  const [mode, setMode] = useState(null);
+  const [meetupTime, setTime] = useState("12:00");
+  const [meetupDate, setDate] = useState(new Date(1598051730000));
+  const [showTime, setShowtime] = useState(false);
+  const [showDate, setShowdate] = useState(false);
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
 
@@ -82,7 +83,7 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
-        meetuptime: meetupTime,
+        meetuptime: new Date(),
         restaurantid: 9,
         studentemail: user,
       }),
@@ -122,23 +123,14 @@ export default function HomeScreen({ route, navigation }) {
     setGlobalRead(readState + 1);
   };
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+  const onChangeTime = (event, selectedTime) => {
+    setShowtime(false);
+    setTime(selectedTime);
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
+  const onChangeDate = (event, selectedDate) => {
+    setShowdate(false);
+    setDate(selectedDate);
   };
 
   return (
@@ -199,9 +191,9 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={(text) => setTitle(text)}
                 />
-                <View style={{ flexDirection: "row", alignContent: 'center' }}>
+                {/* <View style={{ flexDirection: "row", alignContent: 'center' }}>
                   <TouchableOpacity
-                    onPress={showDatepicker}
+                    onPress={setShowdate(true)}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -211,7 +203,7 @@ export default function HomeScreen({ route, navigation }) {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={showTimepicker}
+                    onPress={() => setShowtime(true)}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -221,16 +213,26 @@ export default function HomeScreen({ route, navigation }) {
                     />
                   </TouchableOpacity>
                 </View>
-                {show && (
+                {showDate && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={meetupDate}
+                    mode={'date'}
+                    is24Hour={true}
+                    display="default"
+                    onChange={onChangeDate}
+                  />
+                )}
+                {showTime && (
                   <DateTimePicker
                     testID="dateTimePicker"
                     value={meetupTime}
-                    mode={mode}
+                    mode={'time'}
                     is24Hour={true}
                     display="default"
-                    onChange={onChange}
+                    onChange={onChangeTime}
                   />
-                )}
+                )} */}
                 <Picker
                   selectedValue={selectedValue}
                   style={modalStyles.picker}
@@ -239,7 +241,7 @@ export default function HomeScreen({ route, navigation }) {
                   {
                     restaurants.map((item, index) => {
                       return (
-                        <Picker.Item label={item.name} value={index} />
+                        <Picker.Item label={item.name} value={1 + index} />
                       )
                     })
                   }

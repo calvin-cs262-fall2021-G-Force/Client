@@ -53,5 +53,12 @@ export const modalStyles = StyleSheet.create({
         borderWidth: 1,
         height: 200,
         width: 250,
+    },
+    picker: {
+        height: 60,
+        width: 250,
+        marginTop: 10,
+        borderRadius: 10
+
     }
 });
