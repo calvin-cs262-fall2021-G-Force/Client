@@ -7,6 +7,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 
 import { auth } from "../firebase";
@@ -19,6 +20,7 @@ export default function SignUpScreen({ navigation }) {
   const [lastName, setLastName] = useState(null);
   const [collegeYear, setCollegeYear] = useState("");
   const [bio, setBio] = useState("");
+  const [isAuthenticated, setAuthenticated] = useState(false);
   const [createStudentRef, setCreateStudentRef] = useState(0);
 
   useEffect(() => {
@@ -38,8 +40,10 @@ export default function SignUpScreen({ navigation }) {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
+        createStudent();
         const user = userCredentials.user;
         console.log("\nRegistered with: ", user.email);
+        setAuthenticated(true);
       })
       .catch((error) => alert(error.message));
     // navigation.navigate("Login");
@@ -70,6 +74,12 @@ export default function SignUpScreen({ navigation }) {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const handleCreateStudent = () => {
+    {
+      isAuthenticated ? createStudent : setAuthenticated(false);
+    }
   };
 
   return (
@@ -126,7 +136,7 @@ export default function SignUpScreen({ navigation }) {
         <TouchableOpacity
           style={globalStyles.button}
           onPressOut={handleSignUp}
-          onPress={createStudent}
+          onPress={handleCreateStudent}
         >
           <Text style={globalStyles.buttonText}>Sign Up</Text>
         </TouchableOpacity>

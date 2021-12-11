@@ -43,7 +43,7 @@ export default function HomeScreen({ route, navigation }) {
   const getPosts = async () => {
     try {
       const response = await fetch(
-        "https://knight-bites.herokuapp.com/posts-details"
+        "https://knight-bites.herokuapp.com/posts-details/posttime"
       );
       const json = await response.json();
       setPostItems(json);
