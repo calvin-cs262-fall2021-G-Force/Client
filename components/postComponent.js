@@ -5,14 +5,16 @@ import { globalStyles } from "../styles/global";
 import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import moment from "moment";
+import { auth } from "../firebase";
 
 import { UserContext } from "../util/GlobalStateManager";
 
 export default Post = (props) => {
   const navigation = useNavigation();
   const email = props.studentemail;
-  const { user, readState, setGlobalRead } = useContext(UserContext);
+  const { readState, setGlobalRead } = useContext(UserContext);
   const [showBox, setShowBox] = useState(true);
+  const userEmail = auth.currentUser?.email;
 
   const deletePosts = async () => {
     fetch("https://knight-bites.herokuapp.com/posts/" + String(props.id), {
@@ -69,7 +71,7 @@ export default Post = (props) => {
                 <Ionicons name={props.icon} size={28} color="black" />
               </TouchableOpacity>
             </View>
-            {user === props.email && (
+            {userEmail === props.email && (
               <View>
                 <TouchableOpacity onPress={() => showConfirmDialog()}>
                   <Feather name="trash-2" size={34} color="gray" />

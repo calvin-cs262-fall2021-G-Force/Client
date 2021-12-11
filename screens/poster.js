@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text,ActivityIndicator, FlatList } from 'react-native';
-import { globalStyles } from '../styles/global';
-import { Ionicons } from '@expo/vector-icons';
-import { userStyles } from '../styles/poster';
+import React, { useState, useEffect } from "react";
+import { View, Text, ActivityIndicator, FlatList } from "react-native";
+import { globalStyles } from "../styles/global";
+import { Ionicons } from "@expo/vector-icons";
+import { userStyles } from "../styles/poster";
 
 export default function PosterScreen({ route, navigation }) {
   const [student, setStudent] = useState(route.params.poster);
@@ -23,36 +23,45 @@ export default function PosterScreen({ route, navigation }) {
     }
   };
 
-      useEffect(() => {
-        getStudent();
-      }, []);
+  useEffect(() => {
+    let mounted = true;
 
-    return(
-        <View>
-          <View style={{margin:20}}>
-            {isLoading ? <ActivityIndicator /> : (
-              <View style={userStyles.user}>
-                <View style={userStyles.upper}>
-                  <View style={[globalStyles.profileIcon,{width:90,height:90}]}>
-                      <Ionicons
-                      name= {data.icon}
-                      size={60}
-                      color="#000"
-                    />
-                  </View>
-                  <View style={userStyles.details}>
-                    <Text style= {userStyles.name}>{data.firstname} {data.lastname}</Text>
-                    <Text style= {userStyles.detailstext}>{data.collegeyear}</Text>
-                  </View>
-                </View>
-                <View style={userStyles.lower}>
-                    <Text style= {userStyles.bioheading}>Bio:  </Text>
-                    <Text style= {userStyles.biodetails}>{data.bio}</Text>
-                </View>
-              
+    if (mounted) {
+      getStudent();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
+  }, []);
+
+  return (
+    <View>
+      <View style={{ margin: 20 }}>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <View style={userStyles.user}>
+            <View style={userStyles.upper}>
+              <View
+                style={[globalStyles.profileIcon, { width: 90, height: 90 }]}
+              >
+                <Ionicons name={data.icon} size={60} color="#000" />
               </View>
-            )}
+              <View style={userStyles.details}>
+                <Text style={userStyles.name}>
+                  {data.firstname} {data.lastname}
+                </Text>
+                <Text style={userStyles.detailstext}>{data.collegeyear}</Text>
+              </View>
+            </View>
+            <View style={userStyles.lower}>
+              <Text style={userStyles.bioheading}>Bio: </Text>
+              <Text style={userStyles.biodetails}>{data.bio}</Text>
+            </View>
           </View>
-        </View>      
-    );
-  };
+        )}
+      </View>
+    </View>
+  );
+}
