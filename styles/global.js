@@ -11,10 +11,10 @@ export const globalStyles = StyleSheet.create({
   screen: {
     flex: 1,
     // padding: 10,
-    height:'100%',
+    height: "100%",
     alignItems: "center",
-    marginBottom:60,
-    marginTop:-5,
+    marginBottom: 60,
+    marginTop: -5,
   },
 
   header: {
@@ -25,7 +25,7 @@ export const globalStyles = StyleSheet.create({
   },
 
   button: {
-    width: 120,
+    width: 250,
     height: 60,
     backgroundColor: "#8C2131",
     borderRadius: 20,
@@ -51,6 +51,12 @@ export const globalStyles = StyleSheet.create({
     color: "#F3CD00",
   },
 
+  signUpText: {
+    fontSize: 22,
+    color: "#8C2131",
+    padding: 20,
+  },
+
   //Need a way to add line breaks to text that is added to the post
   postsWrapper: {
     width: "100%",
@@ -67,7 +73,7 @@ export const globalStyles = StyleSheet.create({
   items: {
     margin: 15,
     alignContent: "center",
-    // marginTop: -10,
+    marginTop: 5,
   },
 
   input: {
@@ -119,10 +125,10 @@ export const globalStyles = StyleSheet.create({
   },
 
   loginTextBox: {
-    position: "absolute",
+    flex: 1,
     paddingHorizontal: 10,
-    bottom: 50,
     alignItems: "center",
+    justifyContent: "center",
   },
   loginInput: {
     paddingVertical: 15,

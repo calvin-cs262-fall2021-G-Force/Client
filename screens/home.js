@@ -14,9 +14,11 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
+  Picker,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from '@react-native-picker/picker';
+import { auth } from "../firebase";
 
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
@@ -40,11 +42,14 @@ export default function HomeScreen({ route, navigation }) {
   const [restaurants, setRestaurants] = useState([]);
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
+  const [sortSelected, setSortSelected] = useState("posttime");
 
-  const getPosts = async () => {
+  const userEmail = auth.currentUser?.email;
+
+  const getPostsPostTime = async () => {
     try {
       const response = await fetch(
-        "https://knight-bites.herokuapp.com/posts-details"
+        "https://knight-bites.herokuapp.com/posts-details/posttime"
       );
       const json = await response.json();
       setPostItems(json);
@@ -53,6 +58,22 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
+    setGlobalRead(readState + 1);
+  };
+
+  const getPostsMeetUpTime = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/posts-details/meetuptime"
+      );
+      const json = await response.json();
+      setPostItems(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+    setGlobalRead(readState + 1);
   };
 
   const getRestaurants = async () => {
@@ -78,9 +99,9 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
-        meetuptime: new Date(),
+        meetuptime: new Date(Date.now()).toISOString(),
         restaurantid: selectedValue,
-        studentemail: user,
+        studentemail: userEmail,
       }),
     })
       .then((responseJson) => {
@@ -97,10 +118,26 @@ export default function HomeScreen({ route, navigation }) {
 
   useEffect(() => {
     getPosts();
+    let mounted = true;
+
+    if (mounted) {
+      sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, [readState]);
 
   useEffect(() => {
-    onRefresh();
+    let mounted = true;
+    if (mounted) {
+      onRefresh();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   const handleAddPost = () => {
@@ -120,6 +157,38 @@ export default function HomeScreen({ route, navigation }) {
 
   return (
     <View style={globalStyles.screen}>
+      <View
+        style={{
+          flexDirection: "row",
+          paddingRight: 15,
+          alignSelf: "flex-end",
+        }}
+      >
+        <Text style={{ marginTop: 20, fontWeight: "bold", fontSize: 16 }}>
+          Sort By:{" "}
+        </Text>
+        <View
+          style={{
+            marginTop: 10,
+            backgroundColor: "#F3CD00",
+            borderRadius: 20,
+            height: 40,
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Picker
+            selectedValue={sortSelected}
+            style={{ height: 50, width: 178 }}
+            onValueChange={(itemValue, itemIndex) => {
+              setSortSelected(itemValue);
+            }}
+          >
+            <Picker.Item label="Recently posted" value="posttime" />
+            <Picker.Item label="Meet-up Time" value="meetuptime" />
+          </Picker>
+        </View>
+      </View>
       <View style={globalStyles.postsWrapper}>
         <View style={globalStyles.items}>
           {isLoading ? (
@@ -147,7 +216,9 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      <View style={modalStyles.centeredView}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <Modal
           animationType="slide"
           transparent={true}
@@ -159,7 +230,7 @@ export default function HomeScreen({ route, navigation }) {
           }}
         >
           <TouchableOpacity
-            style={modalStyles.centeredView}
+            style={{ width: '100%', height: 70, margin: 0 }}
             onPressOut={() => {
               Alert.alert("No changes made");
               setModalVisible(!modalVisible);
@@ -178,7 +249,7 @@ export default function HomeScreen({ route, navigation }) {
                 />
                 <View style={{ flexDirection: "row", alignContent: 'center' }}>
                   <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={() => { }}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -188,7 +259,7 @@ export default function HomeScreen({ route, navigation }) {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={() => { }}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -231,7 +302,8 @@ export default function HomeScreen({ route, navigation }) {
             </View>
           </TouchableOpacity>
         </Modal>
-      </View>
+      </KeyboardAvoidingView>
+
       {isButtonVisible ? (
         <TouchableOpacity
           style={globalStyles.addPost}
@@ -244,7 +316,8 @@ export default function HomeScreen({ route, navigation }) {
             <Ionicons name="create-outline" size={34} color="#F3CD00" />
           </View>
         </TouchableOpacity>
-      ) : null}
-    </View>
+      ) : null
+      }
+    </View >
   );
 }

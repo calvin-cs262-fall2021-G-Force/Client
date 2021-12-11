@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Image,
   Text,
@@ -11,12 +11,38 @@ import {
 import { globalStyles } from "../styles/global";
 import logo from "../assets/logo.png";
 import { UserContext } from "../util/GlobalStateManager";
+import { auth } from "../firebase";
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState();
-  const { user, setGlobalUser } = useContext(UserContext);
-  /*Create a Login Screen with a button that will ask for Authentication
-    TODO: Will need to have KnightBites logo and other aesthetics added*/
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {});
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.replace("Tabs", {
+          screen: "Home",
+        });
+      }
+    });
+
+    console.log("unsubscribe is running");
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("Logged in with: ", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <View style={globalStyles.screen}>
       <KeyboardAvoidingView
@@ -29,33 +55,36 @@ export default function LoginScreen({ navigation }) {
 
         <TextInput
           style={globalStyles.loginInput}
-          placeholder="Username"
-          onChangeText={setUsername}
-          value={username}
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
         />
 
         <TextInput
-          secureTextEntry={true}
           style={globalStyles.loginInput}
           placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry
         />
 
         <TouchableOpacity
           style={globalStyles.button}
-          onPress={() => {
-            setGlobalUser(username);
-            navigation.navigate("Tabs", {
-              screen: "Home",
-            });
-          }}
+          // onPress={() => {
+          //   handleLogin;
+          //   setGlobalUser(auth.currentUser?.email);
+          //   navigation.navigate("Tabs", {
+          //     screen: "Home",
+          //   });
+          // }}
+          onPress={handleLogin}
+          // onPressOut={setGlobalUser(auth.currentUser?.email)}
         >
           <Text style={globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={{ fontSize: 14, color: "#8C2131", padding: 10 }}>
-            {" "}
-            Don't have an account?
-          </Text>
+          <Text style={globalStyles.signUpText}>Don't have an account?</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>

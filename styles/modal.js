@@ -1,32 +1,28 @@
 import { StyleSheet } from 'react-native';
 
 export const modalStyles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
     modalView: {
-        margin: 20,
-        backgroundColor: "#e7e8d5",
-        borderRadius: 20,
-        padding: 50,
+        backgroundColor: "gold",
+        borderRadius: 30,
         alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+        alignSelf:'center',
+        marginTop: 200,
+        justifyContent:'center',
+        // shadowColor: "#8C2131",
+        // shadowOffset: {
+        //     width: 20,
+        //     height: 12
+        // },
+        // shadowOpacity: 0.5,
+        // shadowRadius: 4,
+        elevation: 100,
+        height:'60%',
+        width:'90%'
     },
     button: {
         marginTop: 20,
         borderRadius: 15,
         padding: 10,
-        elevation: 2
     },
     buttonOpen: {
         backgroundColor: "#8C2131",
@@ -44,8 +40,9 @@ export const modalStyles = StyleSheet.create({
         textAlign: "center"
     },
     postInput: {
+        alignSelf:'center',
         marginTop: 10,
-        paddingVertical: 15,
+        paddingVertical: 5,
         paddingHorizontal: 15,
         backgroundColor: '#FFF',
         borderRadius: 60,
