@@ -143,4 +143,15 @@ export const globalStyles = StyleSheet.create({
     borderWidth:2,
     justifyContent:'center',      
 },
+addPost: {
+  width: 70,
+  height: 70,
+  backgroundColor: "#8C2131",
+  borderRadius: 50,
+  justifyContent: "center",
+  alignItems: "center",
+  right: 20,
+  position: "absolute",
+  bottom: 20,
+}
 });

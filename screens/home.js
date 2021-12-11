@@ -84,7 +84,7 @@ export default function HomeScreen({ route, navigation }) {
         post: postText,
         posttime: new Date(),
         meetuptime: new Date(),
-        restaurantid: 9,
+        restaurantid: selectedValue,
         studentemail: user,
       }),
     })
@@ -203,7 +203,7 @@ export default function HomeScreen({ route, navigation }) {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => setShowtime(true)}
+                    onPress={setShowtime(true)}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -212,27 +212,7 @@ export default function HomeScreen({ route, navigation }) {
                       color={'#ccc'}
                     />
                   </TouchableOpacity>
-                </View>
-                {showDate && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={meetupDate}
-                    mode={'date'}
-                    is24Hour={true}
-                    display="default"
-                    onChange={onChangeDate}
-                  />
-                )}
-                {showTime && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={meetupTime}
-                    mode={'time'}
-                    is24Hour={true}
-                    display="default"
-                    onChange={onChangeTime}
-                  />
-                )} */}
+                </View> */}
                 <Picker
                   selectedValue={selectedValue}
                   style={modalStyles.picker}
@@ -241,8 +221,8 @@ export default function HomeScreen({ route, navigation }) {
                   {
                     restaurants.map((item, index) => {
                       return (
-                        <Picker.Item label={item.name} value={1 + index} />
-                      )
+                        <Picker.Item label={item.restaurantname} value={item.restaurantid} />
+                      );
                     })
                   }
                 </Picker>
