@@ -58,7 +58,7 @@ export default function ProfileScreen({ navigation }) {
                   <View style={userStyles.details}>
                     <Text style= {userStyles.name}>{student.firstname} {student.lastname}</Text>
                     <Text style= {userStyles.detailstext}>{student.collegeyear}</Text>
-                    <TouchableOpacity style={userStyles.editProfile}>
+                    <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile")}>
                       <Text>Edit Profile</Text>
                     </TouchableOpacity>
                   </View>

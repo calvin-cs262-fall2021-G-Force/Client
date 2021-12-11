@@ -7,6 +7,7 @@ import RestaurantScreen from "../screens/restaurant";
 import DiscountScreen from "../screens/discount";
 import AboutScreen from "../screens/about";
 import SignUpScreen from "../screens/signup";
+import EditProfileScreen from "../screens/editProfile";
 
 export default function (Stack) {
   return (
@@ -37,6 +38,7 @@ export default function (Stack) {
       <Stack.Screen name="Poster" component={PosterScreen} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Discount" component={DiscountScreen} />
+      <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
     </>
   );
 }
