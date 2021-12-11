@@ -66,6 +66,10 @@ export default function PostScreen({ route, navigation }) {
             {route.params.item.posttitle}
             {"\n"}
           </Text>
+          {/* <Text style={postDetailsStyles.title}>
+            {route.params.item.restaurantname}
+            {"\n"}
+          </Text> */}
           <Text style={postDetailsStyles.body}>
             {route.params.item.post}
             {"\n"}

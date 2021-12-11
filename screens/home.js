@@ -17,7 +17,6 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
@@ -39,10 +38,6 @@ export default function HomeScreen({ route, navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedValue, setSelectedValue] = useState('1');
   const [restaurants, setRestaurants] = useState([]);
-  const [meetupTime, setTime] = useState("12:00");
-  const [meetupDate, setDate] = useState(new Date(1598051730000));
-  const [showTime, setShowtime] = useState(false);
-  const [showDate, setShowdate] = useState(false);
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
 
@@ -123,16 +118,6 @@ export default function HomeScreen({ route, navigation }) {
     setGlobalRead(readState + 1);
   };
 
-  const onChangeTime = (event, selectedTime) => {
-    setShowtime(false);
-    setTime(selectedTime);
-  };
-
-  const onChangeDate = (event, selectedDate) => {
-    setShowdate(false);
-    setDate(selectedDate);
-  };
-
   return (
     <View style={globalStyles.screen}>
       <View style={globalStyles.postsWrapper}>
@@ -191,9 +176,9 @@ export default function HomeScreen({ route, navigation }) {
                   value={postTitle}
                   onChangeText={(text) => setTitle(text)}
                 />
-                {/* <View style={{ flexDirection: "row", alignContent: 'center' }}>
+                <View style={{ flexDirection: "row", alignContent: 'center' }}>
                   <TouchableOpacity
-                    onPress={setShowdate(true)}
+                    onPress={() => {}}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -203,7 +188,7 @@ export default function HomeScreen({ route, navigation }) {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={setShowtime(true)}
+                    onPress={() => {}}
                     style={modalStyles.button}
                   >
                     <Ionicons
@@ -212,7 +197,7 @@ export default function HomeScreen({ route, navigation }) {
                       color={'#ccc'}
                     />
                   </TouchableOpacity>
-                </View> */}
+                </View>
                 <Picker
                   selectedValue={selectedValue}
                   style={modalStyles.picker}
