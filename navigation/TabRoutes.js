@@ -2,6 +2,7 @@ import React from "react";
 import HomeScreen from "../screens/home";
 import ProfileScreen from "../screens/profile";
 import RestaurantScreen from "../screens/restaurant";
+import Header from "../shared/header";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,7 +15,7 @@ function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerShown: true,
         tabBarActiveTintColor: "red",
         tabBarInactiveTintColor: "gray",
@@ -38,8 +39,11 @@ function TabRoutes() {
           fontWeight: "bold",
           fontSize: 30,
         },
-      }}
-    >
+        headerRight: () => (
+          <Header navigation={navigation} />
+        )
+      })}
+        >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -87,8 +91,8 @@ function TabRoutes() {
           headerTitle: "Your Profile",
         }}
       />
-    </Tab.Navigator>
-  );
+    </ Tab.Navigator>
+      );
 }
 
-export default TabRoutes;
+      export default TabRoutes;

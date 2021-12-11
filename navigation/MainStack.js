@@ -7,6 +7,7 @@ import RestaurantScreen from "../screens/restaurant";
 import DiscountScreen from "../screens/discount";
 import AboutScreen from "../screens/about";
 import SignUpScreen from "../screens/signup";
+import Header from "../shared/header";
 
 export default function (Stack) {
   return (
@@ -33,7 +34,12 @@ export default function (Stack) {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Post" component={PostScreen} />
+      <Stack.Screen name="Post" component={PostScreen} 
+        options={({ navigation }) => ({
+        headerRight: () => (
+          <Header navigation={navigation}/>
+        )       
+      })}/>
       <Stack.Screen name="Poster" component={PosterScreen} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Discount" component={DiscountScreen} />
