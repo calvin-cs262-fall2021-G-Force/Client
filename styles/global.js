@@ -67,7 +67,7 @@ export const globalStyles = StyleSheet.create({
   items: {
     margin: 15,
     alignContent: "center",
-    // marginTop: -10,
+    marginTop: 5,
   },
 
   input: {
