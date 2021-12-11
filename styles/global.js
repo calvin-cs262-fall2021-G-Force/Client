@@ -52,9 +52,9 @@ export const globalStyles = StyleSheet.create({
   },
 
   signUpText: {
-    fontSize: 18,
+    fontSize: 22,
     color: "#8C2131",
-    paddingTop: 20,
+    padding: 20,
   },
 
   //Need a way to add line breaks to text that is added to the post
@@ -73,7 +73,7 @@ export const globalStyles = StyleSheet.create({
   items: {
     margin: 15,
     alignContent: "center",
-    // marginTop: -10,
+    marginTop: 5,
   },
 
   input: {

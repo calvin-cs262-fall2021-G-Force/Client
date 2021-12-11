@@ -5,7 +5,7 @@ export const postStyles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     borderRadius: 24,
-    marginTop: 20,
+    marginBottom: 20,
     justifyContent: "space-between",
     // borderColor: "gold",
     // borderWidth: 1,

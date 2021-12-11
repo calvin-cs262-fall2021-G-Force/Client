@@ -41,7 +41,7 @@ export default function ProfileScreen({ navigation }) {
     auth
       .signOut()
       .then(() => {
-        navigation.navigate("Login");
+        navigation.replace("Login");
       })
       .catch((error) => alert(error.message));
   };

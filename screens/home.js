@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
+  Picker,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { auth } from "../firebase";
@@ -37,10 +38,11 @@ export default function HomeScreen({ route, navigation }) {
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const { readState, setGlobalRead } = useContext(UserContext);
+  const [sortSelected, setSortSelected] = useState("posttime");
 
   const userEmail = auth.currentUser?.email;
 
-  const getPosts = async () => {
+  const getPostsPostTime = async () => {
     try {
       const response = await fetch(
         "https://knight-bites.herokuapp.com/posts-details/posttime"
@@ -52,6 +54,22 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
+    setGlobalRead(readState + 1);
+  };
+
+  const getPostsMeetUpTime = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/posts-details/meetuptime"
+      );
+      const json = await response.json();
+      setPostItems(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+    setGlobalRead(readState + 1);
   };
 
   const postPosts = async () => {
@@ -79,12 +97,9 @@ export default function HomeScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      getPosts();
+    {
+      sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime();
     }
-
-    return () => (mounted = false);
   }, [readState]);
 
   useEffect(() => {
@@ -108,6 +123,38 @@ export default function HomeScreen({ route, navigation }) {
 
   return (
     <View style={globalStyles.screen}>
+      <View
+        style={{
+          flexDirection: "row",
+          paddingRight: 15,
+          alignSelf: "flex-end",
+        }}
+      >
+        <Text style={{ marginTop: 20, fontWeight: "bold", fontSize: 16 }}>
+          Sort By:{" "}
+        </Text>
+        <View
+          style={{
+            marginTop: 10,
+            backgroundColor: "#F3CD00",
+            borderRadius: 20,
+            height: 40,
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Picker
+            selectedValue={sortSelected}
+            style={{ height: 50, width: 178 }}
+            onValueChange={(itemValue, itemIndex) => {
+              setSortSelected(itemValue);
+            }}
+          >
+            <Picker.Item label="Recently posted" value="posttime" />
+            <Picker.Item label="Meet-up Time" value="meetuptime" />
+          </Picker>
+        </View>
+      </View>
       <View style={globalStyles.postsWrapper}>
         <View style={globalStyles.items}>
           {isLoading ? (
@@ -135,7 +182,10 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      <View style={modalStyles.centeredView}>
+      {/* <View style={modalStyles.modalView}> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <Modal
           animationType="slide"
           transparent={true}
@@ -146,45 +196,43 @@ export default function HomeScreen({ route, navigation }) {
             setButtonVisible(true);
           }}
         >
-          <TouchableOpacity
-            style={modalStyles.centeredView}
+          {/* <TouchableOpacity
+            style={{width: '100%', height: 70, margin: 0}}
             onPressOut={() => {
               Alert.alert("No changes made");
               setModalVisible(!modalVisible);
               setButtonVisible(true);
             }}
-          >
-            <View style={modalStyles.modalView}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-              >
-                <TextInput
-                  style={globalStyles.input}
-                  placeholder={"Add title..."}
-                  value={postTitle}
-                  onChangeText={(text) => setTitle(text)}
-                />
-                <TextInput
-                  style={modalStyles.postInput}
-                  placeholder={"Write post here..."}
-                  value={postText}
-                  onChangeText={(text) => setText(text)}
-                />
-                <Pressable
-                  style={[modalStyles.button, modalStyles.buttonOpen]}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                    setButtonVisible(true);
-                    handleAddPost();
-                  }}
-                >
-                  <Text style={modalStyles.textStyle}>Add Post</Text>
-                </Pressable>
-              </KeyboardAvoidingView>
-            </View>
-          </TouchableOpacity>
+          /> */}
+
+          <View style={modalStyles.modalView}>
+            <TextInput
+              style={globalStyles.input}
+              placeholder={"Title..."}
+              value={postTitle}
+              onChangeText={(text) => setTitle(text)}
+            />
+            <TextInput
+              style={modalStyles.postInput}
+              placeholder={"Write post here..."}
+              value={postText}
+              onChangeText={(text) => setText(text)}
+            />
+            <Pressable
+              style={[modalStyles.button, modalStyles.buttonOpen]}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                setButtonVisible(true);
+                handleAddPost();
+              }}
+            >
+              <Text style={modalStyles.textStyle}>Post</Text>
+            </Pressable>
+          </View>
         </Modal>
-      </View>
+      </KeyboardAvoidingView>
+      {/* </View> */}
+
       {isButtonVisible ? (
         <TouchableOpacity
           style={globalStyles.addPost}

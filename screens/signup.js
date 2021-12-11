@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Picker,
 } from "react-native";
 
 import { auth } from "../firebase";
@@ -92,6 +93,21 @@ export default function SignUpScreen({ navigation }) {
 
         <TextInput
           style={globalStyles.loginInput}
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+        />
+
+        <TextInput
+          style={globalStyles.loginInput}
+          placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry
+        />
+
+        <TextInput
+          style={globalStyles.loginInput}
           placeholder="First Name"
           onChangeText={(text) => setFirstName(text)}
           value={firstName}
@@ -104,19 +120,33 @@ export default function SignUpScreen({ navigation }) {
           value={lastName}
         />
 
-        <TextInput
+        {/* <TextInput
           style={globalStyles.loginInput}
           placeholder="Year in College"
           onChangeText={(text) => setCollegeYear(text)}
           value={collegeYear}
-        />
-
-        <TextInput
-          style={globalStyles.loginInput}
-          placeholder="Email"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-        />
+        /> */}
+        <View
+          style={[
+            globalStyles.loginInput,
+            { height: 60, justifyContent: "center" },
+          ]}
+        >
+          <Picker
+            selectedValue={collegeYear}
+            // style={{ height: 50, width: 178 }}
+            onValueChange={(itemValue, itemIndex) => {
+              setCollegeYear(itemValue);
+            }}
+            style={{ height: 80, width: 220 }}
+          >
+            <Picker.Item label="Freshman" value="Freshman" />
+            <Picker.Item label="Sophomore" value="Sophomore" />
+            <Picker.Item label="Junior" value="Junior" />
+            <Picker.Item label="Senior" value="Senior" />
+            <Picker.Item label="Super Senior" value="Super Senior" />
+          </Picker>
+        </View>
 
         <TextInput
           style={globalStyles.loginInput}
@@ -125,20 +155,15 @@ export default function SignUpScreen({ navigation }) {
           value={bio}
         />
 
-        <TextInput
-          style={globalStyles.loginInput}
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry
-        />
-
         <TouchableOpacity
           style={globalStyles.button}
           onPressOut={handleSignUp}
           onPress={handleCreateStudent}
         >
           <Text style={globalStyles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text>Already have an account?</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
