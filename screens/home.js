@@ -23,7 +23,6 @@ import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
 import { modalStyles } from "../styles/modal";
 import { UserContext } from "../util/GlobalStateManager";
-import SelectDropdown from "react-native-select-dropdown";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -53,7 +52,7 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
-    setGlobalRead(readState+1);
+    setGlobalRead(readState + 1);
   };
 
   const getPostsMeetUpTime = async () => {
@@ -68,7 +67,7 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
-    setGlobalRead(readState+1);
+    setGlobalRead(readState + 1);
   };
 
   const postPosts = async () => {
@@ -96,7 +95,9 @@ export default function HomeScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    {sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime()}
+    {
+      sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime();
+    }
   }, [readState]);
 
   useEffect(() => {
@@ -120,15 +121,31 @@ export default function HomeScreen({ route, navigation }) {
 
   return (
     <View style={globalStyles.screen}>
-      <View style={{ flexDirection: 'row', paddingRight:15,alignSelf:'flex-end'}}>
-        <Text style={{ marginTop: 20 , fontWeight:'bold', fontSize:16}}>Sort By: </Text>
-        <View style={{marginTop: 10,backgroundColor: "#F3CD00", borderRadius: 20, height: 40, alignContent: 'center', justifyContent: 'center' }}>
-
+      <View
+        style={{
+          flexDirection: "row",
+          paddingRight: 15,
+          alignSelf: "flex-end",
+        }}
+      >
+        <Text style={{ marginTop: 20, fontWeight: "bold", fontSize: 16 }}>
+          Sort By:{" "}
+        </Text>
+        <View
+          style={{
+            marginTop: 10,
+            backgroundColor: "#F3CD00",
+            borderRadius: 20,
+            height: 40,
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
           <Picker
             selectedValue={sortSelected}
-            style={{ height: 50, width:178 }}
+            style={{ height: 50, width: 178 }}
             onValueChange={(itemValue, itemIndex) => {
-              setSortSelected(itemValue)
+              setSortSelected(itemValue);
             }}
           >
             <Picker.Item label="Recently posted" value="posttime" />
@@ -187,7 +204,6 @@ export default function HomeScreen({ route, navigation }) {
           /> */}
 
           <View style={modalStyles.modalView}>
-
             <TextInput
               style={globalStyles.input}
               placeholder={"Title..."}
@@ -210,12 +226,10 @@ export default function HomeScreen({ route, navigation }) {
             >
               <Text style={modalStyles.textStyle}>Post</Text>
             </Pressable>
-
           </View>
         </Modal>
       </KeyboardAvoidingView>
       {/* </View> */}
-
 
       {isButtonVisible ? (
         <TouchableOpacity
