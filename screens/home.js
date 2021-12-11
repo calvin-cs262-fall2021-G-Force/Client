@@ -17,6 +17,7 @@ import {
   Picker,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { auth } from "../firebase";
 
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
@@ -36,9 +37,10 @@ export default function HomeScreen({ route, navigation }) {
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
   const [sortSelected, setSortSelected] = useState("posttime");
+
+  const userEmail = auth.currentUser?.email;
 
   const getPostsPostTime = async () => {
     try {
@@ -83,7 +85,7 @@ export default function HomeScreen({ route, navigation }) {
         posttime: new Date(),
         meetuptime: new Date(Date.now()).toISOString(),
         restaurantid: 9,
-        studentemail: user,
+        studentemail: userEmail,
       }),
     })
       .then((responseJson) => {
@@ -95,13 +97,26 @@ export default function HomeScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    {
+    let mounted = true;
+
+    if (mounted) {
       sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime();
     }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, [readState]);
 
   useEffect(() => {
-    onRefresh();
+    let mounted = true;
+    if (mounted) {
+      onRefresh();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   const handleAddPost = () => {
