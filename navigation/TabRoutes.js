@@ -43,7 +43,7 @@ function TabRoutes() {
           <Header navigation={navigation} />
         )
       })}
-        >
+    >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -92,7 +92,7 @@ function TabRoutes() {
         }}
       />
     </ Tab.Navigator>
-      );
+  );
 }
 
-      export default TabRoutes;
+export default TabRoutes;
