@@ -97,13 +97,26 @@ export default function HomeScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    {
+    let mounted = true;
+
+    if (mounted) {
       sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime();
     }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, [readState]);
 
   useEffect(() => {
-    onRefresh();
+    let mounted = true;
+    if (mounted) {
+      onRefresh();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   const handleAddPost = () => {

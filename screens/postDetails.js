@@ -43,11 +43,27 @@ export default function PostScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    getStudent();
+    let mounted = true;
+
+    if (mounted) {
+      getStudent();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    getAttendees();
+    let mounted = true;
+
+    if (mounted) {
+      getAttendees();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, [readAttendees]);
 
   const getAttendees = async () => {

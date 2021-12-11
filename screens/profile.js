@@ -34,10 +34,19 @@ export default function ProfileScreen({ navigation }) {
   };
 
   useEffect(() => {
-    getUser();
+    let mounted = true;
+
+    if (mounted) {
+      getUser();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   const handleSignOut = () => {
+    console.log("\nsigned out");
     auth
       .signOut()
       .then(() => {

@@ -27,18 +27,11 @@ export default function LoginScreen({ navigation }) {
       }
     });
 
-    return () => unsubscribe();
+    console.log("unsubscribe is running");
+    return () => {
+      unsubscribe();
+    };
   }, []);
-
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Registered with: ", user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
 
   const handleLogin = () => {
     auth
@@ -62,7 +55,7 @@ export default function LoginScreen({ navigation }) {
 
         <TextInput
           style={globalStyles.loginInput}
-          placeholder="Username"
+          placeholder="Email"
           onChangeText={(text) => setEmail(text)}
           value={email}
         />

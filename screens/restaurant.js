@@ -23,7 +23,15 @@ export default function RestaurantScreen({ navigation }) {
   };
 
   useEffect(() => {
-    getRestaurants();
+    let mounted = true;
+
+    if (mounted) {
+      getRestaurants();
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   return (
