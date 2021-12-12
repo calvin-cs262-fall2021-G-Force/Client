@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import moment from "moment";
 
 import { homeModalStyles } from "../styles/homeModal";
@@ -27,6 +27,8 @@ export default function PostScreen({ route, navigation }) {
   const [attendees, setAttendees] = useState([]);
   const [isModalVisible, setModalVisible] = useState(false);
   const [readAttendees, setReadAttendees] = useState(0);
+  const [isAttending, setIsAttending] = useState();
+  const { readState, setGlobalRead } = useContext(UserContext);
 
   const getStudent = async () => {
     try {
@@ -42,29 +44,22 @@ export default function PostScreen({ route, navigation }) {
     }
   };
 
-  useEffect(() => {
-    let mounted = true;
-
-    if (mounted) {
-      getStudent();
+  const getIsAttending = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/attendees/" +
+          route.params.item.id +
+          "/" +
+          route.params.item.studentemail
+      ); //postid
+      const json = await response.json();
+      setIsAttending(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-
-    return function cleanup() {
-      mounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let mounted = true;
-
-    if (mounted) {
-      getAttendees();
-    }
-
-    return function cleanup() {
-      mounted = false;
-    };
-  }, [readAttendees]);
+  };
 
   const getAttendees = async () => {
     try {
@@ -106,6 +101,77 @@ export default function PostScreen({ route, navigation }) {
       });
   };
 
+  const deletePosts = async () => {
+    fetch(
+      "https://knight-bites.herokuapp.com/posts/" +
+        String(route.params.item.id),
+      {
+        method: "DELETE",
+      }
+    )
+      .then((responseJson) => {
+        console.log("\ndelete response object:", JSON.stringify(responseJson));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleDeletePost = () => {
+    deletePosts();
+    setGlobalRead(readState + 1);
+    navigation.navigate("Home");
+    Alert.alert("Post successfully deleted");
+  };
+
+  const showConfirmDialog = () => {
+    return Alert.alert(
+      "Delete post",
+      "Are you sure you want to delete this post?",
+      [
+        // The "Yes" button
+        // Deletes post when pressed
+        {
+          text: "Yes",
+          onPress: () => {
+            handleDeletePost();
+            // setShowBox(false);
+          },
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  // useEffect(() => {
+  //   let mounted = true;
+  //   if (mounted) {
+  //     getStudent();
+  //   }
+  //   return function cleanup() {
+  //     mounted = false;
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      getStudent();
+      getAttendees();
+      getIsAttending();
+    }
+    return function cleanup() {
+      mounted = false;
+    };
+  }, [readAttendees]);
+
   return (
     <View style={postDetailsStyles.screen}>
       <View style={postDetailsStyles.allWrapper}>
@@ -117,20 +183,29 @@ export default function PostScreen({ route, navigation }) {
               <Ionicons name={iconName} size={28} color="#000" />
             </View>
           </TouchableOpacity>
-          <View style={{ paddingLeft: 20 }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Poster", { poster })}
-            >
-              <Text style={postDetailsStyles.poster}>
-                {route.params.item.firstname} {route.params.item.lastname}
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ paddingLeft: 20 }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Poster", { poster })}
+              >
+                <Text style={postDetailsStyles.poster}>
+                  {route.params.item.firstname} {route.params.item.lastname}
+                </Text>
+              </TouchableOpacity>
+              <Text style={postDetailsStyles.dateText}>
+                {" "}
+                {moment(route.params.item.posttime).format(
+                  "MMMM D, YYYY [at] h:mm a"
+                )}
               </Text>
-            </TouchableOpacity>
-            <Text style={postDetailsStyles.dateText}>
-              {" "}
-              {moment(route.params.item.posttime).format(
-                "MMMM D, YYYY [at] h:mm a"
-              )}
-            </Text>
+            </View>
+            {userEmail === route.params.item.email && (
+              <View>
+                <TouchableOpacity onPress={() => showConfirmDialog()}>
+                  <Feather name="trash-2" size={32} color="gray" />
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </View>
         <View style={postDetailsStyles.detailsWrapper}>
@@ -138,10 +213,7 @@ export default function PostScreen({ route, navigation }) {
             {route.params.item.posttitle}
             {"\n"}
           </Text>
-          {/* <Text style={postDetailsStyles.title}>
-            {route.params.item.restaurantname}
-            {"\n"}
-          </Text> */}
+
           <Text style={postDetailsStyles.body}>
             {route.params.item.post}
             {"\n"}
@@ -161,13 +233,6 @@ export default function PostScreen({ route, navigation }) {
             </TouchableOpacity>
           </View>
         )}
-        {/* {user === props.email && (
-              <View>
-                <TouchableOpacity onPress={() => showConfirmDialog()}>
-                  <Feather name="trash-2" size={34} color="gray" />
-                </TouchableOpacity>
-              </View>
-            )} */}
 
         <View style={postDetailsStyles.signupButtonText}>
           <TouchableOpacity
