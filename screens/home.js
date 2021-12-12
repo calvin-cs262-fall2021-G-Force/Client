@@ -38,7 +38,7 @@ export default function HomeScreen({ route, navigation }) {
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('1');
+  const [selectedValue, setSelectedValue] = useState("1");
   const [restaurants, setRestaurants] = useState([]);
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
@@ -78,7 +78,9 @@ export default function HomeScreen({ route, navigation }) {
 
   const getRestaurants = async () => {
     try {
-      const response = await fetch('https://knight-bites.herokuapp.com/restaurants');
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/restaurants"
+      );
       const json = await response.json();
       setRestaurants(json);
     } catch (error) {
@@ -86,7 +88,7 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const postPosts = async () => {
     await fetch("https://knight-bites.herokuapp.com/posts", {
@@ -248,49 +250,48 @@ export default function HomeScreen({ route, navigation }) {
               />
             </View>
             <View>
-            <Text style={homeModalStyles.text}>Select meet up date and time:</Text>
-              <View style={{ flexDirection: "row", paddingRight:20}}>
+              <Text style={homeModalStyles.text}>
+                Select meet up date and time:
+              </Text>
+              <View style={{ flexDirection: "row", paddingRight: 20 }}>
                 <TouchableOpacity
-                  onPress={() => { }}
+                  onPress={() => {}}
                   style={homeModalStyles.datetime}
                 >
-                  <Ionicons
-                    name="calendar"
-                    size={43}
-                    color={'#fff'}
-                  />
+                  <Ionicons name="calendar" size={43} color={"#fff"} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => { }}
+                  onPress={() => {}}
                   style={homeModalStyles.datetime}
                 >
-                  <Ionicons
-                    name="time-outline"
-                    size={43}
-                    color={'#fff'}
-                  />
+                  <Ionicons name="time-outline" size={43} color={"#fff"} />
                 </TouchableOpacity>
               </View>
             </View>
             <View>
-            <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
+              <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
               <View style={homeModalStyles.picker}>
                 <Picker
                   selectedValue={selectedValue}
-                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                  {
-                    restaurants.map((item, index) => {
-                      return (
-                        <Picker.Item label={item.restaurantname} value={item.restaurantid} />
-                      );
-                    })
+                  onValueChange={(itemValue, itemIndex) =>
+                    setSelectedValue(itemValue)
                   }
+                >
+                  {restaurants.map((item, index) => {
+                    return (
+                      <View key={index}>
+                        <Picker.Item
+                          label={item.restaurantname}
+                          value={item.restaurantid}
+                        />
+                      </View>
+                    );
+                  })}
                 </Picker>
               </View>
             </View>
             <View>
-            <Text style={homeModalStyles.text}>Details for the meet up:</Text>
+              <Text style={homeModalStyles.text}>Details for the meet up:</Text>
               <TextInput
                 style={homeModalStyles.textinput}
                 placeholder={"Details for the event..."}
@@ -300,16 +301,16 @@ export default function HomeScreen({ route, navigation }) {
               />
             </View>
             <View>
-            <TouchableOpacity
-              style={homeModalStyles.button}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-                setButtonVisible(true);
-                handleAddPost();
-              }}
-            >
-              <Text style={homeModalStyles.buttontext}>Add Post</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={homeModalStyles.button}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  setButtonVisible(true);
+                  handleAddPost();
+                }}
+              >
+                <Text style={homeModalStyles.buttontext}>Add Post</Text>
+              </TouchableOpacity>
             </View>
           </View>
           {/* </TouchableOpacity> */}
@@ -328,8 +329,7 @@ export default function HomeScreen({ route, navigation }) {
             <Ionicons name="create-outline" size={34} color="#F3CD00" />
           </View>
         </TouchableOpacity>
-      ) : null
-      }
-    </View >
+      ) : null}
+    </View>
   );
 }
