@@ -23,7 +23,7 @@ import { auth } from "../firebase";
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
-import { modalStyles } from "../styles/modal";
+import { homeModalStyles } from "../styles/homeModal";
 import { UserContext } from "../util/GlobalStateManager";
 
 const wait = (timeout) => {
@@ -228,49 +228,55 @@ export default function HomeScreen({ route, navigation }) {
             setButtonVisible(true);
           }}
         >
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ width: '100%', height: 70, margin: 0 }}
             onPressOut={() => {
               Alert.alert("No changes made");
               setModalVisible(!modalVisible);
               setButtonVisible(true);
             }}
-          >
-            <View style={modalStyles.modalView}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-              >
-                <TextInput
-                  style={globalStyles.input}
-                  placeholder={"Add title..."}
-                  value={postTitle}
-                  onChangeText={(text) => setTitle(text)}
-                />
-                <View style={{ flexDirection: "row", alignContent: 'center' }}>
-                  <TouchableOpacity
-                    onPress={() => { }}
-                    style={modalStyles.button}
-                  >
-                    <Ionicons
-                      name="calendar"
-                      size={43}
-                      color={'#ccc'}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => { }}
-                    style={modalStyles.button}
-                  >
-                    <Ionicons
-                      name="time-outline"
-                      size={43}
-                      color={'#ccc'}
-                    />
-                  </TouchableOpacity>
-                </View>
+          > */}
+          <View style={homeModalStyles.modalView}>
+            <Text style={homeModalStyles.heading}>New Post</Text>
+            <View>
+              <Text style={homeModalStyles.text}>Title:</Text>
+              <TextInput
+                style={homeModalStyles.textinput}
+                placeholder={"Title..."}
+                value={postTitle}
+                onChangeText={(text) => setTitle(text)}
+              />
+            </View>
+            <View>
+            <Text style={homeModalStyles.text}>Select meet up date and time:</Text>
+              <View style={{ flexDirection: "row", paddingRight:20}}>
+                <TouchableOpacity
+                  onPress={() => { }}
+                  style={homeModalStyles.datetime}
+                >
+                  <Ionicons
+                    name="calendar"
+                    size={43}
+                    color={'#fff'}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => { }}
+                  style={homeModalStyles.datetime}
+                >
+                  <Ionicons
+                    name="time-outline"
+                    size={43}
+                    color={'#fff'}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+            <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
+              <View style={homeModalStyles.picker}>
                 <Picker
                   selectedValue={selectedValue}
-                  style={modalStyles.picker}
                   onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
                   {
@@ -281,25 +287,32 @@ export default function HomeScreen({ route, navigation }) {
                     })
                   }
                 </Picker>
-                <TextInput
-                  style={modalStyles.postInput}
-                  placeholder={"Write post here..."}
-                  value={postText}
-                  onChangeText={(text) => setText(text)}
-                />
-                <Pressable
-                  style={[modalStyles.button, modalStyles.buttonOpen]}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                    setButtonVisible(true);
-                    handleAddPost();
-                  }}
-                >
-                  <Text style={modalStyles.textStyle}>Add Post</Text>
-                </Pressable>
-              </KeyboardAvoidingView>
+              </View>
             </View>
-          </TouchableOpacity>
+            <View>
+            <Text style={homeModalStyles.text}>Details for the meet up:</Text>
+              <TextInput
+                style={homeModalStyles.textinput}
+                placeholder={"Details for the event..."}
+                value={postText}
+                onChangeText={(text) => setText(text)}
+                multiline={true}
+              />
+            </View>
+            <View>
+            <TouchableOpacity
+              style={homeModalStyles.button}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                setButtonVisible(true);
+                handleAddPost();
+              }}
+            >
+              <Text style={homeModalStyles.buttontext}>Add Post</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+          {/* </TouchableOpacity> */}
         </Modal>
       </KeyboardAvoidingView>
 
