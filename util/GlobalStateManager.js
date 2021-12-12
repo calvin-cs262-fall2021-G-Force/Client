@@ -5,6 +5,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [globalUser, setUser] = useState();
   const [readState, setReadState] = useState(0);
+  const [readProfile, setReadProfile] = useState(0);
 
   const setGlobalUser = (username) => {
     setUser(username);
@@ -16,7 +17,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ globalUser, readState, setGlobalUser, setGlobalRead }}
+      value={{ globalUser, readState, readProfile, setGlobalUser, setGlobalRead, setReadProfile }}
     >
       {children}
     </UserContext.Provider>
