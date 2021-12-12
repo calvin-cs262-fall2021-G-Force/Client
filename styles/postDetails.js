@@ -17,6 +17,11 @@ export const postDetailsStyles = StyleSheet.create({
     borderRadius: 20,
     width: "100%",
   },
+  contentDetailsText: {
+    fontSize: 16,
+    // fontStyle: "italic",
+    paddingLeft: 10,
+  },
 
   detailsWrapper: {
     marginTop: 15,

@@ -23,7 +23,7 @@ export default Post = (props) => {
       <View
         style={[
           postStyles.box,
-          { borderColor: userEmail === props.email ? "gray" : "white" },
+          { borderColor: userEmail === props.email ? colors.maroon : "white" },
         ]}
       >
         <View>

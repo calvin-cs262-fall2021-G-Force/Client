@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  useColorScheme,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import moment from "moment";
@@ -16,6 +17,8 @@ import { postDetailsStyles } from "../styles/postDetails";
 import { globalStyles } from "../styles/global";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
+import colors from "../assets/colors";
+import { postStyles } from "../styles/post";
 
 export default function PostScreen({ route, navigation }) {
   const poster = route.params.item.studentemail;
@@ -202,7 +205,7 @@ export default function PostScreen({ route, navigation }) {
             {userEmail === route.params.item.email && (
               <View>
                 <TouchableOpacity onPress={() => showConfirmDialog()}>
-                  <Feather name="trash-2" size={32} color="gray" />
+                  <Feather name="trash-2" size={32} color={colors.maroon} />
                 </TouchableOpacity>
               </View>
             )}
@@ -213,12 +216,27 @@ export default function PostScreen({ route, navigation }) {
             {route.params.item.posttitle}
             {"\n"}
           </Text>
+          <Text style={postDetailsStyles.contentDetailsText}>
+            Venue: {route.params.item.restaurantname}
+            {"\n"}
+          </Text>
 
-          <Text style={postDetailsStyles.body}>
+          <Text style={postDetailsStyles.contentDetailsText}>
+            Meetup time:{" "}
+            {moment(route.params.item.meetuptime).format(
+              "MMMM D, YYYY [at] h:mma"
+            )}
+            {"\n"}
+          </Text>
+          <Text style={[postDetailsStyles.contentDetailsText, {}]}>
+            Details:
+          </Text>
+          <Text style={postDetailsStyles.contentDetailsText}>
             {route.params.item.post}
             {"\n"}
           </Text>
         </View>
+
         {userEmail !== route.params.item.studentemail && (
           <View>
             <TouchableOpacity
@@ -239,6 +257,7 @@ export default function PostScreen({ route, navigation }) {
             onPress={() => {
               setAttendeeVisible(true);
               setModalVisible(true);
+              setReadAttendees(readAttendees + 1);
             }}
             style={{
               backgroundColor: "#8C2131",
@@ -275,6 +294,7 @@ export default function PostScreen({ route, navigation }) {
               <TouchableOpacity
                 style={attendeesModalStyles.modalView}
                 activeOpacity={1}
+                onPress={() => setReadAttendees(readAttendees + 1)}
               >
                 <Text style={attendeesModalStyles.heading}>Who's going? </Text>
                 <View style={attendeesModalStyles.attendees}>
