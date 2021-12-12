@@ -241,15 +241,15 @@ export default function PostScreen({ route, navigation }) {
               setModalVisible(true);
             }}
             style={{
-              backgroundColor:'#8C2131', 
-              width:150,
-              // alignContent:'center', 
+              backgroundColor: "#8C2131",
+              width: 150,
+              // alignContent:'center',
               // alignItems:'center',
-              justifyContent:'center',
-              height:20,
-              padding:10,
-              marginTop:20,
-              borderRadius:10
+              justifyContent: "center",
+              height: 25,
+              padding: 10,
+              marginTop: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={attendeesModalStyles.who}>Who's going?</Text>
@@ -265,39 +265,44 @@ export default function PostScreen({ route, navigation }) {
             setModalVisible(!isModalVisible);
           }}
         >
-          <TouchableOpacity onPress={() => {
-            setModalVisible(false);
-            setAttendeeVisible(false);
-          }}>
-          {attendeeVisible ? (
-            <TouchableOpacity style={attendeesModalStyles.modalView} activeOpacity={1}>
-              <Text style={attendeesModalStyles.heading}>Who's going? </Text>
-              <View style={attendeesModalStyles.attendees}>
-              {isLoading ? (
-                <ActivityIndicator />
-              ) : (
-                <ScrollView>
-                  {attendees.map((item, index) => {
-                    return (
-                      <Text key={index} style={attendeesModalStyles.body}>
-                        {item.firstname} {item.lastname}
-                      </Text>
-                    );
-                  })}
-                </ScrollView>
-              )}
-              </View>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+              setAttendeeVisible(false);
+            }}
+          >
+            {attendeeVisible ? (
               <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(false);
-                  setAttendeeVisible(false);
-                }}
-                style={attendeesModalStyles.button}
+                style={attendeesModalStyles.modalView}
+                activeOpacity={1}
               >
-                <Text style={attendeesModalStyles.buttontext}>OK</Text>
+                <Text style={attendeesModalStyles.heading}>Who's going? </Text>
+                <View style={attendeesModalStyles.attendees}>
+                  {isLoading ? (
+                    <ActivityIndicator />
+                  ) : (
+                    <ScrollView>
+                      {attendees.map((item, index) => {
+                        return (
+                          <Text key={index} style={attendeesModalStyles.body}>
+                            {item.firstname} {item.lastname}
+                          </Text>
+                        );
+                      })}
+                    </ScrollView>
+                  )}
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setModalVisible(false);
+                    setAttendeeVisible(false);
+                  }}
+                  style={attendeesModalStyles.button}
+                >
+                  <Text style={attendeesModalStyles.buttontext}>OK</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
-            </TouchableOpacity>
-          ) : null}
+            ) : null}
           </TouchableOpacity>
         </Modal>
       </View>

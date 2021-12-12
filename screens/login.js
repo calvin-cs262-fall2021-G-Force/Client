@@ -51,7 +51,11 @@ export default function LoginScreen({ navigation }) {
       >
         <Image source={logo} style={globalStyles.loginLogo} />
         {/*The Button - will eventually take to Calvin's sign in page, but for now just takes you straight to the home page*/}
-        <Text style={globalStyles.header}>Knight Bites</Text>
+        <Text
+          style={[globalStyles.header, { marginBottom: 18, marginTop: -5 }]}
+        >
+          Knight Bites
+        </Text>
 
         <TextInput
           style={globalStyles.loginInput}
@@ -84,7 +88,14 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={globalStyles.signUpText}>Don't have an account?</Text>
+          <Text
+            style={[
+              globalStyles.signUpText,
+              { fontSize: 16, textDecorationLine: "underline" },
+            ]}
+          >
+            Don't have an account?
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>

@@ -23,7 +23,7 @@ export default Post = (props) => {
       <View
         style={[
           postStyles.box,
-          { borderColor: userEmail === props.email ? colors.maroon : "white" },
+          { borderColor: userEmail === props.email ? "gray" : "white" },
         ]}
       >
         <View>
@@ -43,7 +43,12 @@ export default Post = (props) => {
                 // style={}
                 onPress={() => navigation.navigate("Poster", { poster: email })}
               >
-                <Text style={postStyles.posterName}>
+                <Text
+                  style={[
+                    postStyles.posterName,
+                    { fontWeight: "bold", textDecorationLine: "underline" },
+                  ]}
+                >
                   {props.firstname} {props.lastname}
                 </Text>
               </TouchableOpacity>

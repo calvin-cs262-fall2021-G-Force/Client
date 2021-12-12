@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
   View,
-  Image,
   Text,
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from "react-native";
-import profilePic from "../assets/demo-profile.png";
 import { globalStyles } from "../styles/global";
 import { userStyles } from "../styles/user";
 import { UserContext } from "../util/GlobalStateManager";
@@ -17,8 +16,10 @@ import colors from "../assets/colors";
 import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
-  const { readProfile, setReadProfile } = useContext(UserContext);
+  const { readState, setGlobalRead, readProfile, setReadProfile } =
+    useContext(UserContext);
   const [student, setStudent] = useState([]);
+  const [isStudentPostLoading, setStudentPostLoading] = useState(true);
   const [isLoading, setLoading] = useState(true);
   const userEmail = auth.currentUser?.email;
   const [postItems, setPostItems] = useState([]);
@@ -33,7 +34,7 @@ export default function ProfileScreen({ navigation }) {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setStudentPostLoading(false);
     }
   };
 
@@ -64,6 +65,10 @@ export default function ProfileScreen({ navigation }) {
     };
   }, [readProfile]);
 
+  useEffect(() => {
+    getStudentPosts();
+  }, [readState]);
+
   const handleSignOut = () => {
     console.log("\nsigned out");
     auth
@@ -73,6 +78,33 @@ export default function ProfileScreen({ navigation }) {
       })
       .catch((error) => alert(error.message));
   };
+
+  const showConfirmDialog = () => {
+    return Alert.alert(
+      "",
+      "Are you sure you want to sign out?",
+      [
+        // The "Yes" button
+        // Deletes post when pressed
+        {
+          text: "Yes",
+          onPress: () => {
+            handleSignOut();
+            // setShowBox(false);
+          },
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
   //Shows profile
   return (
     <View>
@@ -94,18 +126,30 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={userStyles.collegeyear}>
                   {student.collegeyear}
                 </Text>
-                <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile", { student })}>
+                <TouchableOpacity
+                  style={userStyles.editProfile}
+                  onPress={() =>
+                    navigation.navigate("Edit Profile", { student })
+                  }
+                >
                   <Text style={userStyles.editProfileText}>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={{
-                paddingRight: 20,
-                paddingTop: 10,
-                // backgroundColor: colors.maroon,
-                height: 40,
-                width: 60
-              }} onPress={()=>handleSignOut()}>
-                <Ionicons name="log-out-outline" size={30} color={colors.maroon} />
+              <TouchableOpacity
+                style={{
+                  paddingRight: 20,
+                  paddingTop: 10,
+                  // backgroundColor: colors.maroon,
+                  height: 40,
+                  width: 60,
+                }}
+                onPress={() => showConfirmDialog()}
+              >
+                <Ionicons
+                  name="log-out-outline"
+                  size={30}
+                  color={colors.maroon}
+                />
               </TouchableOpacity>
             </View>
             <View style={userStyles.lower}>
@@ -116,10 +160,20 @@ export default function ProfileScreen({ navigation }) {
         )}
       </View>
 
-      {isLoading ? (
+      {isStudentPostLoading ? (
         <ActivityIndicator />
       ) : (
         <ScrollView>
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "bold",
+              paddingLeft: 25,
+              paddingBottom: 10,
+            }}
+          >
+            Your Posts
+          </Text>
           {postItems.map((item, index) => {
             return (
               <TouchableOpacity
