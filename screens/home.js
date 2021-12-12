@@ -54,7 +54,6 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
-    setGlobalRead(readState + 1);
   };
 
   const getPostsMeetUpTime = async () => {
@@ -69,7 +68,6 @@ export default function HomeScreen({ route, navigation }) {
     } finally {
       setLoading(false);
     }
-    setGlobalRead(readState + 1);
   };
 
   const postPosts = async () => {
@@ -161,6 +159,8 @@ export default function HomeScreen({ route, navigation }) {
             style={{ height: 50, width: 178 }}
             onValueChange={(itemValue, itemIndex) => {
               setSortSelected(itemValue);
+              setGlobalRead(readState + 1);
+
             }}
           >
             <Picker.Item label="Recently posted" value="posttime" />

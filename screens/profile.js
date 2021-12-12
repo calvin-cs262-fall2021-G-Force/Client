@@ -15,6 +15,7 @@ import { auth } from "../firebase";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function ProfileScreen({ navigation }) {
+  const { readProfile, setReadProfile } = useContext(UserContext);
   const [student, setStudent] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const userEmail = auth.currentUser?.email;
@@ -43,7 +44,7 @@ export default function ProfileScreen({ navigation }) {
     return function cleanup() {
       mounted = false;
     };
-  }, []);
+  }, [readProfile]);
 
   const handleSignOut = () => {
     console.log("\nsigned out");
@@ -75,7 +76,7 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={userStyles.detailstext}>
                   {student.collegeyear}
                 </Text>
-                <TouchableOpacity style={userStyles.editProfile}>
+                <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile", { student })}>
                   <Text>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
