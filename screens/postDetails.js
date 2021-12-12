@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
 
-import { homeModalStyles } from "../styles/homeModal";
+import { attendeesModalStyles } from "../styles/attendeesModal";
 import { postDetailsStyles } from "../styles/postDetails";
 import { globalStyles } from "../styles/global";
 import { UserContext } from "../util/GlobalStateManager";
@@ -161,13 +161,6 @@ export default function PostScreen({ route, navigation }) {
             </TouchableOpacity>
           </View>
         )}
-        {/* {user === props.email && (
-              <View>
-                <TouchableOpacity onPress={() => showConfirmDialog()}>
-                  <Feather name="trash-2" size={34} color="gray" />
-                </TouchableOpacity>
-              </View>
-            )} */}
 
         <View style={postDetailsStyles.signupButtonText}>
           <TouchableOpacity
@@ -175,8 +168,19 @@ export default function PostScreen({ route, navigation }) {
               setAttendeeVisible(true);
               setModalVisible(true);
             }}
+            style={{
+              backgroundColor:'#8C2131', 
+              width:150,
+              // alignContent:'center', 
+              // alignItems:'center',
+              justifyContent:'center',
+              height:20,
+              padding:10,
+              marginTop:20,
+              borderRadius:10
+            }}
           >
-            <Text>{"\n\n"}Who's going?</Text>
+            <Text style={attendeesModalStyles.who}>Who's going?</Text>
           </TouchableOpacity>
         </View>
 
@@ -186,41 +190,43 @@ export default function PostScreen({ route, navigation }) {
           transparent={true}
           visible={isModalVisible}
           onRequestClose={() => {
-            Alert.alert("No changes made");
             setModalVisible(!isModalVisible);
-            //setButtonVisible(true);
           }}
         >
+          <TouchableOpacity onPress={() => {
+            setModalVisible(false);
+            setAttendeeVisible(false);
+          }}>
           {attendeeVisible ? (
-            <View style={homeModalStyles.centeredView}>
-              <View style={homeModalStyles.modalView}>
-                <Text style={postDetailsStyles.title}>
-                  Who's going?{"\n\n"}
-                </Text>
-                {isLoading ? (
-                  <ActivityIndicator />
-                ) : (
-                  <ScrollView>
-                    {attendees.map((item, index) => {
-                      return (
-                        <Text key={index} style={postDetailsStyles.body}>
-                          {item.firstname} {item.lastname}
-                        </Text>
-                      );
-                    })}
-                  </ScrollView>
-                )}
-                <TouchableOpacity
-                  onPress={() => {
-                    setModalVisible(false);
-                    setAttendeeVisible(false);
-                  }}
-                >
-                  <Text style={{ fontSize: 30 }}>OK</Text>
-                </TouchableOpacity>
+            <TouchableOpacity style={attendeesModalStyles.modalView} activeOpacity={1}>
+              <Text style={attendeesModalStyles.heading}>Who's going? </Text>
+              <View style={attendeesModalStyles.attendees}>
+              {isLoading ? (
+                <ActivityIndicator />
+              ) : (
+                <ScrollView>
+                  {attendees.map((item, index) => {
+                    return (
+                      <Text key={index} style={attendeesModalStyles.body}>
+                        {item.firstname} {item.lastname}
+                      </Text>
+                    );
+                  })}
+                </ScrollView>
+              )}
               </View>
-            </View>
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(false);
+                  setAttendeeVisible(false);
+                }}
+                style={attendeesModalStyles.button}
+              >
+                <Text style={attendeesModalStyles.buttontext}>OK</Text>
+              </TouchableOpacity>
+            </TouchableOpacity>
           ) : null}
+          </TouchableOpacity>
         </Modal>
       </View>
     </View>

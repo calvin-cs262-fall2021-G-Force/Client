@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../assets/colors';
 
 export const userStyles = StyleSheet.create({
     user:{
@@ -21,7 +22,7 @@ export const userStyles = StyleSheet.create({
     },
 
     details:{
-        paddingLeft:30,
+        paddingLeft:15,
         marginTop:10,
     },
 
@@ -30,9 +31,10 @@ export const userStyles = StyleSheet.create({
         fontWeight:'bold',
     },
 
-    detailstext:{
+    collegeyear:{
         fontSize:16,
-
+        marginTop:5,
+        marginBottom:10
     },
 
     bioheading:{
@@ -46,8 +48,18 @@ export const userStyles = StyleSheet.create({
     },
 
     editProfile:{
-        backgroundColor:'#afc7b5',
-        alignItems:'center',
-        borderRadius:15,
+        backgroundColor:colors.maroon,
+        // borderWidth:1,
+        borderColor:colors.gold,
+        justifyContent:'center',
+        borderRadius:10,
+        height:25,
+        width:180,
     },
+    editProfileText:{
+        fontSize:14,
+        alignSelf:'center',
+        color:'white',
+        fontWeight:'bold'
+    }
 });

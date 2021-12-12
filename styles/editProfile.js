@@ -28,6 +28,8 @@ button:{
     alignItems:'center',
     justifyContent:'center',
     borderRadius:15,
+    marginBottom:30,
+    marginTop:20,
 },
 
 buttonText:{

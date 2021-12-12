@@ -1,4 +1,5 @@
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
+import colors from '../assets/colors';
 import { StyleSheet } from 'react-native';
 
 export const postDetailsStyles = StyleSheet.create({
@@ -6,8 +7,7 @@ export const postDetailsStyles = StyleSheet.create({
         alignItems:'flex-start',
         paddingTop: 50,
         paddingLeft: 20,
-        paddingRight:20,
-       
+        paddingRight:20,       
     },
 
     //the box for the whole post detail
@@ -51,12 +51,12 @@ export const postDetailsStyles = StyleSheet.create({
     signupButton:{
         
         alignSelf:'center',
-        backgroundColor:"#8C2131",
-        borderRadius:30,
+        backgroundColor:colors.gold,
+        borderRadius:20,
         marginTop:20,
         padding:10,
         width:'50%',
-        height:'15%',
+        height:50,
         justifyContent:'center',
         alignItems:'center'        
     },
@@ -64,7 +64,8 @@ export const postDetailsStyles = StyleSheet.create({
     signupButtonText: {
         fontSize: 20,
         alignSelf:'center',
-        color:"#F3CD00",
-        justifyContent:'center',
+        color:colors.maroon,
+        // justifyContent:'center',
+        fontWeight:'bold'
     },
 });

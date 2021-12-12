@@ -8,10 +8,10 @@ export const homeModalStyles = StyleSheet.create({
         // alignItems: "center",
         padding:20,
         alignSelf:'center',
-        marginTop: 100,
+        marginTop: 70,
         justifyContent:'center',
         elevation: 100,
-        height:'80%',
+        height:'85%',
         width:'90%'
     },
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import colors from "../assets/colors";
 export const globalStyles = StyleSheet.create({
   /*Per Calvin University Brand Identity Standards 
       Fonts: Constantia, Gotham, Century Schoolbook
@@ -15,6 +15,7 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 60,
     marginTop: -5,
+    // backgroundColor:colors.maroon
   },
 
   header: {

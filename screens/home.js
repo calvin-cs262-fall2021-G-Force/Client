@@ -19,12 +19,14 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 // import { Picker } from '@react-native-picker/picker';
 import { auth } from "../firebase";
-
+import colors from "../assets/colors";
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
 import { homeModalStyles } from "../styles/homeModal";
 import { UserContext } from "../util/GlobalStateManager";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAvoidingScrollView} from 'react-native-keyboard-avoiding-scroll-view';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -163,14 +165,14 @@ export default function HomeScreen({ route, navigation }) {
           alignSelf: "flex-end",
         }}
       >
-        <Text style={{ marginTop: 20, fontWeight: "bold", fontSize: 16 }}>
+        <Text style={{ marginTop: 20, fontWeight: "bold", fontSize: 16, color:"black", fontWeight:'bold'}}>
           Sort By:{" "}
         </Text>
         <View
           style={{
             marginTop: 10,
-            backgroundColor: "#F3CD00",
-            borderRadius: 20,
+            backgroundColor: colors.gold,
+            borderRadius: 10,
             height: 40,
             alignContent: "center",
             justifyContent: "center",
@@ -178,7 +180,7 @@ export default function HomeScreen({ route, navigation }) {
         >
           <Picker
             selectedValue={sortSelected}
-            style={{ height: 50, width: 178 }}
+            style={{ height: 50, width: 178, color:'black' }}
             onValueChange={(itemValue, itemIndex) => {
               setSortSelected(itemValue);
               setGlobalRead(readState + 1);
@@ -217,28 +219,27 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      {/* <TouchableWithoutFeedback onPress={()=> {setModalVisible(!modalVisible)}}> */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("No changes made");
+          setModalVisible(!modalVisible);
+          setButtonVisible(true);
+
+        }}
       >
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("No changes made");
-            setModalVisible(!modalVisible);
-            setButtonVisible(true);
-          }}
-        >
-          {/* <TouchableOpacity
-            style={{ width: '100%', height: 70, margin: 0 }}
-            onPressOut={() => {
-              Alert.alert("No changes made");
-              setModalVisible(!modalVisible);
-              setButtonVisible(true);
-            }}
-          > */}
-          <View style={homeModalStyles.modalView}>
+
+        <TouchableOpacity onPress={() => {
+          setModalVisible(!modalVisible); 
+          setButtonVisible(true);
+          Alert.alert("No changes made");
+          }}>
+       
+          <TouchableOpacity style={homeModalStyles.modalView} activeOpacity={1}>
+            <KeyboardAwareScrollView>
             <Text style={homeModalStyles.heading}>New Post</Text>
             <View>
               <Text style={homeModalStyles.text}>Title:</Text>
@@ -255,13 +256,13 @@ export default function HomeScreen({ route, navigation }) {
               </Text>
               <View style={{ flexDirection: "row", paddingRight: 20 }}>
                 <TouchableOpacity
-                  onPress={() => {}}
+                  onPress={() => { }}
                   style={homeModalStyles.datetime}
                 >
                   <Ionicons name="calendar" size={43} color={"#fff"} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => {}}
+                  onPress={() => { }}
                   style={homeModalStyles.datetime}
                 >
                   <Ionicons name="time-outline" size={43} color={"#fff"} />
@@ -279,13 +280,12 @@ export default function HomeScreen({ route, navigation }) {
                 >
                   {restaurants.map((item, index) => {
                     return (
-                      // <View key={index}>
                       <Picker.Item
                         label={item.restaurantname}
                         value={item.restaurantid}
                         key={index}
                       />
-                      // </View>
+                      
                     );
                   })}
                 </Picker>
@@ -294,14 +294,14 @@ export default function HomeScreen({ route, navigation }) {
             <View>
               <Text style={homeModalStyles.text}>Details for the meet up:</Text>
               <TextInput
-                style={homeModalStyles.textinput}
+                style={[homeModalStyles.textinput,{height: 70}]}
                 placeholder={"Details for the event..."}
                 value={postText}
                 onChangeText={(text) => setText(text)}
                 multiline={true}
               />
             </View>
-            <View>
+            </KeyboardAwareScrollView>              
               <TouchableOpacity
                 style={homeModalStyles.button}
                 onPress={() => {
@@ -311,26 +311,26 @@ export default function HomeScreen({ route, navigation }) {
                 }}
               >
                 <Text style={homeModalStyles.buttontext}>Add Post</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          {/* </TouchableOpacity> */}
-        </Modal>
-      </KeyboardAvoidingView>
+              </TouchableOpacity>           
+          </TouchableOpacity>
+      </TouchableOpacity>
+    </Modal>
 
-      {isButtonVisible ? (
-        <TouchableOpacity
-          style={globalStyles.addPost}
-          onPress={() => {
-            setModalVisible(true);
-            setButtonVisible(false);
-          }}
-        >
-          <View>
-            <Ionicons name="create-outline" size={34} color="#F3CD00" />
-          </View>
-        </TouchableOpacity>
-      ) : null}
-    </View>
+  {
+    isButtonVisible ? (
+      <TouchableOpacity
+        style={globalStyles.addPost}
+        onPress={() => {
+          setModalVisible(true);
+          setButtonVisible(false);
+        }}
+      >
+        <View>
+          <Ionicons name="create-outline" size={34} color="#F3CD00" />
+        </View>
+      </TouchableOpacity>
+    ) : null
+  }
+    </View >
   );
 }
