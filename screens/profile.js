@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import profilePic from "../assets/demo-profile.png";
 import { globalStyles } from "../styles/global";
@@ -13,12 +14,28 @@ import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../assets/colors";
+import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
   const { readProfile, setReadProfile } = useContext(UserContext);
   const [student, setStudent] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const userEmail = auth.currentUser?.email;
+  const [postItems, setPostItems] = useState([]);
+
+  const getStudentPosts = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/studentposts/" + userEmail
+      );
+      const json = await response.json();
+      setPostItems(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getUser = async () => {
     try {
@@ -39,6 +56,7 @@ export default function ProfileScreen({ navigation }) {
 
     if (mounted) {
       getUser();
+      getStudentPosts();
     }
 
     return function cleanup() {
@@ -97,6 +115,31 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate("Discount")}>
+        <Text style={profileStyles.discountText}>Student Discount Card</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleSignOut}>
+        <Text style={profileStyles.discountText}>Sign Out</Text>
+      </TouchableOpacity>
+
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <ScrollView>
+          {postItems.map((item, index) => {
+            return (
+              <TouchableOpacity
+                style={[postStyles.item, { paddingHorizontal: 18 }]}
+                key={index}
+                onPress={() => navigation.navigate("Post", { item })}
+              >
+                <Post {...item} />
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      )}
     </View>
   );
 }

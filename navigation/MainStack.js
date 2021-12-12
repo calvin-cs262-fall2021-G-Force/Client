@@ -35,7 +35,11 @@ export default function (Stack) {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Post" component={PostScreen} />
+      <Stack.Screen
+        name="Post"
+        component={PostScreen}
+        // options={{ headerStyle: { backgroundColor: "transparent" } }}
+      />
       <Stack.Screen name="Poster" component={PosterScreen} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Discount" component={DiscountScreen} />
