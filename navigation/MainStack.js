@@ -8,6 +8,7 @@ import DiscountScreen from "../screens/discount";
 import AboutScreen from "../screens/about";
 import SignUpScreen from "../screens/signup";
 import EditProfileScreen from "../screens/editProfile";
+import colors from "../assets/colors";
 
 export default function (Stack) {
   return (

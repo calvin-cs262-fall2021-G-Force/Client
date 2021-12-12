@@ -5,6 +5,7 @@ import RestaurantScreen from "../screens/restaurant";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import DiscountScreen from "../screens/discount";
 
 const Tab = createBottomTabNavigator();
 
@@ -69,6 +70,22 @@ function TabRoutes() {
               />
             );
           },
+        }}
+      />
+      <Tab.Screen
+        name="Discount"
+        component={DiscountScreen}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <Ionicons
+                name={focused ? "card" : "card-outline"}
+                size={27}
+                color="maroon"
+              />
+            );
+          },
+          headerTitle: "Discount Card" ,
         }}
       />
       <Tab.Screen

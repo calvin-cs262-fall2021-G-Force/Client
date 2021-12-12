@@ -7,13 +7,13 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
-import { profileStyles } from "../styles/profile";
 import profilePic from "../assets/demo-profile.png";
 import { globalStyles } from "../styles/global";
-import { userStyles } from "../styles/poster";
+import { userStyles } from "../styles/user";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 import { Ionicons } from "@expo/vector-icons";
+import colors from "../assets/colors";
 import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
@@ -91,18 +91,22 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={userStyles.name}>
                   {student.firstname} {student.lastname}
                 </Text>
-                <Text style={userStyles.detailstext}>
+                <Text style={userStyles.collegeyear}>
                   {student.collegeyear}
                 </Text>
-                <TouchableOpacity
-                  style={userStyles.editProfile}
-                  onPress={() =>
-                    navigation.navigate("Edit Profile", { student })
-                  }
-                >
-                  <Text>Edit Profile</Text>
+                <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile", { student })}>
+                  <Text style={userStyles.editProfileText}>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
+              <TouchableOpacity style={{
+                paddingRight: 20,
+                paddingTop: 10,
+                // backgroundColor: colors.maroon,
+                height: 40,
+                width: 60
+              }} onPress={()=>handleSignOut()}>
+                <Ionicons name="log-out-outline" size={30} color={colors.maroon} />
+              </TouchableOpacity>
             </View>
             <View style={userStyles.lower}>
               <Text style={userStyles.bioheading}>Bio: </Text>
@@ -111,13 +115,6 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Discount")}>
-        <Text style={profileStyles.discountText}>Student Discount Card</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleSignOut}>
-        <Text style={profileStyles.discountText}>Sign Out</Text>
-      </TouchableOpacity>
 
       {isLoading ? (
         <ActivityIndicator />

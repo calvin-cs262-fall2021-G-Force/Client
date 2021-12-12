@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, ActivityIndicator, FlatList } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Ionicons } from "@expo/vector-icons";
-import { userStyles } from "../styles/poster";
+import { userStyles } from "../styles/user";
 
 export default function PosterScreen({ route, navigation }) {
   const [student, setStudent] = useState(route.params.poster);
