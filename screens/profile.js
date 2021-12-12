@@ -115,13 +115,6 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Discount")}>
-        <Text style={profileStyles.discountText}>Student Discount Card</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleSignOut}>
-        <Text style={profileStyles.discountText}>Sign Out</Text>
-      </TouchableOpacity>
 
       {isLoading ? (
         <ActivityIndicator />
