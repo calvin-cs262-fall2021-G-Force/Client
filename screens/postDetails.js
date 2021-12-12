@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
 
-import { modalStyles } from "../styles/modal";
+import { homeModalStyles } from "../styles/homeModal";
 import { postDetailsStyles } from "../styles/postDetails";
 import { globalStyles } from "../styles/global";
 import { UserContext } from "../util/GlobalStateManager";
@@ -138,6 +138,10 @@ export default function PostScreen({ route, navigation }) {
             {route.params.item.posttitle}
             {"\n"}
           </Text>
+          {/* <Text style={postDetailsStyles.title}>
+            {route.params.item.restaurantname}
+            {"\n"}
+          </Text> */}
           <Text style={postDetailsStyles.body}>
             {route.params.item.post}
             {"\n"}
@@ -188,8 +192,8 @@ export default function PostScreen({ route, navigation }) {
           }}
         >
           {attendeeVisible ? (
-            <View style={modalStyles.centeredView}>
-              <View style={modalStyles.modalView}>
+            <View style={homeModalStyles.centeredView}>
+              <View style={homeModalStyles.modalView}>
                 <Text style={postDetailsStyles.title}>
                   Who's going?{"\n\n"}
                 </Text>

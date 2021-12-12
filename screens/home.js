@@ -17,12 +17,13 @@ import {
   Picker,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+// import { Picker } from '@react-native-picker/picker';
 import { auth } from "../firebase";
 
 import Post from "../components/postComponent";
 import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
-import { modalStyles } from "../styles/modal";
+import { homeModalStyles } from "../styles/homeModal";
 import { UserContext } from "../util/GlobalStateManager";
 
 const wait = (timeout) => {
@@ -37,6 +38,9 @@ export default function HomeScreen({ route, navigation }) {
   const [postItems, setPostItems] = useState([]);
   const [isButtonVisible, setButtonVisible] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("1");
+  const [restaurants, setRestaurants] = useState([]);
+  const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
   const [sortSelected, setSortSelected] = useState("posttime");
 
@@ -70,6 +74,20 @@ export default function HomeScreen({ route, navigation }) {
     }
   };
 
+  const getRestaurants = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/restaurants"
+      );
+      const json = await response.json();
+      setRestaurants(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const postPosts = async () => {
     await fetch("https://knight-bites.herokuapp.com/posts", {
       method: "POST",
@@ -82,7 +100,7 @@ export default function HomeScreen({ route, navigation }) {
         post: postText,
         posttime: new Date(),
         meetuptime: new Date(Date.now()).toISOString(),
-        restaurantid: 9,
+        restaurantid: selectedValue,
         studentemail: userEmail,
       }),
     })
@@ -93,6 +111,10 @@ export default function HomeScreen({ route, navigation }) {
         console.error(error);
       });
   };
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -195,7 +217,6 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      {/* <View style={modalStyles.modalView}> */}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -210,41 +231,91 @@ export default function HomeScreen({ route, navigation }) {
           }}
         >
           {/* <TouchableOpacity
-            style={{width: '100%', height: 70, margin: 0}}
+            style={{ width: '100%', height: 70, margin: 0 }}
             onPressOut={() => {
               Alert.alert("No changes made");
               setModalVisible(!modalVisible);
               setButtonVisible(true);
             }}
-          /> */}
-
-          <View style={modalStyles.modalView}>
-            <TextInput
-              style={globalStyles.input}
-              placeholder={"Title..."}
-              value={postTitle}
-              onChangeText={(text) => setTitle(text)}
-            />
-            <TextInput
-              style={modalStyles.postInput}
-              placeholder={"Write post here..."}
-              value={postText}
-              onChangeText={(text) => setText(text)}
-            />
-            <Pressable
-              style={[modalStyles.button, modalStyles.buttonOpen]}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-                setButtonVisible(true);
-                handleAddPost();
-              }}
-            >
-              <Text style={modalStyles.textStyle}>Post</Text>
-            </Pressable>
+          > */}
+          <View style={homeModalStyles.modalView}>
+            <Text style={homeModalStyles.heading}>New Post</Text>
+            <View>
+              <Text style={homeModalStyles.text}>Title:</Text>
+              <TextInput
+                style={homeModalStyles.textinput}
+                placeholder={"Title..."}
+                value={postTitle}
+                onChangeText={(text) => setTitle(text)}
+              />
+            </View>
+            <View>
+              <Text style={homeModalStyles.text}>
+                Select meet up date and time:
+              </Text>
+              <View style={{ flexDirection: "row", paddingRight: 20 }}>
+                <TouchableOpacity
+                  onPress={() => {}}
+                  style={homeModalStyles.datetime}
+                >
+                  <Ionicons name="calendar" size={43} color={"#fff"} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {}}
+                  style={homeModalStyles.datetime}
+                >
+                  <Ionicons name="time-outline" size={43} color={"#fff"} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
+              <View style={homeModalStyles.picker}>
+                <Picker
+                  selectedValue={selectedValue}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setSelectedValue(itemValue)
+                  }
+                >
+                  {restaurants.map((item, index) => {
+                    return (
+                      <View key={index}>
+                        <Picker.Item
+                          label={item.restaurantname}
+                          value={item.restaurantid}
+                        />
+                      </View>
+                    );
+                  })}
+                </Picker>
+              </View>
+            </View>
+            <View>
+              <Text style={homeModalStyles.text}>Details for the meet up:</Text>
+              <TextInput
+                style={homeModalStyles.textinput}
+                placeholder={"Details for the event..."}
+                value={postText}
+                onChangeText={(text) => setText(text)}
+                multiline={true}
+              />
+            </View>
+            <View>
+              <TouchableOpacity
+                style={homeModalStyles.button}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  setButtonVisible(true);
+                  handleAddPost();
+                }}
+              >
+                <Text style={homeModalStyles.buttontext}>Add Post</Text>
+              </TouchableOpacity>
+            </View>
           </View>
+          {/* </TouchableOpacity> */}
         </Modal>
       </KeyboardAvoidingView>
-      {/* </View> */}
 
       {isButtonVisible ? (
         <TouchableOpacity

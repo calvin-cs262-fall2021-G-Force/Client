@@ -7,12 +7,12 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  Alert,
-  Picker,
+  Alert
 } from "react-native";
 
 import { auth } from "../firebase";
 import { globalStyles } from "../styles/global";
+import { Picker } from '@react-native-picker/picker';
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState("");
