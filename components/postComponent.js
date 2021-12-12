@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
-import { postStyles } from "../styles/post";
-import { globalStyles } from "../styles/global";
 import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import moment from "moment";
-import { auth } from "../firebase";
 
+import { postStyles } from "../styles/post";
+import { postDetailsStyles } from "../styles/postDetails";
+import { globalStyles } from "../styles/global";
+import { auth } from "../firebase";
 import { UserContext } from "../util/GlobalStateManager";
+import colors from "../assets/colors";
 
 export default Post = (props) => {
   const navigation = useNavigation();
@@ -16,68 +18,39 @@ export default Post = (props) => {
   const [showBox, setShowBox] = useState(true);
   const userEmail = auth.currentUser?.email;
 
-  const deletePosts = async () => {
-    fetch("https://knight-bites.herokuapp.com/posts/" + String(props.id), {
-      method: "DELETE",
-    })
-      .then((responseJson) => {
-        console.log("\ndelete response object:", JSON.stringify(responseJson));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const handleDeletePost = () => {
-    deletePosts();
-    setGlobalRead(readState + 1);
-  };
-
-  const showConfirmDialog = () => {
-    return Alert.alert(
-      "Delete post",
-      "Are you sure you want to delete this post?",
-      [
-        // The "Yes" button
-        // Deletes post when pressed
-        {
-          text: "Yes",
-          onPress: () => {
-            handleDeletePost();
-            setShowBox(false);
-          },
-        },
-        // The "No" button
-        // Does nothing but dismiss the dialog when tapped
-        {
-          text: "No",
-        },
-      ],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
   return (
     <View>
-      <View style={postStyles.box}>
+      <View
+        style={[
+          postStyles.box,
+          { borderColor: userEmail === props.email ? colors.maroon : "white" },
+        ]}
+      >
         <View>
           <View style={{ flexDirection: "row" }}>
             <View style={postStyles.left}>
-              <TouchableOpacity style={[globalStyles.profileIcon,{width:40, height:40}]}
+              <TouchableOpacity
+                style={[
+                  globalStyles.profileIcon,
+                  { width: 40, height: 40, marginTop: -6, marginLeft: -6 },
+                ]}
                 onPress={() => navigation.navigate("Poster", { poster: email })}
               >
                 <Ionicons name={props.icon} size={28} color="black" />
               </TouchableOpacity>
+
+              <TouchableOpacity
+                // style={}
+                onPress={() => navigation.navigate("Poster", { poster: email })}
+              >
+                <Text style={postStyles.posterName}>
+                  {props.firstname} {props.lastname}
+                </Text>
+              </TouchableOpacity>
             </View>
-            {userEmail === props.email && (
-              <View>
-                <TouchableOpacity onPress={() => showConfirmDialog()}>
-                  <Feather name="trash-2" size={34} color="gray" />
-                </TouchableOpacity>
-              </View>
-            )}
+          </View>
+
+          <View>
             <View style={postStyles.content}>
               <Text style={postStyles.contentTitleText}>
                 {props.posttitle}

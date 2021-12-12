@@ -8,12 +8,21 @@ export const postStyles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "space-between",
     // borderColor: "gold",
-    // borderWidth: 1,
+    borderWidth: 2,
+  },
+
+  posterName: {
+    fontSize: 15,
+    // fontWeight: "bold",
+    // textDecorationLine: "underline",
+    paddingTop: 5,
+    paddingLeft: 5,
   },
 
   //profile icon
   left: {
     justifyContent: "flex-start",
+    flexDirection: "row",
   },
 
   //the post informations
@@ -30,7 +39,6 @@ export const postStyles = StyleSheet.create({
   contentDetailsText: {
     fontSize: 15,
     fontStyle: "italic",
-    marginLeft: -15,
   },
 
   date: {

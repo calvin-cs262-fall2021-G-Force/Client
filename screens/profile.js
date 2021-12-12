@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { profileStyles } from "../styles/profile";
 import profilePic from "../assets/demo-profile.png";
@@ -13,12 +14,28 @@ import { userStyles } from "../styles/poster";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 import { Ionicons } from "@expo/vector-icons";
+import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
   const { readProfile, setReadProfile } = useContext(UserContext);
   const [student, setStudent] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const userEmail = auth.currentUser?.email;
+  const [postItems, setPostItems] = useState([]);
+
+  const getStudentPosts = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/studentposts/" + userEmail
+      );
+      const json = await response.json();
+      setPostItems(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getUser = async () => {
     try {
@@ -39,6 +56,7 @@ export default function ProfileScreen({ navigation }) {
 
     if (mounted) {
       getUser();
+      getStudentPosts();
     }
 
     return function cleanup() {
@@ -76,7 +94,12 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={userStyles.detailstext}>
                   {student.collegeyear}
                 </Text>
-                <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile", { student })}>
+                <TouchableOpacity
+                  style={userStyles.editProfile}
+                  onPress={() =>
+                    navigation.navigate("Edit Profile", { student })
+                  }
+                >
                   <Text>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -95,81 +118,24 @@ export default function ProfileScreen({ navigation }) {
       <TouchableOpacity onPress={handleSignOut}>
         <Text style={profileStyles.discountText}>Sign Out</Text>
       </TouchableOpacity>
+
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <ScrollView>
+          {postItems.map((item, index) => {
+            return (
+              <TouchableOpacity
+                style={[postStyles.item, { paddingHorizontal: 18 }]}
+                key={index}
+                onPress={() => navigation.navigate("Post", { item })}
+              >
+                <Post {...item} />
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      )}
     </View>
   );
-
-  //   return (
-  //     <View style={globalStyles.screen}>
-  //       <Image source={profilePic} style={{ width: 50, height: 55 }} />
-
-  //       <View style={profileStyles.text}>
-  //         <Text style={profileStyles.text}>{userEmail}</Text>
-  //         <Text style={profileStyles.text}>Year: Sophomore</Text>
-  //         <Text style={profileStyles.text}>Bio: Hi all, I love spicy food!</Text>
-  //       </View>
-
-  //       <TouchableOpacity onPress={() => navigation.navigate("Discount")}>
-  //         <Text style={profileStyles.discountText}>Student Discount Card</Text>
-  //       </TouchableOpacity>
-
-  // <TouchableOpacity style={globalStyles.button} onPress={handleSignOut}>
-  //   <Text style={globalStyles.buttonText}>Sign Out</Text>
-  // </TouchableOpacity>
-  //     </View>
-  // import { Ionicons } from '@expo/vector-icons';
-
-  // export default function ProfileScreen({ navigation }) {
-  //   const { user } = useContext(UserContext);
-  //   const [student,setStudent] =useState([]);
-  //   const [isLoading, setLoading] = useState(true);
-
-  //   const getUser = async () => {
-  //     try {
-  //       const response = await fetch('https://knight-bites.herokuapp.com/students/' + user);
-  //       const json = await response.json();
-  //       setStudent(json);
-  //     } catch (error) {
-  //       console.error(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   useEffect(() => {
-  //     getUser();
-  //   }, []);
-  //   //Shows profile
-  //   return (
-  //       <View>
-  //           <View style={{margin:20}}>
-  //             {isLoading ? <ActivityIndicator /> : (
-  //               <View style={userStyles.user}>
-  //                 <View style={userStyles.upper}>
-  //                   <View style={[globalStyles.profileIcon,{width:90,height:90}]}>
-  //                       <Ionicons
-  //                       name= {student.icon}
-  //                       size={60}
-  //                       color="#000"
-  //                     />
-  //                   </View>
-  //                   <View style={userStyles.details}>
-  //                     <Text style= {userStyles.name}>{student.firstname} {student.lastname}</Text>
-  //                     <Text style= {userStyles.detailstext}>{student.collegeyear}</Text>
-  //                     <TouchableOpacity style={userStyles.editProfile}>
-  //                       <Text>Edit Profile</Text>
-  //                     </TouchableOpacity>
-  //                   </View>
-  //                 </View>
-  //                 <View style={userStyles.lower}>
-  //                     <Text style= {userStyles.bioheading}>Bio:  </Text>
-  //                     <Text style= {userStyles.biodetails}>{student.bio}</Text>
-  //                 </View>
-  //               </View>
-  //             )}
-  //           </View>
-  // <TouchableOpacity onPress={() => navigation.navigate("Discount")}>
-  // <Text style={profileStyles.discountText}>Student Discount Card</Text>
-  // </TouchableOpacity>
-  //         </View>
-  //   );
 }

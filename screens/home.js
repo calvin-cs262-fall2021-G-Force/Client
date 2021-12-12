@@ -182,7 +182,6 @@ export default function HomeScreen({ route, navigation }) {
             onValueChange={(itemValue, itemIndex) => {
               setSortSelected(itemValue);
               setGlobalRead(readState + 1);
-
             }}
           >
             <Picker.Item label="Recently posted" value="posttime" />
