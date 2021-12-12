@@ -279,12 +279,13 @@ export default function HomeScreen({ route, navigation }) {
                 >
                   {restaurants.map((item, index) => {
                     return (
-                      <View key={index}>
-                        <Picker.Item
-                          label={item.restaurantname}
-                          value={item.restaurantid}
-                        />
-                      </View>
+                      // <View key={index}>
+                      <Picker.Item
+                        label={item.restaurantname}
+                        value={item.restaurantid}
+                        key={index}
+                      />
+                      // </View>
                     );
                   })}
                 </Picker>
