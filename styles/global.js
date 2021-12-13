@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 import colors from "../assets/colors";
 export const globalStyles = StyleSheet.create({
   /*Per Calvin University Brand Identity Standards 
-      Fonts: Constantia, Gotham, Century Schoolbook
       Maroon: #8C2131
       Gold:   #F3CD00 
       Can be found at https://calvin.edu/dotAsset/f784aa74-291f-45b1-b45c-d6455663bcb4
@@ -15,11 +14,9 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 60,
     marginTop: -5,
-    // backgroundColor:colors.maroon
   },
 
   header: {
-    //padding: 10,
     fontSize: 35,
     fontWeight: "bold",
     alignItems: "center",
@@ -28,7 +25,7 @@ export const globalStyles = StyleSheet.create({
   button: {
     width: 250,
     height: 60,
-    backgroundColor: "#8C2131",
+    backgroundColor: colors.maroon,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
@@ -38,7 +35,7 @@ export const globalStyles = StyleSheet.create({
   addPost: {
     width: 70,
     height: 70,
-    backgroundColor: "#8C2131",
+    backgroundColor: colors.maroon,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
@@ -49,23 +46,21 @@ export const globalStyles = StyleSheet.create({
 
   buttonText: {
     fontSize: 24,
-    color: "#F3CD00",
+    color: colors.gold,
   },
 
   signUpText: {
     fontSize: 22,
-    color: "#8C2131",
+    color: colors.maroon,
     padding: 20,
   },
 
-  //Need a way to add line breaks to text that is added to the post
   postsWrapper: {
     width: "100%",
   },
 
   sectionTitle: {
     fontSize: 24,
-    //fontFamily: 'Gotham',
     fontSize: 24,
     fontWeight: "bold",
     alignItems: "center",
@@ -77,46 +72,9 @@ export const globalStyles = StyleSheet.create({
     marginTop: 5,
   },
 
-  input: {
-    marginTop: 10,
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    backgroundColor: "#FFF",
-    borderRadius: 60,
-    borderColor: "#8C2131",
-    borderWidth: 1,
-    width: 250,
-  },
-
-  addWrapper: {
-    width: 60,
-    height: 60,
-    backgroundColor: "#8C2131",
-    borderRadius: 60,
-    margin: 40,
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  addText: {
-    color: "#F3CD00",
-    fontSize: 40,
-    fontWeight: "bold",
-  },
   paragraphs: {
     fontSize: 18,
     padding: 20,
-  },
-  about: {
-    height: 30,
-    width: 30,
-    fontSize: 24,
-    paddingLeft: 7,
-    marginRight: 20,
-    borderWidth: 1,
-    borderRadius: 100,
-    opacity: 0.6,
   },
 
   loginLogo: {
@@ -131,12 +89,13 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   loginInput: {
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: "#FFF",
     borderRadius: 19,
-    borderColor: "#8C2131",
+    borderColor: "black",
     borderWidth: 1,
     width: 250,
     marginBottom: 10,
@@ -144,7 +103,7 @@ export const globalStyles = StyleSheet.create({
 
   profileIcon: {
     alignItems: "center",
-    backgroundColor: "#F3CD00",
+    backgroundColor: colors.gold,
     borderRadius: 100,
     borderColor: "black",
     borderWidth: 2,
@@ -153,7 +112,7 @@ export const globalStyles = StyleSheet.create({
   addPost: {
     width: 70,
     height: 70,
-    backgroundColor: "#8C2131",
+    backgroundColor: colors.maroon,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",

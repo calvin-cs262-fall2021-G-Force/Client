@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  Image,
   Text,
   View,
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 import { auth } from "../firebase";
 import { globalStyles } from "../styles/global";
-import { Picker } from "@react-native-picker/picker";
 
 export default function SignUpScreen({ navigation }) {
   //Defines variables that will be changed and sent to dataservice
@@ -23,7 +21,6 @@ export default function SignUpScreen({ navigation }) {
   const [collegeYear, setCollegeYear] = useState("");
   const [bio, setBio] = useState("");
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [createStudentRef, setCreateStudentRef] = useState(0);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {});
@@ -49,7 +46,6 @@ export default function SignUpScreen({ navigation }) {
         setAuthenticated(true);
       })
       .catch((error) => alert(error.message));
-    // navigation.navigate("Login");
   };
 
   //Creates a student within the database with email, name, college year, and bio
@@ -131,12 +127,6 @@ export default function SignUpScreen({ navigation }) {
           value={lastName}
         />
 
-        {/* <TextInput
-          style={globalStyles.loginInput}
-          placeholder="Year in College"
-          onChangeText={(text) => setCollegeYear(text)}
-          value={collegeYear}
-        /> */}
         <View
           style={[
             globalStyles.loginInput,
@@ -145,7 +135,6 @@ export default function SignUpScreen({ navigation }) {
         >
           <Picker
             selectedValue={collegeYear}
-            // style={{ height: 50, width: 178 }}
             onValueChange={(itemValue, itemIndex) => {
               setCollegeYear(itemValue);
             }}

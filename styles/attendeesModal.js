@@ -51,11 +51,8 @@ export const attendeesModalStyles = StyleSheet.create({
   },
 
   who: {
-    // marginTop:20,
-    // fontWeight:'bold',
     fontSize: 16,
     color: colors.gold,
-    // textDecorationLine:'underline',
     alignSelf: "center",
   },
 });

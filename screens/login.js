@@ -8,9 +8,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+
 import { globalStyles } from "../styles/global";
 import logo from "../assets/logo.png";
-import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 
 export default function LoginScreen({ navigation }) {
@@ -28,7 +28,6 @@ export default function LoginScreen({ navigation }) {
       }
     });
 
-    console.log("unsubscribe is running");
     return () => {
       unsubscribe();
     };
@@ -52,7 +51,6 @@ export default function LoginScreen({ navigation }) {
         style={globalStyles.loginTextBox}
       >
         <Image source={logo} style={globalStyles.loginLogo} />
-        <Text style={globalStyles.header}>Knight Bites</Text>
 
         <Text
           style={[globalStyles.header, { marginBottom: 18, marginTop: -5 }]}
@@ -75,18 +73,7 @@ export default function LoginScreen({ navigation }) {
           secureTextEntry
         />
         {/* Signals that userName and password are defined, and attempts to authenticate using firebase */}
-        <TouchableOpacity
-          style={globalStyles.button}
-          // onPress={() => {
-          //   handleLogin;
-          //   setGlobalUser(auth.currentUser?.email);
-          //   navigation.navigate("Tabs", {
-          //     screen: "Home",
-          //   });
-          // }}
-          onPress={handleLogin}
-          // onPressOut={setGlobalUser(auth.currentUser?.email)}
-        >
+        <TouchableOpacity style={globalStyles.button} onPress={handleLogin}>
           <Text style={globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
 

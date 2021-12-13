@@ -1,6 +1,6 @@
-import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
-import colors from "../assets/colors";
 import { StyleSheet } from "react-native";
+
+import colors from "../assets/colors";
 
 export const postDetailsStyles = StyleSheet.create({
   screen: {
@@ -19,7 +19,6 @@ export const postDetailsStyles = StyleSheet.create({
   },
   contentDetailsText: {
     fontSize: 16,
-    // fontStyle: "italic",
     paddingLeft: 10,
   },
 
@@ -49,7 +48,6 @@ export const postDetailsStyles = StyleSheet.create({
     fontSize: 14,
     paddingBottom: 10,
     marginTop: 5,
-    // paddingLeft:50,
   },
 
   signupButton: {
@@ -68,7 +66,6 @@ export const postDetailsStyles = StyleSheet.create({
     fontSize: 20,
     alignSelf: "center",
     color: "black",
-    // justifyContent:'center',
     fontWeight: "bold",
   },
 });

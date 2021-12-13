@@ -6,13 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { globalStyles } from "../styles/global";
 import { Ionicons } from "@expo/vector-icons";
+
+import { globalStyles } from "../styles/global";
 import { userStyles } from "../styles/user";
 import { postStyles } from "../styles/post";
 
 export default function PosterScreen({ route, navigation }) {
-  //Defines the student as well as the a variable for storing details accessible from that user's details on the webservice 
+  //Defines the student as well as the a variable for storing details accessible from that user's details on the webservice
   const [student, setStudent] = useState(route.params.poster);
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
