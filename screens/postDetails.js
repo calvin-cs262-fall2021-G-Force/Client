@@ -218,6 +218,14 @@ export default function PostScreen({ route, navigation }) {
             {route.params.item.post}
             {"\n"}
           </Text>
+          <Text style={postDetailsStyles.dateText}>
+                {" Meeting Details: \n "}
+                {moment(route.params.item.meetuptime).format(
+                  "MMMM D, YYYY [at] h:mm a"
+                )}
+                {"\n at "}
+                {route.params.item.restaurantname}
+              </Text>
         </View>
         {userEmail !== route.params.item.studentemail && (
           <View>

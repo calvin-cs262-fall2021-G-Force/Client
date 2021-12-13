@@ -17,6 +17,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from '@react-native-picker/picker';
+import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { auth } from "../firebase";
 import colors from "../assets/colors";
@@ -304,6 +305,7 @@ export default function HomeScreen({ route, navigation }) {
                 >
                   <Ionicons name="time-outline" size={43} color={"#fff"} />
                 </TouchableOpacity>
+                <Text style={homeModalStyles.text}>{moment(date).format("MMMM D [at] h:mm a")}</Text>
               </View>
             </View>
             <View>
