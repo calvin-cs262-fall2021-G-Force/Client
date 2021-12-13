@@ -53,6 +53,12 @@ export default function LoginScreen({ navigation }) {
       >
         <Image source={logo} style={globalStyles.loginLogo} />
         <Text style={globalStyles.header}>Knight Bites</Text>
+
+        <Text
+          style={[globalStyles.header, { marginBottom: 18, marginTop: -5 }]}
+        >
+          Knight Bites
+        </Text>
         {/* User inputs for email and password */}
         <TextInput
           style={globalStyles.loginInput}
@@ -85,7 +91,14 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={globalStyles.signUpText}>Don't have an account?</Text>
+          <Text
+            style={[
+              globalStyles.signUpText,
+              { fontSize: 16, textDecorationLine: "underline" },
+            ]}
+          >
+            Don't have an account?
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>

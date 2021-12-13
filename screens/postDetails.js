@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  useColorScheme,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import moment from "moment";
@@ -16,6 +17,8 @@ import { postDetailsStyles } from "../styles/postDetails";
 import { globalStyles } from "../styles/global";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
+import colors from "../assets/colors";
+import { postStyles } from "../styles/post";
 
 export default function PostScreen({ route, navigation }) {
   //Variables for rendering details about the poster
@@ -213,7 +216,7 @@ export default function PostScreen({ route, navigation }) {
             {userEmail === route.params.item.email && (
               <View>
                 <TouchableOpacity onPress={() => showConfirmDialog()}>
-                  <Feather name="trash-2" size={32} color="gray" />
+                  <Feather name="trash-2" size={32} color={colors.maroon} />
                 </TouchableOpacity>
               </View>
             )}
@@ -224,20 +227,27 @@ export default function PostScreen({ route, navigation }) {
             {route.params.item.posttitle}
             {"\n"}
           </Text>
+          <Text style={postDetailsStyles.contentDetailsText}>
+            Venue: {route.params.item.restaurantname}
+            {"\n"}
+          </Text>
 
-          <Text style={postDetailsStyles.body}>
+          <Text style={postDetailsStyles.contentDetailsText}>
+            Meetup time:{" "}
+            {moment(route.params.item.meetuptime).format(
+              "MMMM D, YYYY [at] h:mma"
+            )}
+            {"\n"}
+          </Text>
+          <Text style={[postDetailsStyles.contentDetailsText, {}]}>
+            Details:
+          </Text>
+          <Text style={postDetailsStyles.contentDetailsText}>
             {route.params.item.post}
             {"\n"}
           </Text>
-          <Text style={postDetailsStyles.dateText}>
-                {" Meeting Details: \n "}
-                {moment(route.params.item.meetuptime).format(
-                  "MMMM D, YYYY [at] h:mm a"
-                )}
-                {"\n at "}
-                {route.params.item.restaurantname}
-              </Text>
         </View>
+
         {userEmail !== route.params.item.studentemail && (
           <View>
             {/* Button that allows for you to sign up for an event*/}
@@ -260,17 +270,18 @@ export default function PostScreen({ route, navigation }) {
             onPress={() => {
               setAttendeeVisible(true);
               setModalVisible(true);
+              setReadAttendees(readAttendees + 1);
             }}
             style={{
-              backgroundColor:'#8C2131', 
-              width:150,
-              // alignContent:'center', 
+              backgroundColor: "#8C2131",
+              width: 150,
+              // alignContent:'center',
               // alignItems:'center',
-              justifyContent:'center',
-              height:20,
-              padding:10,
-              marginTop:20,
-              borderRadius:10
+              justifyContent: "center",
+              height: 25,
+              padding: 10,
+              marginTop: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={attendeesModalStyles.who}>Who's going?</Text>
@@ -286,39 +297,45 @@ export default function PostScreen({ route, navigation }) {
             setModalVisible(!isModalVisible);
           }}
         >
-          <TouchableOpacity onPress={() => {
-            setModalVisible(false);
-            setAttendeeVisible(false);
-          }}>
-          {attendeeVisible ? (
-            <TouchableOpacity style={attendeesModalStyles.modalView} activeOpacity={1}>
-              <Text style={attendeesModalStyles.heading}>Who's going? </Text>
-              <View style={attendeesModalStyles.attendees}>
-              {isLoading ? (
-                <ActivityIndicator />
-              ) : (
-                <ScrollView>
-                  {attendees.map((item, index) => {
-                    return (
-                      <Text key={index} style={attendeesModalStyles.body}>
-                        {item.firstname} {item.lastname}
-                      </Text>
-                    );
-                  })}
-                </ScrollView>
-              )}
-              </View>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+              setAttendeeVisible(false);
+            }}
+          >
+            {attendeeVisible ? (
               <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(false);
-                  setAttendeeVisible(false);
-                }}
-                style={attendeesModalStyles.button}
+                style={attendeesModalStyles.modalView}
+                activeOpacity={1}
+                onPress={() => setReadAttendees(readAttendees + 1)}
               >
-                <Text style={attendeesModalStyles.buttontext}>OK</Text>
+                <Text style={attendeesModalStyles.heading}>Who's going? </Text>
+                <View style={attendeesModalStyles.attendees}>
+                  {isLoading ? (
+                    <ActivityIndicator />
+                  ) : (
+                    <ScrollView>
+                      {attendees.map((item, index) => {
+                        return (
+                          <Text key={index} style={attendeesModalStyles.body}>
+                            {item.firstname} {item.lastname}
+                          </Text>
+                        );
+                      })}
+                    </ScrollView>
+                  )}
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setModalVisible(false);
+                    setAttendeeVisible(false);
+                  }}
+                  style={attendeesModalStyles.button}
+                >
+                  <Text style={attendeesModalStyles.buttontext}>OK</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
-            </TouchableOpacity>
-          ) : null}
+            ) : null}
           </TouchableOpacity>
         </Modal>
       </View>

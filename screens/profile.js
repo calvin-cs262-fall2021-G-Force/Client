@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
   View,
-  Image,
   Text,
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from "react-native";
-import profilePic from "../assets/demo-profile.png";
 import { globalStyles } from "../styles/global";
 import { userStyles } from "../styles/user";
 import { UserContext } from "../util/GlobalStateManager";
@@ -17,9 +16,10 @@ import colors from "../assets/colors";
 import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
-  //Defines the student for whom the screen represents
-  const { readProfile, setReadProfile } = useContext(UserContext);
+  const { readState, setGlobalRead, readProfile, setReadProfile } =
+    useContext(UserContext);
   const [student, setStudent] = useState([]);
+  const [isStudentPostLoading, setStudentPostLoading] = useState(true);
   const [isLoading, setLoading] = useState(true);
   const userEmail = auth.currentUser?.email;
   const [postItems, setPostItems] = useState([]);
@@ -35,7 +35,7 @@ export default function ProfileScreen({ navigation }) {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setStudentPostLoading(false);
     }
   };
 
@@ -67,7 +67,10 @@ export default function ProfileScreen({ navigation }) {
     };
   }, [readProfile]);
 
-  //Enable signing out from your profile, then navigating back to Login
+  useEffect(() => {
+    getStudentPosts();
+  }, [readState]);
+
   const handleSignOut = () => {
     console.log("\nsigned out");
     auth
@@ -77,6 +80,33 @@ export default function ProfileScreen({ navigation }) {
       })
       .catch((error) => alert(error.message));
   };
+
+  const showConfirmDialog = () => {
+    return Alert.alert(
+      "",
+      "Are you sure you want to sign out?",
+      [
+        // The "Yes" button
+        // Deletes post when pressed
+        {
+          text: "Yes",
+          onPress: () => {
+            handleSignOut();
+            // setShowBox(false);
+          },
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
   //Shows profile
   return (
     <View>
@@ -99,18 +129,30 @@ export default function ProfileScreen({ navigation }) {
                   {student.collegeyear}
                 </Text>
                 {/* Allows you to edit your profile by redirecting you to an edit page */}
-                <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile", { student })}>
+                <TouchableOpacity
+                  style={userStyles.editProfile}
+                  onPress={() =>
+                    navigation.navigate("Edit Profile", { student })
+                  }
+                >
                   <Text style={userStyles.editProfileText}>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={{
-                paddingRight: 20,
-                paddingTop: 10,
-                // backgroundColor: colors.maroon,
-                height: 40,
-                width: 60
-              }} onPress={()=>handleSignOut()}>
-                <Ionicons name="log-out-outline" size={30} color={colors.maroon} />
+              <TouchableOpacity
+                style={{
+                  paddingRight: 20,
+                  paddingTop: 10,
+                  // backgroundColor: colors.maroon,
+                  height: 40,
+                  width: 60,
+                }}
+                onPress={() => showConfirmDialog()}
+              >
+                <Ionicons
+                  name="log-out-outline"
+                  size={30}
+                  color={colors.maroon}
+                />
               </TouchableOpacity>
             </View>
             <View style={userStyles.lower}>
@@ -121,14 +163,24 @@ export default function ProfileScreen({ navigation }) {
         )}
       </View>
       {/* Returns a list of posts that this user has made*/}
-      {isLoading ? (
+      <Text
+        style={{
+          fontSize: 25,
+          fontWeight: "bold",
+          paddingLeft: 25,
+          paddingBottom: 10,
+        }}
+      >
+        Your Posts
+      </Text>
+      {isStudentPostLoading ? (
         <ActivityIndicator />
       ) : (
-        <ScrollView>
+        <ScrollView style={{ marginBottom: 300 }}>
           {postItems.map((item, index) => {
             return (
               <TouchableOpacity
-                style={[postStyles.item, { paddingHorizontal: 18 }]}
+                style={{ paddingHorizontal: 18 }}
                 key={index}
                 onPress={() => navigation.navigate("Post", { item })}
               >

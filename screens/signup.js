@@ -7,12 +7,12 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
 } from "react-native";
 
 import { auth } from "../firebase";
 import { globalStyles } from "../styles/global";
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 
 export default function SignUpScreen({ navigation }) {
   //Defines variables that will be changed and sent to dataservice
@@ -66,7 +66,7 @@ export default function SignUpScreen({ navigation }) {
         lastname: lastName,
         collegeyear: collegeYear,
         bio: bio,
-        icon: "skull",
+        icon: "logo-react",
       }),
     })
       .then((responseJson) => {
@@ -93,7 +93,14 @@ export default function SignUpScreen({ navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={globalStyles.loginTextBox}
       >
-        <Text style={globalStyles.signUpText}>Create an Account</Text>
+        <Text
+          style={[
+            globalStyles.signUpText,
+            { fontWeight: "bold", fontSize: 26 },
+          ]}
+        >
+          Create an Account
+        </Text>
 
         <TextInput
           style={globalStyles.loginInput}
@@ -157,6 +164,7 @@ export default function SignUpScreen({ navigation }) {
           placeholder="Bio"
           onChangeText={(text) => setBio(text)}
           value={bio}
+          multiline={true}
         />
 
         <TouchableOpacity
@@ -166,8 +174,19 @@ export default function SignUpScreen({ navigation }) {
         >
           <Text style={globalStyles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text>Already have an account?</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Login")}
+          style={{ marginTop: 15 }}
+        >
+          <Text
+            style={{
+              fontSize: 15,
+              textDecorationLine: "underline",
+              paddingTop: 10,
+            }}
+          >
+            Already have an account?
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>

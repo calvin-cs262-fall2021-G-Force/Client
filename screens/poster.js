@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { globalStyles } from "../styles/global";
 import { Ionicons } from "@expo/vector-icons";
 import { userStyles } from "../styles/user";
+import { postStyles } from "../styles/post";
 
 export default function PosterScreen({ route, navigation }) {
   //Defines the student as well as the a variable for storing details accessible from that user's details on the webservice 
   const [student, setStudent] = useState(route.params.poster);
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isStudentPostLoading, setStudentPostLoading] = useState(true);
+  const [postItems, setPostItems] = useState();
+
+  const getStudentPosts = async () => {
+    try {
+      const response = await fetch(
+        "https://knight-bites.herokuapp.com/studentposts/" + String(student)
+      );
+      const json = await response.json();
+      setPostItems(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setStudentPostLoading(false);
+    }
+  };
 
   //Gets details from the webservice regarding 'student'
   const getStudent = async () => {
@@ -30,6 +53,7 @@ export default function PosterScreen({ route, navigation }) {
 
     if (mounted) {
       getStudent();
+      getStudentPosts();
     }
 
     return function cleanup() {
@@ -65,6 +89,33 @@ export default function PosterScreen({ route, navigation }) {
           </View>
         )}
       </View>
+      {isStudentPostLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <ScrollView style={{ marginBottom: 200 }}>
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "bold",
+              paddingLeft: 25,
+              paddingBottom: 10,
+            }}
+          >
+            {data.firstname}'s Posts
+          </Text>
+          {postItems.map((item, index) => {
+            return (
+              <TouchableOpacity
+                style={[postStyles.item, { paddingHorizontal: 18 }]}
+                key={index}
+                onPress={() => navigation.navigate("Post", { item })}
+              >
+                <Post {...item} />
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      )}
     </View>
   );
 }
