@@ -7,14 +7,11 @@ export const postStyles = StyleSheet.create({
     borderRadius: 24,
     marginBottom: 20,
     justifyContent: "space-between",
-    // borderColor: "gold",
     borderWidth: 2,
   },
 
   posterName: {
     fontSize: 15,
-    // fontWeight: "bold",
-    // textDecorationLine: "underline",
     paddingTop: 5,
     paddingLeft: 5,
   },
@@ -25,7 +22,6 @@ export const postStyles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  //the post informations
   content: {
     paddingTop: 10,
   },
@@ -39,7 +35,6 @@ export const postStyles = StyleSheet.create({
 
   contentDetailsText: {
     fontSize: 16,
-    // fontStyle: "italic",
     paddingLeft: 10,
   },
 

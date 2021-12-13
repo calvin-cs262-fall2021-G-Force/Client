@@ -1,21 +1,17 @@
-import React, { useContext, useState } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
-import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import moment from "moment";
 
 import { postStyles } from "../styles/post";
-import { postDetailsStyles } from "../styles/postDetails";
 import { globalStyles } from "../styles/global";
 import { auth } from "../firebase";
-import { UserContext } from "../util/GlobalStateManager";
 import colors from "../assets/colors";
 
 export default Post = (props) => {
   const navigation = useNavigation();
   const email = props.studentemail;
-  const { readState, setGlobalRead } = useContext(UserContext);
-  const [showBox, setShowBox] = useState(true);
   const userEmail = auth.currentUser?.email;
 
   return (
@@ -29,7 +25,8 @@ export default Post = (props) => {
         <View>
           <View style={{ flexDirection: "row" }}>
             <View style={postStyles.left}>
-              {/* Displays a user's profile picture and name, can be clicked to be redirected to their profile page */}
+              {/* Displays a user's profile picture and name
+               Redirects to the user's profile page when pressed */}
               <TouchableOpacity
                 style={[
                   globalStyles.profileIcon,
@@ -41,7 +38,6 @@ export default Post = (props) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                // style={}
                 onPress={() => navigation.navigate("Poster", { poster: email })}
               >
                 <Text
@@ -55,7 +51,8 @@ export default Post = (props) => {
               </TouchableOpacity>
             </View>
           </View>
-          {/* Displays the content of the post, as defined within the dataservice */}
+
+          {/* Displays the content of the post (post title, restaurant name, meetup time) */}
           <View>
             <View style={postStyles.content}>
               <Text style={postStyles.contentTitleText}>
@@ -74,6 +71,8 @@ export default Post = (props) => {
             </View>
           </View>
         </View>
+
+        {/* Displays how long ago the post was made */}
         <View style={postStyles.date}>
           <Text style={{ fontSize: 13, fontStyle: "italic" }}>
             {moment(props.posttime).startOf("seconds").fromNow()}

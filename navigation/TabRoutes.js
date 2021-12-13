@@ -10,7 +10,7 @@ import DiscountScreen from "../screens/discount";
 const Tab = createBottomTabNavigator();
 
 // This is the tab navigator
-// It consists of the Home Screen and Profile Screen
+// It consists of the Home Screen, Restaurant Screen, DiscountScreen, and Profile Screen
 function TabRoutes() {
   return (
     <Tab.Navigator
@@ -25,23 +25,16 @@ function TabRoutes() {
           backgroundColor: "#fff",
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
-          // bottom: 20,
-          // marginHorizontal: 16,
           height: 68,
           marginBottom: -5,
           borderTopWidth: 0,
         },
-        // headerTintColor: "maroon",
-        // headerTransparent: true,
         headerShadowVisible: false,
-        // headerStyle: { backgroundColor: "green" },
         headerTitleStyle: {
           fontWeight: "bold",
           fontSize: 30,
         },
-        headerRight: () => (
-          <Header navigation={navigation} />
-        )
+        headerRight: () => <Header navigation={navigation} />,
       })}
     >
       <Tab.Screen

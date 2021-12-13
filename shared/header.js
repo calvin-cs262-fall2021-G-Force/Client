@@ -1,9 +1,6 @@
 import React from "react";
+import { TouchableOpacity, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, View, Text, SafeAreaView } from "react-native";
-
-import { globalStyles } from "../styles/global";
-import About from "../screens/about";
 
 export default function Header({ navigation }) {
   return (

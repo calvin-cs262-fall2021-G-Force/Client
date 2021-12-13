@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, SafeAreaView, FlatList, ScrollView, View } from "react-native";
+import { Text, ScrollView } from "react-native";
+
 import { globalStyles } from "../styles/global";
 
 export default function AboutScreen({ navigation }) {
@@ -9,7 +10,6 @@ export default function AboutScreen({ navigation }) {
       contentContainerStyle={{ paddingBottom: 20 }}
       style={{ backgroundColor: "white" }}
     >
-      {/* <Text style={globalStyles.header}> How to Use the App</Text> */}
       <Text style={[globalStyles.paragraphs]}>
         <Text
           style={[

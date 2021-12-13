@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 export const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
+export const GlobalStateProvider = ({ children }) => {
   const [globalUser, setUser] = useState();
   const [readState, setReadState] = useState(0);
   const [readProfile, setReadProfile] = useState(0);
@@ -17,7 +17,14 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ globalUser, readState, readProfile, setGlobalUser, setGlobalRead, setReadProfile }}
+      value={{
+        globalUser,
+        readState,
+        readProfile,
+        setGlobalUser,
+        setGlobalRead,
+        setReadProfile,
+      }}
     >
       {children}
     </UserContext.Provider>

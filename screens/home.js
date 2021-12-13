@@ -14,9 +14,9 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
-import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import moment from "moment";
 
 import { auth } from "../firebase";
 import colors from "../assets/colors";
@@ -35,12 +35,15 @@ export default function HomeScreen({ route, navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [isButtonVisible, setButtonVisible] = useState(true);
+
   // Post Variables
   const [postTitle, setTitle] = useState(null);
   const [postText, setText] = useState(null);
   const [postItems, setPostItems] = useState([]);
 
+  // State for refreshing screen
   const [refreshing, setRefreshing] = useState(false);
+
   //Picker Variables
   const [selectedValue, setSelectedValue] = useState("1");
   const [restaurants, setRestaurants] = useState([]);
@@ -145,28 +148,24 @@ export default function HomeScreen({ route, navigation }) {
     showMode("time");
   };
 
-  useEffect(() => {
-    getRestaurants();
-  }, []);
-
+  // Functions in this useEffect run every time readState is changed
   useEffect(() => {
     let mounted = true;
-
     if (mounted) {
       sortSelected === "posttime" ? getPostsPostTime() : getPostsMeetUpTime();
     }
-
     return function cleanup() {
       mounted = false;
     };
   }, [readState]);
 
+  // Functions in this useEffect run once when component mounts
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       onRefresh();
+      getRestaurants();
     }
-
     return function cleanup() {
       mounted = false;
     };

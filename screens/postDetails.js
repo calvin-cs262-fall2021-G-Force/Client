@@ -7,7 +7,6 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
-  useColorScheme,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import moment from "moment";
@@ -18,24 +17,23 @@ import { globalStyles } from "../styles/global";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 import colors from "../assets/colors";
-import { postStyles } from "../styles/post";
 
 export default function PostScreen({ route, navigation }) {
-  //Variables for rendering details about the poster
-  const poster = route.params.item.studentemail;
-  const iconName = route.params.item.icon;
-  //Defines the users auth token
-  const userEmail = auth.currentUser?.email;
-  const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  
   //Variables for viewing attendee list and defining attendeees
   const [attendeeVisible, setAttendeeVisible] = useState(false);
   const [attendees, setAttendees] = useState([]);
   const [isModalVisible, setModalVisible] = useState(false);
   const [readAttendees, setReadAttendees] = useState(0);
-  const [isAttending, setIsAttending] = useState();
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const { readState, setGlobalRead } = useContext(UserContext);
+
+  //Variables for rendering details about the poster
+  const poster = route.params.item.studentemail;
+  const iconName = route.params.item.icon;
+
+  //Defines the users auth token
+  const userEmail = auth.currentUser?.email;
 
   //Deprecated
   const getStudent = async () => {
@@ -45,24 +43,6 @@ export default function PostScreen({ route, navigation }) {
       );
       const json = await response.json();
       setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  //Deprecated
-  const getIsAttending = async () => {
-    try {
-      const response = await fetch(
-        "https://knight-bites.herokuapp.com/attendees/" +
-          route.params.item.id +
-          "/" +
-          route.params.item.studentemail
-      ); //postid
-      const json = await response.json();
-      setIsAttending(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -164,22 +144,12 @@ export default function PostScreen({ route, navigation }) {
     );
   };
 
-  // useEffect(() => {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     getStudent();
-  //   }
-  //   return function cleanup() {
-  //     mounted = false;
-  //   };
-  // }, []);
-
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       getStudent();
       getAttendees();
-      getIsAttending();
+      // getIsAttending();
     }
     return function cleanup() {
       mounted = false;

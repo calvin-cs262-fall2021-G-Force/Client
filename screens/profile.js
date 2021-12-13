@@ -7,17 +7,16 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 import { globalStyles } from "../styles/global";
 import { userStyles } from "../styles/user";
 import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
-import { Ionicons } from "@expo/vector-icons";
 import colors from "../assets/colors";
-import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
-  const { readState, setGlobalRead, readProfile, setReadProfile } =
-    useContext(UserContext);
+  const { readState, readProfile } = useContext(UserContext);
   const [student, setStudent] = useState([]);
   const [isStudentPostLoading, setStudentPostLoading] = useState(true);
   const [isLoading, setLoading] = useState(true);
@@ -92,7 +91,6 @@ export default function ProfileScreen({ navigation }) {
           text: "Yes",
           onPress: () => {
             handleSignOut();
-            // setShowBox(false);
           },
         },
         // The "No" button
@@ -142,7 +140,6 @@ export default function ProfileScreen({ navigation }) {
                 style={{
                   paddingRight: 20,
                   paddingTop: 10,
-                  // backgroundColor: colors.maroon,
                   height: 40,
                   width: 60,
                 }}
@@ -150,7 +147,7 @@ export default function ProfileScreen({ navigation }) {
               >
                 <Ionicons
                   name="log-out-outline"
-                  size={30}
+                  size={33}
                   color={colors.maroon}
                 />
               </TouchableOpacity>
