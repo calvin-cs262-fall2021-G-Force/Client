@@ -5,10 +5,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { userStyles } from "../styles/user";
 
 export default function PosterScreen({ route, navigation }) {
+  //Defines the student as well as the a variable for storing details accessible from that user's details on the webservice 
   const [student, setStudent] = useState(route.params.poster);
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
+  //Gets details from the webservice regarding 'student'
   const getStudent = async () => {
     try {
       const response = await fetch(
@@ -35,6 +37,7 @@ export default function PosterScreen({ route, navigation }) {
     };
   }, []);
 
+  //Displays the user details
   return (
     <View>
       <View style={{ margin: 20 }}>

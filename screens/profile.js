@@ -17,12 +17,14 @@ import colors from "../assets/colors";
 import { postStyles } from "../styles/post";
 
 export default function ProfileScreen({ navigation }) {
+  //Defines the student for whom the screen represents
   const { readProfile, setReadProfile } = useContext(UserContext);
   const [student, setStudent] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const userEmail = auth.currentUser?.email;
   const [postItems, setPostItems] = useState([]);
 
+  //Gets all posts that the user has made from the webservice
   const getStudentPosts = async () => {
     try {
       const response = await fetch(
@@ -37,6 +39,7 @@ export default function ProfileScreen({ navigation }) {
     }
   };
 
+  //Gets user details from the webservice
   const getUser = async () => {
     try {
       const response = await fetch(
@@ -64,6 +67,7 @@ export default function ProfileScreen({ navigation }) {
     };
   }, [readProfile]);
 
+  //Enable signing out from your profile, then navigating back to Login
   const handleSignOut = () => {
     console.log("\nsigned out");
     auth
@@ -94,6 +98,7 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={userStyles.collegeyear}>
                   {student.collegeyear}
                 </Text>
+                {/* Allows you to edit your profile by redirecting you to an edit page */}
                 <TouchableOpacity style={userStyles.editProfile} onPress={() => navigation.navigate("Edit Profile", { student })}>
                   <Text style={userStyles.editProfileText}>Edit Profile</Text>
                 </TouchableOpacity>
@@ -115,7 +120,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
       </View>
-
+      {/* Returns a list of posts that this user has made*/}
       {isLoading ? (
         <ActivityIndicator />
       ) : (

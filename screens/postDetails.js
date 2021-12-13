@@ -18,11 +18,15 @@ import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 
 export default function PostScreen({ route, navigation }) {
+  //Variables for rendering details about the poster
   const poster = route.params.item.studentemail;
   const iconName = route.params.item.icon;
+  //Defines the users auth token
   const userEmail = auth.currentUser?.email;
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  
+  //Variables for viewing attendee list and defining attendeees
   const [attendeeVisible, setAttendeeVisible] = useState(false);
   const [attendees, setAttendees] = useState([]);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -30,6 +34,7 @@ export default function PostScreen({ route, navigation }) {
   const [isAttending, setIsAttending] = useState();
   const { readState, setGlobalRead } = useContext(UserContext);
 
+  //Deprecated
   const getStudent = async () => {
     try {
       const response = await fetch(
@@ -44,6 +49,7 @@ export default function PostScreen({ route, navigation }) {
     }
   };
 
+  //Deprecated
   const getIsAttending = async () => {
     try {
       const response = await fetch(
@@ -61,6 +67,7 @@ export default function PostScreen({ route, navigation }) {
     }
   };
 
+  //Get a list of all those who are set to attend an event via the webservice
   const getAttendees = async () => {
     try {
       const response = await fetch(
@@ -75,6 +82,7 @@ export default function PostScreen({ route, navigation }) {
     }
   };
 
+  //Create you as an attendee by POST ing it to the webservice
   const addAttendee = async () => {
     await fetch(
       "https://knight-bites.herokuapp.com/attendees/" + route.params.item.id,
@@ -101,6 +109,7 @@ export default function PostScreen({ route, navigation }) {
       });
   };
 
+  //Delete the post from the webserver and home page
   const deletePosts = async () => {
     fetch(
       "https://knight-bites.herokuapp.com/posts/" +
@@ -117,6 +126,7 @@ export default function PostScreen({ route, navigation }) {
       });
   };
 
+  //Deletes the post and navigates you back to the home page
   const handleDeletePost = () => {
     deletePosts();
     setGlobalRead(readState + 1);
@@ -124,6 +134,7 @@ export default function PostScreen({ route, navigation }) {
     Alert.alert("Post successfully deleted");
   };
 
+  //Confirmation Dialog to avoid accidental deletions
   const showConfirmDialog = () => {
     return Alert.alert(
       "Delete post",
@@ -229,6 +240,7 @@ export default function PostScreen({ route, navigation }) {
         </View>
         {userEmail !== route.params.item.studentemail && (
           <View>
+            {/* Button that allows for you to sign up for an event*/}
             <TouchableOpacity
               onPress={() => {
                 Alert.alert("Signed up for event!");
@@ -243,6 +255,7 @@ export default function PostScreen({ route, navigation }) {
         )}
 
         <View style={postDetailsStyles.signupButtonText}>
+          {/* Button to view a Modal listing all current attendees of an event */}
           <TouchableOpacity
             onPress={() => {
               setAttendeeVisible(true);
@@ -264,7 +277,7 @@ export default function PostScreen({ route, navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* To show the names of attendees for each event */}
+        {/* Modal to show the names of attendees for each event */}
         <Modal
           animationType="slide"
           transparent={true}
