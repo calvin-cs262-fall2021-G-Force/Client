@@ -24,7 +24,7 @@ export default function (Stack) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="About"
+        name="Help"
         component={AboutScreen}
         // options={{ headerShown: false }}
       />

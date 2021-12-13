@@ -50,6 +50,7 @@ export default function HomeScreen({ route, navigation }) {
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
   const [sortSelected, setSortSelected] = useState("posttime");
+  
   // Date Time Picker Variables
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
