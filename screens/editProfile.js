@@ -17,13 +17,16 @@ import { globalStyles } from "../styles/global";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function EditProfileScreen({ route, navigation }) {
+    //Defines the current user variables and allows for them to be changed
     const { readProfile, readState, setGlobalRead, setReadProfile } = useContext(UserContext)
     const userEmail = auth.currentUser?.email;
+   
     const [firstName, setFirstName] = useState(route.params.student.firstname);
     const [lastName, setLastName] = useState(route.params.student.lastname);
     const [collegeYear, setCollegeYear] = useState(route.params.student.collegeyear);
     const [bio, setBio] = useState(route.params.student.bio);
 
+    //What actually changes the profile within the data service
     const makeChange = async () => {
         await fetch("https://knight-bites.herokuapp.com/students/" + String(userEmail), {
             method: "PUT",
@@ -55,6 +58,7 @@ export default function EditProfileScreen({ route, navigation }) {
                 // behavior={Platform.OS === "ios" ? "padding" : "height"}
                 showsVerticalScrollIndicator={false}
             >
+                {/* These change the instance variables that are currently defined */}
                 <View style={{ marginTop: 40}}>
                     <View style={editProfileStyles.box}>
                         <Text style={editProfileStyles.name}>First Name:</Text>
@@ -113,6 +117,7 @@ export default function EditProfileScreen({ route, navigation }) {
                     </View>
                 </View>
             </KeyboardAwareScrollView>
+            {/* Confirmation button that then sends PUT HTTP command to the webservice */}
             <TouchableOpacity style={editProfileStyles.button} onPress={() => {
                 makeChange();
                 Alert.alert(" Changes saved!");

@@ -14,6 +14,7 @@ import { UserContext } from "../util/GlobalStateManager";
 import { auth } from "../firebase";
 
 export default function LoginScreen({ navigation }) {
+  //Defines the variables to be used for login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,6 +34,7 @@ export default function LoginScreen({ navigation }) {
     };
   }, []);
 
+  //Uses firebase to get authentication token
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
@@ -50,13 +52,14 @@ export default function LoginScreen({ navigation }) {
         style={globalStyles.loginTextBox}
       >
         <Image source={logo} style={globalStyles.loginLogo} />
-        {/*The Button - will eventually take to Calvin's sign in page, but for now just takes you straight to the home page*/}
+        <Text style={globalStyles.header}>Knight Bites</Text>
+
         <Text
           style={[globalStyles.header, { marginBottom: 18, marginTop: -5 }]}
         >
           Knight Bites
         </Text>
-
+        {/* User inputs for email and password */}
         <TextInput
           style={globalStyles.loginInput}
           placeholder="Email"
@@ -71,7 +74,7 @@ export default function LoginScreen({ navigation }) {
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
         />
-
+        {/* Signals that userName and password are defined, and attempts to authenticate using firebase */}
         <TouchableOpacity
           style={globalStyles.button}
           // onPress={() => {

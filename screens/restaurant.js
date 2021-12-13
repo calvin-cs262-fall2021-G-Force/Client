@@ -8,6 +8,7 @@ export default function RestaurantScreen({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [restaurants, setRestaurants] = useState([]);
 
+  //Gets the list of restaurants from the dataservice
   const getRestaurants = async () => {
     try {
       const response = await fetch(

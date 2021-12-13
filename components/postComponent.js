@@ -29,6 +29,7 @@ export default Post = (props) => {
         <View>
           <View style={{ flexDirection: "row" }}>
             <View style={postStyles.left}>
+              {/* Displays a user's profile picture and name, can be clicked to be redirected to their profile page */}
               <TouchableOpacity
                 style={[
                   globalStyles.profileIcon,
@@ -54,7 +55,7 @@ export default Post = (props) => {
               </TouchableOpacity>
             </View>
           </View>
-
+          {/* Displays the content of the post, as defined within the dataservice */}
           <View>
             <View style={postStyles.content}>
               <Text style={postStyles.contentTitleText}>

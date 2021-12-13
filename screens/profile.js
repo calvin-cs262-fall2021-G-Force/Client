@@ -24,6 +24,7 @@ export default function ProfileScreen({ navigation }) {
   const userEmail = auth.currentUser?.email;
   const [postItems, setPostItems] = useState([]);
 
+  //Gets all posts that the user has made from the webservice
   const getStudentPosts = async () => {
     try {
       const response = await fetch(
@@ -38,6 +39,7 @@ export default function ProfileScreen({ navigation }) {
     }
   };
 
+  //Gets user details from the webservice
   const getUser = async () => {
     try {
       const response = await fetch(
@@ -126,6 +128,7 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={userStyles.collegeyear}>
                   {student.collegeyear}
                 </Text>
+                {/* Allows you to edit your profile by redirecting you to an edit page */}
                 <TouchableOpacity
                   style={userStyles.editProfile}
                   onPress={() =>
@@ -159,6 +162,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
       </View>
+      {/* Returns a list of posts that this user has made*/}
       <Text
         style={{
           fontSize: 25,

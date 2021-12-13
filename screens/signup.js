@@ -15,6 +15,7 @@ import { globalStyles } from "../styles/global";
 import { Picker } from "@react-native-picker/picker";
 
 export default function SignUpScreen({ navigation }) {
+  //Defines variables that will be changed and sent to dataservice
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -37,6 +38,7 @@ export default function SignUpScreen({ navigation }) {
     return () => unsubscribe();
   }, []);
 
+  //Creates a user on firebase with given email and password variables
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -50,6 +52,7 @@ export default function SignUpScreen({ navigation }) {
     // navigation.navigate("Login");
   };
 
+  //Creates a student within the database with email, name, college year, and bio
   const createStudent = async () => {
     await fetch("https://knight-bites.herokuapp.com/students", {
       method: "POST",
@@ -83,6 +86,7 @@ export default function SignUpScreen({ navigation }) {
     }
   };
 
+  //Displays text boxes in which the text can be entered in order to change the variables associated with their placeholders
   return (
     <View style={globalStyles.screen}>
       <KeyboardAvoidingView
