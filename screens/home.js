@@ -14,10 +14,10 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
-  Picker,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-// import { Picker } from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { auth } from "../firebase";
 import colors from "../assets/colors";
 import Post from "../components/postComponent";
@@ -32,21 +32,30 @@ const wait = (timeout) => {
 };
 
 export default function HomeScreen({ route, navigation }) {
+  // Modal Variables
   const [isLoading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isButtonVisible, setButtonVisible] = useState(true);
+  // Post Variables
   const [postTitle, setTitle] = useState(null);
   const [postText, setText] = useState(null);
   const [postItems, setPostItems] = useState([]);
-  const [isButtonVisible, setButtonVisible] = useState(true);
+
   const [refreshing, setRefreshing] = useState(false);
+  //Picker Variables
   const [selectedValue, setSelectedValue] = useState("1");
   const [restaurants, setRestaurants] = useState([]);
+
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
   const [sortSelected, setSortSelected] = useState("posttime");
-
+  // Date Time Picker Variables
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
   const userEmail = auth.currentUser?.email;
 
+  //Used to get time of posting from the Database
   const getPostsPostTime = async () => {
     try {
       const response = await fetch(
@@ -61,6 +70,7 @@ export default function HomeScreen({ route, navigation }) {
     }
   };
 
+  //Used to get meetup time from Database
   const getPostsMeetUpTime = async () => {
     try {
       const response = await fetch(
@@ -75,6 +85,7 @@ export default function HomeScreen({ route, navigation }) {
     }
   };
 
+  //Gets a list of restaurants from the database
   const getRestaurants = async () => {
     try {
       const response = await fetch(
@@ -89,6 +100,7 @@ export default function HomeScreen({ route, navigation }) {
     }
   };
 
+  //Creates a new post which is sent to the database with distinct variables
   const postPosts = async () => {
     await fetch("https://knight-bites.herokuapp.com/posts", {
       method: "POST",
@@ -100,7 +112,7 @@ export default function HomeScreen({ route, navigation }) {
         posttitle: postTitle,
         post: postText,
         posttime: new Date(),
-        meetuptime: new Date(Date.now()).toISOString(),
+        meetuptime: date,
         restaurantid: selectedValue,
         studentemail: userEmail,
       }),
@@ -111,6 +123,26 @@ export default function HomeScreen({ route, navigation }) {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  //Various functions associated with showing the date time picker and altering its mode
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const showTimepicker = () => {
+    showMode("time");
   };
 
   useEffect(() => {
@@ -140,6 +172,7 @@ export default function HomeScreen({ route, navigation }) {
     };
   }, []);
 
+  //Calls the POST operation and resets post variables, refreshes post screen and sends and alert
   const handleAddPost = () => {
     Keyboard.dismiss();
     postPosts();
@@ -185,6 +218,7 @@ export default function HomeScreen({ route, navigation }) {
             justifyContent: "center",
           }}
         >
+          {/* Allows for sorting by different values */}
           <Picker
             selectedValue={sortSelected}
             style={{ height: 50, width: 178, color: "black" }}
@@ -200,6 +234,7 @@ export default function HomeScreen({ route, navigation }) {
       </View>
       <View style={globalStyles.postsWrapper}>
         <View style={globalStyles.items}>
+          {/* Displays all posts after loading them from the database */}
           {isLoading ? (
             <ActivityIndicator />
           ) : (
@@ -225,6 +260,7 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
+      {/* A Modal used to create a post that appears after the create post button is pressed */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -246,6 +282,7 @@ export default function HomeScreen({ route, navigation }) {
             <KeyboardAwareScrollView>
               <Text style={homeModalStyles.heading}>New Post</Text>
               <View>
+                {/* Allows you to change the postTitle component for creating a post */}
                 <Text style={homeModalStyles.text}>Title:</Text>
                 <TextInput
                   style={homeModalStyles.textinput}
@@ -255,18 +292,19 @@ export default function HomeScreen({ route, navigation }) {
                 />
               </View>
               <View>
+                {/* Allows you to select the meet time and date for a post */}
                 <Text style={homeModalStyles.text}>
                   Select meet up date and time:
                 </Text>
                 <View style={{ flexDirection: "row", paddingRight: 20 }}>
                   <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={showDatepicker}
                     style={homeModalStyles.datetime}
                   >
                     <Ionicons name="calendar" size={43} color={"#fff"} />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={showTimepicker}
                     style={homeModalStyles.datetime}
                   >
                     <Ionicons name="time-outline" size={43} color={"#fff"} />
@@ -276,6 +314,7 @@ export default function HomeScreen({ route, navigation }) {
               <View>
                 <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
                 <View style={homeModalStyles.picker}>
+                  {/* A Picker that allows you to select from the list of restaurants from the database */}
                   <Picker
                     selectedValue={selectedValue}
                     onValueChange={(itemValue, itemIndex) =>
@@ -295,6 +334,7 @@ export default function HomeScreen({ route, navigation }) {
                 </View>
               </View>
               <View>
+                {/* Allows you to change the postText component for creating a post */}
                 <Text style={homeModalStyles.text}>
                   Details for the meet up:
                 </Text>
@@ -307,6 +347,7 @@ export default function HomeScreen({ route, navigation }) {
                 />
               </View>
             </KeyboardAwareScrollView>
+            {/* Creates a new post and closes the modal */}
             <TouchableOpacity
               style={homeModalStyles.button}
               onPress={() => {
@@ -320,7 +361,7 @@ export default function HomeScreen({ route, navigation }) {
           </TouchableOpacity>
         </TouchableOpacity>
       </Modal>
-
+      {/* Opens up the Modal so a post can be created */}
       {isButtonVisible ? (
         <TouchableOpacity
           style={globalStyles.addPost}
@@ -334,6 +375,16 @@ export default function HomeScreen({ route, navigation }) {
           </View>
         </TouchableOpacity>
       ) : null}
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </View>
   );
 }
