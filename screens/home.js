@@ -25,8 +25,7 @@ import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
 import { homeModalStyles } from "../styles/homeModal";
 import { UserContext } from "../util/GlobalStateManager";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {KeyboardAvoidingScrollView} from 'react-native-keyboard-avoiding-scroll-view';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -165,7 +164,15 @@ export default function HomeScreen({ route, navigation }) {
           alignSelf: "flex-end",
         }}
       >
-        <Text style={{ marginTop: 20, fontWeight: "bold", fontSize: 16, color:"black", fontWeight:'bold'}}>
+        <Text
+          style={{
+            marginTop: 20,
+            fontWeight: "bold",
+            fontSize: 16,
+            color: "black",
+            fontWeight: "bold",
+          }}
+        >
           Sort By:{" "}
         </Text>
         <View
@@ -180,7 +187,7 @@ export default function HomeScreen({ route, navigation }) {
         >
           <Picker
             selectedValue={sortSelected}
-            style={{ height: 50, width: 178, color:'black' }}
+            style={{ height: 50, width: 178, color: "black" }}
             onValueChange={(itemValue, itemIndex) => {
               setSortSelected(itemValue);
               setGlobalRead(readState + 1);
@@ -218,7 +225,6 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      {/* <TouchableWithoutFeedback onPress={()=> {setModalVisible(!modalVisible)}}> */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -227,109 +233,107 @@ export default function HomeScreen({ route, navigation }) {
           Alert.alert("No changes made");
           setModalVisible(!modalVisible);
           setButtonVisible(true);
-
         }}
       >
-
-        <TouchableOpacity onPress={() => {
-          setModalVisible(!modalVisible); 
-          setButtonVisible(true);
-          Alert.alert("No changes made");
-          }}>
-       
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            setButtonVisible(true);
+            Alert.alert("No changes made");
+          }}
+        >
           <TouchableOpacity style={homeModalStyles.modalView} activeOpacity={1}>
             <KeyboardAwareScrollView>
-            <Text style={homeModalStyles.heading}>New Post</Text>
-            <View>
-              <Text style={homeModalStyles.text}>Title:</Text>
-              <TextInput
-                style={homeModalStyles.textinput}
-                placeholder={"Title..."}
-                value={postTitle}
-                onChangeText={(text) => setTitle(text)}
-              />
-            </View>
-            <View>
-              <Text style={homeModalStyles.text}>
-                Select meet up date and time:
-              </Text>
-              <View style={{ flexDirection: "row", paddingRight: 20 }}>
-                <TouchableOpacity
-                  onPress={() => { }}
-                  style={homeModalStyles.datetime}
-                >
-                  <Ionicons name="calendar" size={43} color={"#fff"} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => { }}
-                  style={homeModalStyles.datetime}
-                >
-                  <Ionicons name="time-outline" size={43} color={"#fff"} />
-                </TouchableOpacity>
+              <Text style={homeModalStyles.heading}>New Post</Text>
+              <View>
+                <Text style={homeModalStyles.text}>Title:</Text>
+                <TextInput
+                  style={homeModalStyles.textinput}
+                  placeholder={"Title..."}
+                  value={postTitle}
+                  onChangeText={(text) => setTitle(text)}
+                />
               </View>
-            </View>
-            <View>
-              <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
-              <View style={homeModalStyles.picker}>
-                <Picker
-                  selectedValue={selectedValue}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectedValue(itemValue)
-                  }
-                >
-                  {restaurants.map((item, index) => {
-                    return (
-                      <Picker.Item
-                        label={item.restaurantname}
-                        value={item.restaurantid}
-                        key={index}
-                      />
-                      
-                    );
-                  })}
-                </Picker>
+              <View>
+                <Text style={homeModalStyles.text}>
+                  Select meet up date and time:
+                </Text>
+                <View style={{ flexDirection: "row", paddingRight: 20 }}>
+                  <TouchableOpacity
+                    onPress={() => {}}
+                    style={homeModalStyles.datetime}
+                  >
+                    <Ionicons name="calendar" size={43} color={"#fff"} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {}}
+                    style={homeModalStyles.datetime}
+                  >
+                    <Ionicons name="time-outline" size={43} color={"#fff"} />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View>
-              <Text style={homeModalStyles.text}>Details for the meet up:</Text>
-              <TextInput
-                style={[homeModalStyles.textinput,{height: 70}]}
-                placeholder={"Details for the event..."}
-                value={postText}
-                onChangeText={(text) => setText(text)}
-                multiline={true}
-              />
-            </View>
-            </KeyboardAwareScrollView>              
-              <TouchableOpacity
-                style={homeModalStyles.button}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  setButtonVisible(true);
-                  handleAddPost();
-                }}
-              >
-                <Text style={homeModalStyles.buttontext}>Add Post</Text>
-              </TouchableOpacity>           
+              <View>
+                <Text style={homeModalStyles.text}>Choose Restaurant:</Text>
+                <View style={homeModalStyles.picker}>
+                  <Picker
+                    selectedValue={selectedValue}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedValue(itemValue)
+                    }
+                  >
+                    {restaurants.map((item, index) => {
+                      return (
+                        <Picker.Item
+                          label={item.restaurantname}
+                          value={item.restaurantid}
+                          key={index}
+                        />
+                      );
+                    })}
+                  </Picker>
+                </View>
+              </View>
+              <View>
+                <Text style={homeModalStyles.text}>
+                  Details for the meet up:
+                </Text>
+                <TextInput
+                  style={[homeModalStyles.textinput, { height: 70 }]}
+                  placeholder={"Details for the event..."}
+                  value={postText}
+                  onChangeText={(text) => setText(text)}
+                  multiline={true}
+                />
+              </View>
+            </KeyboardAwareScrollView>
+            <TouchableOpacity
+              style={homeModalStyles.button}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                setButtonVisible(true);
+                handleAddPost();
+              }}
+            >
+              <Text style={homeModalStyles.buttontext}>Add Post</Text>
+            </TouchableOpacity>
           </TouchableOpacity>
-      </TouchableOpacity>
-    </Modal>
+        </TouchableOpacity>
+      </Modal>
 
-  {
-    isButtonVisible ? (
-      <TouchableOpacity
-        style={globalStyles.addPost}
-        onPress={() => {
-          setModalVisible(true);
-          setButtonVisible(false);
-        }}
-      >
-        <View>
-          <Ionicons name="create-outline" size={34} color="#F3CD00" />
-        </View>
-      </TouchableOpacity>
-    ) : null
-  }
-    </View >
+      {isButtonVisible ? (
+        <TouchableOpacity
+          style={globalStyles.addPost}
+          onPress={() => {
+            setModalVisible(true);
+            setButtonVisible(false);
+          }}
+        >
+          <View>
+            <Ionicons name="create-outline" size={34} color="#F3CD00" />
+          </View>
+        </TouchableOpacity>
+      ) : null}
+    </View>
   );
 }
