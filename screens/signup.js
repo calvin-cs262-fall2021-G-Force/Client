@@ -63,7 +63,7 @@ export default function SignUpScreen({ navigation }) {
         lastname: lastName,
         collegeyear: collegeYear,
         bio: bio,
-        icon: "skull",
+        icon: "logo-react",
       }),
     })
       .then((responseJson) => {
@@ -174,7 +174,13 @@ export default function SignUpScreen({ navigation }) {
           onPress={() => navigation.navigate("Login")}
           style={{ marginTop: 15 }}
         >
-          <Text style={{ fontSize: 15, textDecorationLine: "underline" }}>
+          <Text
+            style={{
+              fontSize: 15,
+              textDecorationLine: "underline",
+              paddingTop: 10,
+            }}
+          >
             Already have an account?
           </Text>
         </TouchableOpacity>

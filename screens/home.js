@@ -2,12 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   ActivityIndicator,
   Alert,
-  FlatList,
   Modal,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
-  Pressable,
   Text,
   TextInput,
   View,
@@ -16,14 +13,11 @@ import {
   RefreshControl,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-<<<<<<< HEAD
-import { Picker } from '@react-native-picker/picker';
-import moment from "moment";
-import DateTimePicker from '@react-native-community/datetimepicker';
-=======
 import { Picker } from "@react-native-picker/picker";
+import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
->>>>>>> 05439144000c9c463a06e12fbccd362bb706ba9c
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { auth } from "../firebase";
 import colors from "../assets/colors";
 import Post from "../components/postComponent";
@@ -31,7 +25,6 @@ import { globalStyles } from "../styles/global";
 import { postStyles } from "../styles/post";
 import { homeModalStyles } from "../styles/homeModal";
 import { UserContext } from "../util/GlobalStateManager";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -55,7 +48,7 @@ export default function HomeScreen({ route, navigation }) {
   const { user } = useContext(UserContext);
   const { readState, setGlobalRead } = useContext(UserContext);
   const [sortSelected, setSortSelected] = useState("posttime");
-  
+
   // Date Time Picker Variables
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
@@ -316,6 +309,9 @@ export default function HomeScreen({ route, navigation }) {
                   >
                     <Ionicons name="time-outline" size={43} color={"#fff"} />
                   </TouchableOpacity>
+                  <Text style={homeModalStyles.text}>
+                    {moment(date).format("MMMM D [at] h:mm a")}
+                  </Text>
                 </View>
               </View>
               <View>

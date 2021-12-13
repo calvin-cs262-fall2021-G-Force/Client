@@ -89,7 +89,7 @@ export default function PosterScreen({ route, navigation }) {
       {isStudentPostLoading ? (
         <ActivityIndicator />
       ) : (
-        <ScrollView>
+        <ScrollView style={{ marginBottom: 200 }}>
           <Text
             style={{
               fontSize: 25,
