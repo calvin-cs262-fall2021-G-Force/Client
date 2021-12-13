@@ -26,7 +26,6 @@ export default function PostScreen({ route, navigation }) {
   const [readAttendees, setReadAttendees] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [isAttending, setIsAttending] = useState();
   const { readState, setGlobalRead } = useContext(UserContext);
 
   //Variables for rendering details about the poster
@@ -44,24 +43,6 @@ export default function PostScreen({ route, navigation }) {
       );
       const json = await response.json();
       setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  //Deprecated
-  const getIsAttending = async () => {
-    try {
-      const response = await fetch(
-        "https://knight-bites.herokuapp.com/attendees/" +
-          route.params.item.id +
-          "/" +
-          route.params.item.studentemail
-      ); //postid
-      const json = await response.json();
-      setIsAttending(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -163,22 +144,12 @@ export default function PostScreen({ route, navigation }) {
     );
   };
 
-  // useEffect(() => {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     getStudent();
-  //   }
-  //   return function cleanup() {
-  //     mounted = false;
-  //   };
-  // }, []);
-
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       getStudent();
       getAttendees();
-      getIsAttending();
+      // getIsAttending();
     }
     return function cleanup() {
       mounted = false;
