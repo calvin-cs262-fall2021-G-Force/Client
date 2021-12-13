@@ -105,7 +105,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   paragraphs: {
-    fontSize: 16,
+    fontSize: 18,
     padding: 20,
   },
   about: {
@@ -142,23 +142,23 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  profileIcon:{
-    alignItems:'center',
-    backgroundColor:'#F3CD00',
-    borderRadius:100,
-    borderColor:'black',
-    borderWidth:2,
-    justifyContent:'center',      
-},
-addPost: {
-  width: 70,
-  height: 70,
-  backgroundColor: "#8C2131",
-  borderRadius: 50,
-  justifyContent: "center",
-  alignItems: "center",
-  right: 20,
-  position: "absolute",
-  bottom: 20,
-}
+  profileIcon: {
+    alignItems: "center",
+    backgroundColor: "#F3CD00",
+    borderRadius: 100,
+    borderColor: "black",
+    borderWidth: 2,
+    justifyContent: "center",
+  },
+  addPost: {
+    width: 70,
+    height: 70,
+    backgroundColor: "#8C2131",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    right: 20,
+    position: "absolute",
+    bottom: 20,
+  },
 });

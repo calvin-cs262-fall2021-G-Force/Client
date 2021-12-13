@@ -26,7 +26,7 @@ export default function (Stack) {
       <Stack.Screen
         name="Help"
         component={AboutScreen}
-        // options={{ headerShown: false }}
+        options={{ title: "How to Use the App" }}
       />
       <Stack.Screen
         name="Tabs"
@@ -35,11 +35,7 @@ export default function (Stack) {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="Post"
-        component={PostScreen}
-        // options={{ headerStyle: { backgroundColor: "transparent" } }}
-      />
+      <Stack.Screen name="Post" component={PostScreen} />
       <Stack.Screen name="Poster" component={PosterScreen} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Discount" component={DiscountScreen} />
