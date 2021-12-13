@@ -159,25 +159,24 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
       </View>
-
+      <Text
+        style={{
+          fontSize: 25,
+          fontWeight: "bold",
+          paddingLeft: 25,
+          paddingBottom: 10,
+        }}
+      >
+        Your Posts
+      </Text>
       {isStudentPostLoading ? (
         <ActivityIndicator />
       ) : (
-        <ScrollView>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              paddingLeft: 25,
-              paddingBottom: 10,
-            }}
-          >
-            Your Posts
-          </Text>
+        <ScrollView style={{ marginBottom: 300 }}>
           {postItems.map((item, index) => {
             return (
               <TouchableOpacity
-                style={[postStyles.item, { paddingHorizontal: 18 }]}
+                style={{ paddingHorizontal: 18 }}
                 key={index}
                 onPress={() => navigation.navigate("Post", { item })}
               >

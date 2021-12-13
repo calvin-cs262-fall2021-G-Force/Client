@@ -8,7 +8,7 @@ import About from "../screens/about";
 export default function Header({ navigation }) {
   return (
     <SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.navigate("About")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Help")}>
         <Ionicons name="help-circle-outline" size={33} />
       </TouchableOpacity>
     </SafeAreaView>
